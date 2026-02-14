@@ -32,6 +32,10 @@ const nextConfig: NextConfig = {
         protocol: "https",
         hostname: "images-static.nykaa.com",
       },
+      {
+        protocol: "https",
+        hostname: "img.tatacliq.com",
+      },
     ],
   },
   webpack: (config) => {

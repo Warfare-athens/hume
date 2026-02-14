@@ -14,7 +14,7 @@ export default function ProductDetailView({ perfume }: { perfume: PerfumeData })
 
   return (
     <>
-      <section className="pt-10 pb-16 md:pt-30 md:pb-24">
+      <section className="pt-20 pb-16 md:pt-20 md:pb-24">
         <div className="container-luxury">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-20">
             <motion.div
@@ -32,7 +32,7 @@ export default function ProductDetailView({ perfume }: { perfume: PerfumeData })
               transition={{ duration: 0.6, delay: 0.1 }}
               className="flex flex-col"
             >
-              <div className="flex flex-wrap gap-2 mb-4">
+              <div className="flex flex-wrap gap-2 md:pt-10 mb-4">
                 <span className="inline-flex items-center px-3 py-1 bg-primary text-primary-foreground text-caption">
                   {perfume.gender}
                 </span>

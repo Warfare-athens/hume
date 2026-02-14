@@ -1,16 +1,96 @@
 "use client";
 
-import Link from "next/link";
+import { useEffect, useMemo, useState } from "react";
 import { motion } from "framer-motion";
-
-const perks = [
-  "4 fragrances x 20ml travel bottles",
-  "Mix and match from bestsellers",
-  "Perfect for gifting and discovery",
-  "Limited-time value bundle",
-];
+import { Plus, X } from "lucide-react";
+import { useCart } from "@/context/CartContext";
+import { toast } from "@/hooks/use-toast";
+import { formatINR } from "@/lib/currency";
+import {
+  Dialog,
+  DialogContent,
+  DialogDescription,
+  DialogHeader,
+  DialogTitle,
+} from "@/components/ui/dialog";
+import type { PerfumeData } from "@/data/perfumes";
 
 export default function KitPackShowcase() {
+  const { addItem } = useCart();
+  const [isPickerOpen, setIsPickerOpen] = useState(false);
+  const [activeSlotIndex, setActiveSlotIndex] = useState<number | null>(null);
+  const [allPerfumes, setAllPerfumes] = useState<PerfumeData[]>([]);
+  const [loadingPerfumes, setLoadingPerfumes] = useState(true);
+  const [slots, setSlots] = useState<Array<PerfumeData | null>>(
+    Array.from({ length: 4 }, () => null)
+  );
+
+  useEffect(() => {
+    let active = true;
+    const loadPerfumes = async () => {
+      try {
+        const response = await fetch("/api/products");
+        if (!response.ok) throw new Error("Failed to load perfumes");
+        const data = (await response.json()) as PerfumeData[];
+        if (active) setAllPerfumes(Array.isArray(data) ? data : []);
+      } catch (error) {
+        console.error("Failed to load perfumes:", error);
+      } finally {
+        if (active) setLoadingPerfumes(false);
+      }
+    };
+    loadPerfumes();
+    return () => {
+      active = false;
+    };
+  }, []);
+
+  const kitPerfumes = useMemo(() => allPerfumes, [allPerfumes]);
+  const kitTotal = 499;
+  const isComplete = slots.every(Boolean);
+
+  const openPickerForSlot = (index: number) => {
+    setActiveSlotIndex(index);
+    setIsPickerOpen(true);
+  };
+
+  const handleSelectPerfume = (perfume: PerfumeData) => {
+    if (activeSlotIndex === null) return;
+    setSlots((prev) => {
+      const updated = [...prev];
+      updated[activeSlotIndex] = perfume;
+      return updated;
+    });
+    setIsPickerOpen(false);
+  };
+
+  const handleClearSlot = (index: number) => {
+    setSlots((prev) => {
+      const updated = [...prev];
+      updated[index] = null;
+      return updated;
+    });
+  };
+
+  const handleAddKitToCart = () => {
+    if (!isComplete) return;
+    const selected = slots.filter(Boolean) as PerfumeData[];
+    const kitId = `kit-4pack-${selected.map((p) => p.id).join("-")}`;
+    addItem({
+      id: kitId,
+      name: "Custom 4 x 20ml Kit",
+      inspiration: selected.map((p) => p.name).join(", "),
+      category: "Kit",
+      image: "/images/kit.png",
+      price: kitTotal,
+      size: "20ml",
+    });
+    toast({
+      title: "Kit added to bag",
+      description: "Your 4 x 20ml kit has been added to your bag.",
+    });
+  };
+
   return (
     <section className="pt-28 pb-20 md:pt-36 md:pb-24">
       <div className="container-luxury">
@@ -24,7 +104,7 @@ export default function KitPackShowcase() {
           <h1 className="font-serif text-4xl md:text-5xl font-light mb-4">
             Build Your Kit
           </h1>
-          <p className="text-body text-muted-foreground max-w-2xl mx-auto">
+          <p className="hidden md:block text-body text-muted-foreground max-w-2xl mx-auto">
             Create your own pack of 4 perfumes in 20ml size. Great for daily rotation,
             travel, and gifting.
           </p>
@@ -55,34 +135,117 @@ export default function KitPackShowcase() {
               <h2 className="font-serif text-3xl md:text-4xl font-light mb-4">
                 4 x 20ml Perfume Pack
               </h2>
-              <p className="opacity-90 mb-6">
-                Pick four inspired scents and build a premium mini collection.
-              </p>
-              <Link
-                href="/admin"
-                className="inline-block px-6 py-3 bg-white text-zinc-900 text-caption"
-              >
-                Configure Offer in Admin
-              </Link>
             </div>
 
             <div className="space-y-3">
-              {perks.map((perk, idx) => (
-                <motion.div
-                  key={perk}
-                  initial={{ opacity: 0, x: 16 }}
-                  animate={{ opacity: 1, x: 0 }}
-                  transition={{ duration: 0.35, delay: 0.2 + idx * 0.08 }}
-                  className="border border-white/25 bg-white/5 px-4 py-3 text-sm"
+              {slots.map((slot, index) => (
+                <div
+                  key={`slot-${index}`}
+                  className="flex items-center justify-between gap-4 border border-white/25 bg-white/5 px-4 py-3"
                 >
-                  {perk}
-                </motion.div>
+                  <button
+                    type="button"
+                    onClick={() => openPickerForSlot(index)}
+                    className="flex items-center gap-3 text-left text-white"
+                  >
+                    <div className="h-10 w-10 border border-white/30 bg-white/10 flex items-center justify-center">
+                      {slot ? (
+                        <img
+                          src={slot.images?.[0]}
+                          alt={slot.name}
+                          className="h-10 w-10 object-cover"
+                        />
+                      ) : (
+                        <Plus size={16} className="text-white/70" />
+                      )}
+                    </div>
+                    <div>
+                      {!slot && (
+                        <p className="text-[11px] uppercase tracking-[0.25em] text-white/60">
+                          Slot {index + 1}
+                        </p>
+                      )}
+                      <p className="font-serif text-base">
+                        {slot ? slot.name : "Add 20ml perfume"}
+                      </p>
+                      {slot && (
+                        <p className="text-xs text-white/60">
+                          Inspired by {slot.inspiration}
+                        </p>
+                      )}
+                    </div>
+                  </button>
+                  <div className="flex items-center gap-3">
+                    {slot && (
+                      <button
+                        type="button"
+                        onClick={() => handleClearSlot(index)}
+                        className="w-8 h-8 flex items-center justify-center border border-white/30 hover:bg-white/10 transition-colors"
+                        aria-label={`Remove slot ${index + 1}`}
+                      >
+                        <X size={14} className="text-white/80" />
+                      </button>
+                    )}
+                  </div>
+                </div>
               ))}
             </div>
           </div>
         </motion.div>
+
+        {isComplete && (
+          <motion.button
+            type="button"
+            onClick={handleAddKitToCart}
+            whileHover={{ scale: 1.02 }}
+            whileTap={{ scale: 0.98 }}
+            className="mt-8 w-full max-w-xl mx-auto py-4 bg-primary text-primary-foreground text-caption tracking-widest hover:bg-primary/90 transition-colors"
+          >
+            Add Kit to Bag
+            {" "}— {formatINR(kitTotal)}
+          </motion.button>
+        )}
       </div>
+
+      <Dialog open={isPickerOpen} onOpenChange={setIsPickerOpen}>
+        <DialogContent className="max-w-5xl">
+          <DialogHeader>
+            <DialogTitle className="font-serif text-2xl">Choose a 20ml perfume</DialogTitle>
+            <DialogDescription>Pick one perfume to fill this slot.</DialogDescription>
+          </DialogHeader>
+
+          {loadingPerfumes ? (
+            <div className="py-10 text-center text-sm text-muted-foreground">Loading perfumes...</div>
+          ) : kitPerfumes.length === 0 ? (
+            <div className="py-10 text-center text-sm text-muted-foreground">
+              No perfumes available right now.
+            </div>
+          ) : (
+            <div className="max-h-[70vh] overflow-y-auto pr-2">
+              <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
+              {kitPerfumes.map((perfume) => (
+                <button
+                  key={perfume.id}
+                  type="button"
+                  onClick={() => handleSelectPerfume(perfume)}
+                  className="text-left border border-border/60 bg-background hover:bg-secondary/20 transition-colors p-3"
+                >
+                  <img
+                    src={perfume.images?.[0]}
+                    alt={perfume.name}
+                    className="aspect-square w-full object-cover bg-secondary"
+                  />
+                  <div className="mt-3">
+                    <p className="font-serif text-base">{perfume.name}</p>
+                    <p className="text-xs text-muted-foreground">{perfume.category}</p>
+                  </div>
+                </button>
+              ))}
+              </div>
+            </div>
+          )}
+        </DialogContent>
+      </Dialog>
     </section>
   );
 }
-

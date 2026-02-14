@@ -72,6 +72,17 @@ export const blogPosts = pgTable("blog_posts", {
   updatedAt: timestamp("updated_at").defaultNow().notNull(),
 });
 
+// Bottles Table
+export const bottles = pgTable("bottles", {
+  id: varchar("id", { length: 50 }).primaryKey(),
+  name: varchar("name", { length: 255 }).notNull(),
+  imageUrl: varchar("image_url", { length: 2048 }).notNull(),
+  price: decimal("price", { precision: 10, scale: 2 }).notNull(),
+  priceCurrency: varchar("price_currency", { length: 3 }).notNull().default("INR"),
+  createdAt: timestamp("created_at").defaultNow().notNull(),
+  updatedAt: timestamp("updated_at").defaultNow().notNull(),
+});
+
 // Export types
 export type Product = typeof products.$inferSelect;
 export type NewProduct = typeof products.$inferInsert;
@@ -79,3 +90,5 @@ export type Review = typeof reviews.$inferSelect;
 export type NewReview = typeof reviews.$inferInsert;
 export type BlogPost = typeof blogPosts.$inferSelect;
 export type NewBlogPost = typeof blogPosts.$inferInsert;
+export type Bottle = typeof bottles.$inferSelect;
+export type NewBottle = typeof bottles.$inferInsert;

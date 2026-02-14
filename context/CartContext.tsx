@@ -11,6 +11,8 @@ export interface CartItem {
   price: number;
   size?: string;
   isGift?: boolean;
+  bottleName?: string;
+  bottlePrice?: number;
   quantity: number;
 }
 
