@@ -1,7 +1,46 @@
 import type { NextConfig } from "next";
 
 const nextConfig: NextConfig = {
-  /* config options here */
+  turbopack: {},
+  images: {
+    remotePatterns: [
+      {
+        protocol: "https",
+        hostname: "belvish.com",
+      },
+      {
+        protocol: "https",
+        hostname: "res.cloudinary.com",
+      },
+      {
+        protocol: "https",
+        hostname: "encrypted-tbn0.gstatic.com",
+      },
+      {
+        protocol: "https",
+        hostname: "encrypted-tbn1.gstatic.com",
+      },
+      {
+        protocol: "https",
+        hostname: "*.gstatic.com",
+      },
+      {
+        protocol: "https",
+        hostname: "fimgs.net",
+      },
+      {
+        protocol: "https",
+        hostname: "images-static.nykaa.com",
+      },
+    ],
+  },
+  webpack: (config) => {
+    config.externals.push({
+      'drizzle-orm': 'commonjs drizzle-orm',
+      '@neondatabase/serverless': 'commonjs @neondatabase/serverless',
+    });
+    return config;
+  },
 };
 
 export default nextConfig;
