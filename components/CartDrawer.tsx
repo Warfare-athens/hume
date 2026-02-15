@@ -2,7 +2,7 @@
 
 import { useEffect, useMemo, useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { X, Minus, Plus, ShoppingBag, MessageCircle, Sparkles, Trash2, ChevronDown } from "lucide-react";
+import { X, Minus, Plus, ShoppingBag, MessageCircle, Sparkles, Trash2, ChevronDown, BadgePercent } from "lucide-react";
 import { useCart } from "@/context/CartContext";
 import { Button } from "@/components/ui/button";
 import { toast } from "@/hooks/use-toast";
@@ -131,10 +131,10 @@ const CartDrawer = () => {
             transition={{ type: "tween", duration: 0.3 }}
             className="fixed right-0 top-0 h-full w-full max-w-md bg-background z-50 shadow-2xl flex flex-col"
           >
-            <div className="flex items-center justify-between p-6 border-b border-border">
+            <div className="flex items-center justify-between p-4 border-b border-border">
               <div className="flex items-center gap-3">
-                <ShoppingBag size={18} />
-                <h2 className="font-serif text-lg">Your Bag</h2>
+                <ShoppingBag size={16} />
+                <h2 className="font-serif text-base">Your Bag</h2>
                 <span className="text-[11px] uppercase tracking-[0.12em] text-muted-foreground">
                   ({totalItems} {totalItems === 1 ? "item" : "items"})
                 </span>
@@ -153,13 +153,17 @@ const CartDrawer = () => {
                 </div>
               ) : (
                 <div className="space-y-6">
-                  <div className="border border-border p-4 bg-secondary/30 space-y-4">
-                    <details className="border border-border/60 bg-background/70 p-3">
+                  <div className="border border-border p-3 bg-secondary/20 space-y-3">
+                    <details className="border border-border/60 bg-background/70 p-2">
                       <summary className="cursor-pointer text-caption text-foreground flex items-center justify-between list-none [&::-webkit-details-marker]:hidden">
-                        <span>Choose Your Offer</span>
+                        <span className="inline-flex items-center gap-2">
+                          <BadgePercent className=" text-emerald-400" size={18} />
+
+                          Choose Your Offer
+                        </span>
                         <ChevronDown size={14} className="text-muted-foreground" />
                       </summary>
-                      <div className="mt-3 space-y-3 text-xs text-muted-foreground">
+                      <div className="mt-2 space-y-2 text-xs text-muted-foreground">
                         <label className="flex items-center gap-2">
                           <input
                             type="radio"
@@ -191,9 +195,9 @@ const CartDrawer = () => {
                     </details>
 
                     {discountAmount > 0 && (
-                      <div className="flex items-center justify-between text-xs uppercase tracking-[0.12em] text-muted-foreground">
+                      <div className="flex items-center justify-between text-[11px] uppercase tracking-[0.12em] text-emerald-700">
                         <span>Offer Savings</span>
-                        <span className="text-foreground">-{formatINR(discountAmount)}</span>
+                        <span className=" font-semibold  text-emerald-700">-{formatINR(discountAmount)}</span>
                       </div>
                     )}
 
@@ -216,7 +220,7 @@ const CartDrawer = () => {
                           <motion.div
                             initial={{ opacity: 0, y: 6 }}
                             animate={{ opacity: 1, y: 0 }}
-                            className="mt-3 p-3 border border-foreground/20 bg-gradient-to-r from-foreground to-zinc-700 text-background"
+                            className="mt-3 p-3 border border-emerald-400/40 bg-emerald-50 text-emerald-900"
                           >
                             <p className="text-sm flex items-center gap-2">
                               <Sparkles size={14} />
@@ -227,7 +231,7 @@ const CartDrawer = () => {
                                 <select
                                   value={selectedGiftId}
                                   onChange={(e) => setSelectedGiftId(e.target.value)}
-                                  className="flex-1 bg-background/10 border border-background/30 text-background text-xs px-2 py-1.5 outline-none"
+                                  className="flex-1 bg-white border border-emerald-200 text-emerald-900 text-xs px-2 py-1.5 outline-none"
                                 >
                                   {giftCandidates.map((p) => (
                                     <option key={p.id} value={p.id} className="text-black">
@@ -237,13 +241,13 @@ const CartDrawer = () => {
                                 </select>
                                 <button
                                   onClick={handleClaimGift}
-                                  className="px-3 py-1.5 text-xs uppercase tracking-[0.14em] border border-background/40 hover:bg-background/10 transition-luxury"
+                                  className="px-3 py-1.5 text-xs uppercase tracking-[0.14em] border border-emerald-300 hover:bg-emerald-100 transition-luxury"
                                 >
                                   Claim
                                 </button>
                               </div>
                             ) : (
-                              <p className="text-xs mt-2 opacity-90">Gift already added to your bag.</p>
+                              <p className="text-xs mt-2 text-emerald-800">Gift already added to your bag.</p>
                             )}
                           </motion.div>
                         ) : (
@@ -285,9 +289,9 @@ const CartDrawer = () => {
                         <p className="text-body font-medium">{item.isGift ? "FREE" : formatINR(item.price)}</p>
 
                         <div className="flex items-center gap-3 mt-3">
-                          {item.isGift ? (
-                            <span className="text-xs uppercase tracking-[0.12em] text-muted-foreground">Free Gift Item</span>
-                          ) : (
+                        {item.isGift ? (
+                          <span className="text-xs uppercase tracking-[0.12em] text-emerald-700">Free Gift Item</span>
+                        ) : (
                             <>
                               <button
                                 onClick={() => updateQuantity(item.id, item.quantity - 1)}
@@ -332,27 +336,35 @@ const CartDrawer = () => {
                       <span>{formatINR(subtotal)}</span>
                     </div>
                     {discountAmount > 0 && (
-                      <div className="flex justify-between">
-                        <span className="text-muted-foreground">Offer Discount</span>
+                      <div className="flex justify-between text-emerald-700">
+                        <span className="text-emerald-700">Offer Savings</span>
                         <span>-{formatINR(discountAmount)}</span>
                       </div>
                     )}
                     <div className="flex justify-between">
                       <span className="text-muted-foreground">Delivery</span>
-                      <span>{shippingFee === 0 ? "FREE" : formatINR(shippingFee)}</span>
+                      <span className={shippingFee === 0 ? "text-emerald-700" : ""}>
+                        {shippingFee === 0 ? "FREE" : formatINR(shippingFee)}
+                      </span>
                     </div>
                     <div className="flex justify-between pt-2 border-t border-border">
                       <span className="font-medium">Grand Total</span>
                       <span className="font-medium">{formatINR(grandTotal)}</span>
                     </div>
-                    <p className="text-xs text-muted-foreground">
-                      Free delivery on orders of {formatINR(freeDeliveryThreshold)} or more.
-                      Orders below {formatINR(freeDeliveryThreshold)} include {formatINR(deliveryChargeBelowThreshold)} delivery.
-                    </p>
+                    {subtotal < freeDeliveryThreshold && (
+                      <p className="text-xs text-muted-foreground">
+                        Free delivery on orders of {formatINR(freeDeliveryThreshold)} or more.
+                        Orders below {formatINR(freeDeliveryThreshold)} include {formatINR(deliveryChargeBelowThreshold)} delivery.
+                      </p>
+                    )}
                   </div>
                 </details>
 
-                <div className="space-y-3">
+                <div className="flex items-center justify-between text-sm">
+                  <span className="text-muted-foreground">Grand Total</span>
+                  <span className="font-medium">{formatINR(grandTotal)}</span>
+                </div>
+                <div className="space-y-2">
                   <Button
                     onClick={handleWhatsAppCheckout}
                     className="w-full bg-[#25D366] hover:bg-[#20bd5a] text-primary-foreground"

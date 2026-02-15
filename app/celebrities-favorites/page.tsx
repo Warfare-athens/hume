@@ -82,6 +82,8 @@ export default async function CelebritiesFavoritesPage({
                           image={perfume.images[0]}
                           price={perfume.price}
                           index={index}
+                          bestSeller={perfume.badges?.bestSeller}
+                          limitedStock={perfume.badges?.limitedStock}
                         />
                       ))}
                     </div>

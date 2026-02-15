@@ -36,6 +36,26 @@ const nextConfig: NextConfig = {
         protocol: "https",
         hostname: "img.tatacliq.com",
       },
+      {
+        protocol: "https",
+        hostname: "placehold.co",
+      },
+      {
+        protocol: "https",
+        hostname: "cdn.britannica.com",
+      },
+      {
+        protocol: "https",
+        hostname: "i.herbalreality.com",
+      },
+      {
+        protocol: "https",
+        hostname: "images-cdn.ubuy.co.in",
+      },
+      {
+        protocol: "https",
+        hostname: "banasuraspices.com",
+      },
     ],
   },
   webpack: (config) => {

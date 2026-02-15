@@ -83,6 +83,18 @@ export const bottles = pgTable("bottles", {
   updatedAt: timestamp("updated_at").defaultNow().notNull(),
 });
 
+// Images Library Table
+export const images = pgTable("images", {
+  id: varchar("id", { length: 255 }).primaryKey(),
+  label: varchar("label", { length: 255 }).notNull(),
+  url: varchar("url", { length: 2048 }).notNull(),
+  link: varchar("link", { length: 2048 }),
+  usage: varchar("usage", { length: 100 }).notNull().default("general"),
+  tags: jsonb("tags").$type<string[]>().notNull().default([]),
+  createdAt: timestamp("created_at").defaultNow().notNull(),
+  updatedAt: timestamp("updated_at").defaultNow().notNull(),
+});
+
 // Export types
 export type Product = typeof products.$inferSelect;
 export type NewProduct = typeof products.$inferInsert;
@@ -92,3 +104,5 @@ export type BlogPost = typeof blogPosts.$inferSelect;
 export type NewBlogPost = typeof blogPosts.$inferInsert;
 export type Bottle = typeof bottles.$inferSelect;
 export type NewBottle = typeof bottles.$inferInsert;
+export type ImageAsset = typeof images.$inferSelect;
+export type NewImageAsset = typeof images.$inferInsert;

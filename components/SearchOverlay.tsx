@@ -4,6 +4,8 @@ import { useState, useEffect, useRef, useMemo } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { Search, X, ArrowRight } from "lucide-react";
 import Link from "next/link";
+import Image from "next/image";
+import { useRouter } from "next/navigation";
 import { perfumes, PerfumeData, getAverageRating } from "@/data/perfumes";
 import { formatINR } from "@/lib/currency";
 
@@ -134,6 +136,9 @@ const SearchResultCard = ({
   onClose: () => void;
   query?: string;
 }) => {
+  const router = useRouter();
+  const blurDataURL =
+    "data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMzIiIGhlaWdodD0iNDIiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+PHJlY3Qgd2lkdGg9IjMyIiBoZWlnaHQ9IjQyIiBmaWxsPSIjZWVlY2VjIi8+PC9zdmc+";
   const avgRating = getAverageRating(perfume.reviews);
 
   const highlightMatch = (text: string) => {
@@ -153,13 +158,18 @@ const SearchResultCard = ({
     <Link
       href={`/product/${perfume.id}`}
       onClick={onClose}
+      onMouseEnter={() => router.prefetch(`/product/${perfume.id}`)}
       className="group flex gap-4 p-4 border border-border bg-background hover:bg-muted/50 transition-luxury"
     >
-      <div className="w-20 h-24 md:w-24 md:h-32 shrink-0 overflow-hidden bg-secondary">
-        <img
+      <div className="w-20 h-24 md:w-24 md:h-32 shrink-0 overflow-hidden bg-secondary relative">
+        <Image
           src={perfume.images[0]}
           alt={perfume.name}
-          className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+          fill
+          sizes="96px"
+          className="object-cover group-hover:scale-105 transition-transform duration-500"
+          placeholder="blur"
+          blurDataURL={blurDataURL}
         />
       </div>
       <div className="flex-1 min-w-0">

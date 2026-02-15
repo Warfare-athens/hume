@@ -4,6 +4,7 @@ import { motion } from "framer-motion";
 import { Plus } from "lucide-react";
 import Link from "next/link";
 import Image from "next/image";
+import { useRouter } from "next/navigation";
 import { useCart } from "@/context/CartContext";
 import { toast } from "@/hooks/use-toast";
 import { formatINR } from "@/lib/currency";
@@ -16,6 +17,8 @@ interface PerfumeCardProps {
   image: string;
   price: number;
   index: number;
+  bestSeller?: boolean;
+  limitedStock?: boolean;
 }
 
 const PerfumeCard = ({
@@ -26,8 +29,13 @@ const PerfumeCard = ({
   image,
   price,
   index,
+  bestSeller,
+  limitedStock,
 }: PerfumeCardProps) => {
   const { addItem } = useCart();
+  const router = useRouter();
+  const blurDataURL =
+    "data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMzIiIGhlaWdodD0iNDIiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+PHJlY3Qgd2lkdGg9IjMyIiBoZWlnaHQ9IjQyIiBmaWxsPSIjZWVlY2VjIi8+PC9zdmc+";
 
   const handleAddToCart = (e: React.MouseEvent) => {
     e.preventDefault();
@@ -47,7 +55,11 @@ const PerfumeCard = ({
       transition={{ duration: 0.6, delay: index * 0.1 }}
       className="group h-full"
     >
-      <Link href={`/product/${id}`} className="block h-full">
+      <Link
+        href={`/product/${id}`}
+        className="block h-full"
+        onMouseEnter={() => router.prefetch(`/product/${id}`)}
+      >
         <div className="relative overflow-hidden bg-secondary mb-6">
           <Image
             src={image}
@@ -55,7 +67,23 @@ const PerfumeCard = ({
             width={400}
             height={533}
             className="w-full aspect-[3/4] object-cover transition-transform duration-700 group-hover:scale-105"
+            placeholder="blur"
+            blurDataURL={blurDataURL}
           />
+          {(bestSeller || limitedStock) && (
+            <div className="absolute left-3 top-3 flex flex-col gap-2">
+              {bestSeller && (
+                <span className="inline-flex items-center text-[10px] uppercase tracking-[0.2em] px-2 py-1 bg-foreground text-background">
+                  Best Seller
+                </span>
+              )}
+              {limitedStock && (
+                <span className="inline-flex items-center text-[10px] uppercase tracking-[0.2em] px-2 py-1 bg-amber-200/90 text-amber-900">
+                  Limited Stock
+                </span>
+              )}
+            </div>
+          )}
           <div className="absolute inset-0 bg-foreground/0 group-hover:bg-foreground/5 transition-all duration-500" />
         </div>
         <div className="flex flex-col h-[170px]">

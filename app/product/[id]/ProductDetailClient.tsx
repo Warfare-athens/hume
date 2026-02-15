@@ -135,7 +135,7 @@ export default function ProductDetailClient({ perfume }: { perfume: PerfumeData 
       </div>
 
       <Dialog open={isBottleOpen} onOpenChange={setIsBottleOpen}>
-        <DialogContent className="max-w-5xl border-0 bg-[radial-gradient(circle_at_top,_#fff3e6,_#f7f1ff_45%,_#f8fbff_100%)] p-0 shadow-[0_30px_120px_rgba(20,20,40,0.35)] max-h-[85vh] overflow-y-auto">
+      <DialogContent className="max-w-5xl border border-border/60 bg-[radial-gradient(circle_at_top,_#ffffff,_#f6f6f4_60%,_#f2f2f0_100%)] p-0 shadow-[0_30px_120px_rgba(15,15,20,0.25)] max-h-[85vh] overflow-y-auto">
           <DialogHeader>
             <div className="px-6 pt-6">
               <DialogTitle className="font-serif font-light text-3xl mt-3">
@@ -145,7 +145,7 @@ export default function ProductDetailClient({ perfume }: { perfume: PerfumeData 
           </DialogHeader>
 
           <div className="px-4 pb-4">
-            <div className="flex flex-wrap items-center justify-between gap-2 bg-white/70 border border-white/60 shadow-[0_12px_40px_rgba(35,35,60,0.15)] px-4 py-3 mt-6">
+            <div className="flex flex-wrap items-center justify-between gap-2 bg-white/80 border border-border/60 shadow-[0_12px_32px_rgba(15,15,20,0.08)] px-4 py-3 mt-6">
               <div>
                 <p className="text-[10px] uppercase tracking-[0.35em] text-muted-foreground">
                   Selected
@@ -175,23 +175,21 @@ export default function ProductDetailClient({ perfume }: { perfume: PerfumeData 
                     onClick={() => handleSelectBottle(bottle.id)}
                     whileHover={{ y: -6, scale: 1.02 }}
                     whileTap={{ scale: 0.98 }}
-                    className={`group text-left border border-white/60 bg-white/70 shadow-[0_20px_60px_rgba(25,25,50,0.15)] p-4 transition-luxury relative overflow-hidden ${
-                      selectedBottleId === bottle.id ? "ring-2 ring-black/80" : ""
+                    className={`group text-left border border-border/70 bg-white transition-luxury overflow-hidden ${
+                      selectedBottleId === bottle.id ? "ring-2 ring-foreground/80" : ""
                     }`}
                   >
-                    <div className="absolute -right-12 -top-12 h-24 w-24 rounded-full bg-gradient-to-br from-amber-200/40 via-rose-200/40 to-indigo-200/40 blur-2xl opacity-80" />
                     <div className="relative">
-                      <div className="flex items-center justify-between text-[10px] uppercase tracking-[0.32em] text-muted-foreground mb-3">
-                        <span>#{bottle.id}</span>
-                        <span className="text-[11px] font-medium">{formatINR(bottle.price)}</span>
-                      </div>
                       <div className="relative">
                         <img
                           src={bottle.imageUrl}
                           alt={bottle.name}
-                          className="aspect-square w-full object-cover bg-secondary shadow-lg"
+                          className="aspect-square w-full object-cover bg-secondary"
                         />
-                        <div className="absolute inset-x-0 bottom-0 h-16 shadow-2xl" />
+                      </div>
+                      <div className="flex items-center justify-between text-[10px] uppercase tracking-[0.32em] text-muted-foreground px-3 py-2 border-t border-border/70">
+                        <span>#{bottle.id}</span>
+                        <span className="text-[11px] font-medium">{formatINR(bottle.price)}</span>
                       </div>
                     </div>
                   </motion.button>

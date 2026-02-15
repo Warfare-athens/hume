@@ -33,6 +33,12 @@ export interface PerfumeData {
   description: string;
   seoDescription: string;
   seoKeywords: string[];
+  scentStory?: string;
+  pairingTips?: string[];
+  badges?: {
+    bestSeller?: boolean;
+    limitedStock?: boolean;
+  };
   notes: {
     top: string[];
     heart: string[];
@@ -140,6 +146,7 @@ export const perfumes: PerfumeData[] = [
       "best sauvage dupe",
       "mens cologne dior inspired",
     ],
+    badges: { bestSeller: true },
     notes: {
       top: ["Bergamot", "Pepper", "Calabrian Lemon"],
       heart: ["Lavender", "Sichuan Pepper", "Geranium"],
@@ -178,6 +185,7 @@ export const perfumes: PerfumeData[] = [
       "affordable dior fragrance",
       "dior homme intense clone",
     ],
+    badges: { bestSeller: true },
     notes: {
       top: ["Lavender", "Pear", "Bergamot"],
       heart: ["Iris", "Violet", "Rose"],
@@ -406,6 +414,7 @@ export const perfumes: PerfumeData[] = [
       "affordable lv perfume",
       "luxury oud fragrance",
     ],
+    badges: { limitedStock: true },
     notes: {
       top: ["Raspberry", "Saffron"],
       heart: ["Rose", "Geranium"],
@@ -478,6 +487,7 @@ export const perfumes: PerfumeData[] = [
       "affordable tom ford perfume",
       "luxury leather scent",
     ],
+    badges: { limitedStock: true },
     notes: {
       top: ["Cardamom"],
       heart: ["Jasmine Sambac", "Leather"],
@@ -666,6 +676,7 @@ export const perfumes: PerfumeData[] = [
       "creed aventus clone UK",
       "armani inspired perfume",
     ],
+    badges: { bestSeller: true },
     notes: {
       top: ["Pineapple", "Bergamot", "Black Currant", "Apple"],
       heart: ["Birch", "Patchouli", "Moroccan Jasmine", "Rose"],

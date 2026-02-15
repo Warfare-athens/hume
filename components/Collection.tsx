@@ -43,6 +43,7 @@ const Collection = () => {
     activeCategory === "all"
       ? perfumes
       : perfumes.filter((p) => p.categoryId === activeCategory);
+  const visiblePerfumes = filteredPerfumes.slice(0, 10);
 
   return (
     <section id="collection" className="py-24 md:py-32">
@@ -96,7 +97,7 @@ const Collection = () => {
           layout
           className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-6 md:gap-8"
         >
-          {filteredPerfumes.map((perfume, index) => (
+          {visiblePerfumes.map((perfume, index) => (
             <PerfumeCard
               key={perfume.id}
               id={perfume.id}
@@ -106,9 +107,20 @@ const Collection = () => {
               image={perfume.images[0]}
               price={perfume.price}
               index={index}
+              bestSeller={perfume.badges?.bestSeller}
+              limitedStock={perfume.badges?.limitedStock}
             />
           ))}
         </motion.div>
+
+        <div className="mt-10 flex justify-center">
+          <a
+            href="/shop"
+            className="inline-flex items-center justify-center px-8 py-3.5 border border-foreground text-caption tracking-[0.2em] uppercase hover:bg-foreground hover:text-background transition-colors"
+          >
+            See All Products
+          </a>
+        </div>
       </div>
     </section>
   );

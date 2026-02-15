@@ -30,6 +30,14 @@ const StarRating = ({ rating }: { rating: number }) => {
 const ProductReviews = ({ reviews, productName }: ProductReviewsProps) => {
   const averageRating = getAverageRating(reviews);
   const totalReviews = reviews.length;
+  const avatarColors = [
+    "bg-amber-100 text-amber-800",
+    "bg-emerald-100 text-emerald-800",
+    "bg-sky-100 text-sky-800",
+    "bg-rose-100 text-rose-800",
+    "bg-violet-100 text-violet-800",
+    "bg-slate-100 text-slate-800",
+  ];
 
   // Calculate rating distribution
   const ratingDistribution = [5, 4, 3, 2, 1].map((rating) => {
@@ -44,6 +52,21 @@ const ProductReviews = ({ reviews, productName }: ProductReviewsProps) => {
       month: "long",
       year: "numeric",
     });
+  };
+
+  const getInitials = (name: string) => {
+    const parts = name.trim().split(/\s+/);
+    const first = parts[0]?.[0] ?? "";
+    const last = parts.length > 1 ? parts[parts.length - 1][0] : "";
+    return `${first}${last}`.toUpperCase();
+  };
+
+  const getAvatarClass = (name: string) => {
+    let hash = 0;
+    for (let i = 0; i < name.length; i += 1) {
+      hash = (hash * 31 + name.charCodeAt(i)) % avatarColors.length;
+    }
+    return avatarColors[hash];
   };
 
   return (
@@ -137,15 +160,9 @@ const ProductReviews = ({ reviews, productName }: ProductReviewsProps) => {
                   <meta itemProp="bestRating" content="5" />
                 </div>
 
-                {/* Rating & Verified Badge */}
+                {/* Rating */}
                 <div className="flex items-center justify-between mb-4">
                   <StarRating rating={review.rating} />
-                  {review.verified && (
-                    <span className="flex items-center gap-1 text-xs text-muted-foreground">
-                      <CheckCircle size={12} />
-                      Verified Purchase
-                    </span>
-                  )}
                 </div>
 
                 {/* Review Title */}
@@ -166,7 +183,24 @@ const ProductReviews = ({ reviews, productName }: ProductReviewsProps) => {
 
                 {/* Author & Date */}
                 <div className="flex items-center justify-between text-caption text-muted-foreground pt-4 border-t border-border">
-                  <span>{review.author}</span>
+                  <div className="flex items-center gap-3">
+                    <div
+                      className={`h-9 w-9 rounded-full flex items-center justify-center text-[11px] font-medium ${getAvatarClass(
+                        review.author
+                      )}`}
+                    >
+                      {getInitials(review.author)}
+                    </div>
+                    <div className="leading-tight">
+                      <span>{review.author}</span>
+                      {review.verified && (
+                        <span className="flex items-center gap-1 text-[10px] uppercase tracking-[0.18em] text-emerald-700 mt-1">
+                          <CheckCircle size={11} />
+                          Verified
+                        </span>
+                      )}
+                    </div>
+                  </div>
                   <time dateTime={review.date} itemProp="datePublished">
                     {formatDate(review.date)}
                   </time>

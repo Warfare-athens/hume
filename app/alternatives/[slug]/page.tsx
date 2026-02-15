@@ -105,6 +105,8 @@ export default async function AlternativeIntentPage({
                   image={perfume.images[0]}
                   price={perfume.price}
                   index={idx}
+                  bestSeller={perfume.badges?.bestSeller}
+                  limitedStock={perfume.badges?.limitedStock}
                 />
               ))}
             </div>
@@ -125,4 +127,3 @@ export default async function AlternativeIntentPage({
     </main>
   );
 }
-
