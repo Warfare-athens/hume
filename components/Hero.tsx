@@ -92,10 +92,9 @@ const Hero = () => {
             </h1>
             <div className="divider-elegant mb-8" />
             <p className="hidden md:block text-body text-muted-foreground max-w-md mb-10">
-              Experience the world&apos;s most celebrated fragrances, meticulously
-              crafted to capture their essence. HUME brings you exceptional
-              clone perfumes that honour the originals while remaining
-              accessible.
+              Experience the world&apos;s most celebrated fragrance profiles,
+              meticulously reimagined. HUME creates refined luxury interpretations
+              that honour iconic scent DNA while remaining accessible.
             </p>
             <div className="flex flex-wrap items-center gap-5">
               <Link
@@ -130,6 +129,8 @@ const Hero = () => {
                             alt={slide.label}
                             className="object-cover w-full h-full"
                             loading={index === 0 ? "eager" : "lazy"}
+                            decoding="async"
+                            fetchPriority={index === 0 ? "high" : "auto"}
                           />
                         </a>
                       ) : (
@@ -139,6 +140,8 @@ const Hero = () => {
                             alt={slide.label}
                             className="object-cover w-full h-full"
                             loading={index === 0 ? "eager" : "lazy"}
+                            decoding="async"
+                            fetchPriority={index === 0 ? "high" : "auto"}
                           />
                         </Link>
                       )}

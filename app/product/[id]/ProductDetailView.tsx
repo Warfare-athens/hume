@@ -2,7 +2,19 @@
 
 import { motion } from "framer-motion";
 import { useEffect, useMemo, useState } from "react";
-import { Clock, Wind, Sun, Calendar, Star } from "lucide-react";
+import {
+  Clock,
+  Wind,
+  Sun,
+  Calendar,
+  Star,
+  ShieldCheck,
+  RotateCcw,
+  FlaskConical,
+  Truck,
+  WalletCards,
+  MessageCircle,
+} from "lucide-react";
 import { getAverageRating } from "@/data/perfumes";
 import ProductImageGallery from "@/components/ProductImageGallery";
 import ProductReviews from "@/components/ProductReviews";
@@ -12,6 +24,7 @@ import { formatINR } from "@/lib/currency";
 
 export default function ProductDetailView({ perfume }: { perfume: PerfumeData }) {
   const averageRating = getAverageRating(perfume.reviews);
+  const [countdown, setCountdown] = useState("00:00:00");
   const [noteImages, setNoteImages] = useState<{
     id: string;
     label: string;
@@ -41,6 +54,24 @@ export default function ProductDetailView({ perfume }: { perfume: PerfumeData })
     return () => {
       active = false;
     };
+  }, []);
+
+  useEffect(() => {
+    const updateCountdown = () => {
+      const now = new Date();
+      const midnight = new Date();
+      midnight.setHours(24, 0, 0, 0);
+      const diff = Math.max(0, midnight.getTime() - now.getTime());
+      const hours = Math.floor(diff / 3_600_000);
+      const minutes = Math.floor((diff % 3_600_000) / 60_000);
+      const seconds = Math.floor((diff % 60_000) / 1000);
+      const pad = (value: number) => value.toString().padStart(2, "0");
+      setCountdown(`${pad(hours)}:${pad(minutes)}:${pad(seconds)}`);
+    };
+
+    updateCountdown();
+    const interval = setInterval(updateCountdown, 1000);
+    return () => clearInterval(interval);
   }, []);
 
   const noteImageLookup = useMemo(() => {
@@ -100,13 +131,14 @@ export default function ProductDetailView({ perfume }: { perfume: PerfumeData })
                   style={{ borderRadius: 10 }}
                 >
                   {image?.url ? (
-                    <img
-                      src={image.url}
-                      alt={`${note} note`}
-                      className="h-full w-full object-cover"
-                      style={{ borderRadius: 10 }}
-                      loading="lazy"
-                    />
+                      <img
+                        src={image.url}
+                        alt={`${note} note`}
+                        className="h-full w-full object-cover"
+                        style={{ borderRadius: 10 }}
+                        loading="lazy"
+                        decoding="async"
+                      />
                   ) : (
                     <div className="flex h-full w-full items-center justify-center text-[11px] uppercase tracking-[0.2em] text-muted-foreground border border-border/50">
                       {note}
@@ -192,6 +224,20 @@ export default function ProductDetailView({ perfume }: { perfume: PerfumeData })
               </div>
 
               <p className="font-serif text-2xl mb-8">{formatINR(perfume.price)}</p>
+
+              <div className="grid gap-3 border border-border/60 bg-secondary/10 px-4 py-3 mb-8">
+                <p className="text-caption text-foreground">
+                  Only 12 bottles left
+                </p>
+                <div className="flex flex-wrap items-center gap-3 text-xs uppercase tracking-[0.25em] text-muted-foreground">
+                  <span>Free delivery on orders before midnight</span>
+                  <span className="hidden sm:inline">•</span>
+                  <span>47 people viewed this today</span>
+                </div>
+                <div className="text-xs uppercase tracking-[0.35em] text-muted-foreground">
+                  Welcome offer ends in <span className="text-foreground">{countdown}</span>
+                </div>
+              </div>
 
               <p className="text-body text-muted-foreground leading-relaxed mb-10">{perfume.description}</p>
 
@@ -283,24 +329,49 @@ export default function ProductDetailView({ perfume }: { perfume: PerfumeData })
                     <p className="text-caption text-muted-foreground">Why HUME?</p>
                     <div className="h-px w-10 bg-foreground/15" />
                   </div>
+
+                  <div className="flex flex-wrap gap-2 mb-5">
+                    {["Razorpay", "UPI", "Cards"].map((method) => (
+                      <span
+                        key={method}
+                        className="inline-flex items-center gap-1.5 rounded-full border border-border/70 bg-background/70 px-3 py-1 text-[11px] uppercase tracking-[0.2em] text-muted-foreground"
+                      >
+                        <WalletCards size={12} />
+                        {method}
+                      </span>
+                    ))}
+                  </div>
+
                   <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 text-sm text-muted-foreground">
-                    <div>
-                      <p className="text-caption text-foreground mb-1">Authenticity</p>
-                      <p className="text-body">Crafted to honor the original DNA with premium oils.</p>
+                    <div className="flex items-start gap-2.5">
+                      <ShieldCheck size={16} className="mt-0.5 text-foreground/75" />
+                      <p className="text-body">100% authentic ingredients.</p>
                     </div>
-                    <div>
-                      <p className="text-caption text-foreground mb-1">Longevity</p>
-                      <p className="text-body">Long-lasting performance designed for all‑day wear.</p>
+                    <div className="flex items-start gap-2.5">
+                      <FlaskConical size={16} className="mt-0.5 text-foreground/75" />
+                      <p className="text-body">Formulated following IFRA rules.</p>
                     </div>
-                    <div>
-                      <p className="text-caption text-foreground mb-1">Shipping Time</p>
-                      <p className="text-body">Fast dispatch in 24–48 hours on ready stock.</p>
+                    <div className="flex items-start gap-2.5">
+                      <RotateCcw size={16} className="mt-0.5 text-foreground/75" />
+                      <p className="text-body">
+                        Easy 7-day returns. If not liked, perfume replacement is available with no questions asked.
+                      </p>
                     </div>
-                    <div>
-                      <p className="text-caption text-foreground mb-1">Returns</p>
-                      <p className="text-body">Hassle‑free support if something isn’t right.</p>
+                    <div className="flex items-start gap-2.5">
+                      <Truck size={16} className="mt-0.5 text-foreground/75" />
+                      <p className="text-body">Dispatched within 24 hours on ready stock.</p>
                     </div>
                   </div>
+
+                  <a
+                    href="https://wa.me/919559024822"
+                    target="_blank"
+                    rel="noreferrer"
+                    className="mt-5 inline-flex items-center gap-2 text-sm text-foreground hover:opacity-80 transition-opacity"
+                  >
+                    <MessageCircle size={15} />
+                    <span>Queries on WhatsApp: +91 95590 24822</span>
+                  </a>
                 </div>
               </div>
             </motion.div>

@@ -68,6 +68,8 @@ export const blogPosts = pgTable("blog_posts", {
   date: varchar("date", { length: 50 }).notNull(),
   readTime: varchar("read_time", { length: 50 }).notNull(),
   featured: boolean("featured").default(false).notNull(),
+  imageUrl: varchar("image_url", { length: 2048 }),
+  relatedProductId: varchar("related_product_id", { length: 255 }),
   createdAt: timestamp("created_at").defaultNow().notNull(),
   updatedAt: timestamp("updated_at").defaultNow().notNull(),
 });

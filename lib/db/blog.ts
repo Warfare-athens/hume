@@ -19,6 +19,8 @@ function transformBlogPost(post: any): BlogPost {
     date: post.date,
     readTime: post.readTime,
     featured: post.featured,
+    imageUrl: post.imageUrl ?? "",
+    relatedProductId: post.relatedProductId ?? "",
   };
 }
 

@@ -13,11 +13,6 @@ async function seed() {
   console.log("Seeding database...");
 
   try {
-    console.log("Clearing existing data...");
-    await db.delete(reviews);
-    await db.delete(products);
-    await db.delete(blogPostsTable);
-
     console.log(`Inserting ${perfumes.length} products...`);
     for (const perfume of perfumes) {
       const [product] = await db
@@ -42,9 +37,10 @@ async function seed() {
           longevity: perfume.longevity,
           size: perfume.size,
         })
+        .onConflictDoNothing()
         .returning();
 
-      if (perfume.reviews && perfume.reviews.length > 0) {
+      if (product && perfume.reviews && perfume.reviews.length > 0) {
         await db.insert(reviews).values(
           perfume.reviews.map((review) => ({
             id: review.id,
@@ -56,7 +52,7 @@ async function seed() {
             content: review.content,
             verified: review.verified,
           }))
-        );
+        ).onConflictDoNothing();
       }
     }
 
@@ -76,8 +72,10 @@ async function seed() {
         date: post.date,
         readTime: post.readTime,
         featured: post.featured,
+        imageUrl: post.imageUrl ?? "",
+        relatedProductId: post.relatedProductId ?? "",
       }))
-    );
+    ).onConflictDoNothing();
 
     console.log("Database seeded successfully.");
   } catch (error) {

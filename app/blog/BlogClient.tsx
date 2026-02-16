@@ -58,6 +58,20 @@ export default function BlogClient({
                   href={`/blog/${post.slug}`}
                   className="group border border-border p-8 hover:border-foreground transition-luxury"
                 >
+                  <div className="mb-5 border border-border/70 bg-secondary/30 h-44 overflow-hidden">
+                    {post.imageUrl ? (
+                      <img
+                        src={post.imageUrl}
+                        alt={post.title}
+                        className="w-full h-full object-cover"
+                        loading="lazy"
+                      />
+                    ) : (
+                      <div className="flex h-full w-full items-center justify-center text-[11px] uppercase tracking-[0.3em] text-muted-foreground">
+                        Add Image
+                      </div>
+                    )}
+                  </div>
                   <span className="text-xs text-muted-foreground uppercase tracking-[0.15em]">
                     {post.category} · {post.readTime}
                   </span>
@@ -85,6 +99,20 @@ export default function BlogClient({
               href={`/blog/${post.slug}`}
               className="group border border-border p-6 hover:border-foreground transition-luxury"
             >
+              <div className="mb-4 border border-border/70 bg-secondary/30 h-36 overflow-hidden">
+                {post.imageUrl ? (
+                  <img
+                    src={post.imageUrl}
+                    alt={post.title}
+                    className="w-full h-full object-cover"
+                    loading="lazy"
+                  />
+                ) : (
+                  <div className="flex h-full w-full items-center justify-center text-[10px] uppercase tracking-[0.3em] text-muted-foreground">
+                    Add Image
+                  </div>
+                )}
+              </div>
               <span className="text-xs text-muted-foreground uppercase tracking-[0.15em]">
                 {post.category} · {post.readTime}
               </span>

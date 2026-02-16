@@ -12,7 +12,454 @@ export interface BlogPost {
   date: string;
   readTime: string;
   featured: boolean;
+  imageUrl?: string;
+  relatedProductId?: string;
 }
+
+const generatedTopics = [
+  {
+    title: "Why Oud Perfumes Last Longer Than Floral Fragrances",
+    slug: "why-oud-perfumes-last-longer-than-florals",
+    category: "Tips & Guides",
+    keywords: ["oud perfume India online", "long lasting perfumes under ₹2000", "luxury perfume alternatives India"],
+    relatedProductId: "tom-ford-oud-wood",
+  },
+  {
+    title: "Top 10 Long Lasting Perfumes in India Under ₹3000",
+    slug: "top-10-long-lasting-perfumes-india-under-3000",
+    category: "Fragrance Guides",
+    keywords: ["long lasting perfumes under ₹2000", "luxury perfume alternatives India", "inspired perfumes India"],
+    relatedProductId: "creed-aventus",
+  },
+  {
+    title: "What is EDP vs EDT — Which Should You Buy?",
+    slug: "edp-vs-edt-which-should-you-buy",
+    category: "Tips & Guides",
+    keywords: ["long lasting perfumes under ₹2000", "inspired perfumes India"],
+    relatedProductId: "sauvage-noir",
+  },
+  {
+    title: "Ombre Nomade vs Original — Honest Comparison",
+    slug: "ombre-nomade-vs-original-honest-comparison",
+    category: "Comparisons",
+    keywords: ["Ombre Nomade inspired perfume", "niche perfume dupes India", "luxury perfume alternatives India"],
+    relatedProductId: "ombre-nomade",
+  },
+  {
+    title: "Inspired Perfumes India: A Complete Buyer Guide",
+    slug: "inspired-perfumes-india-complete-buyer-guide",
+    category: "Fragrance Guides",
+    keywords: ["inspired perfumes India", "luxury perfume alternatives India"],
+    relatedProductId: "bleu-de-chanel",
+  },
+  {
+    title: "Niche Perfume Dupes India: How to Choose the Right One",
+    slug: "niche-perfume-dupes-india-how-to-choose",
+    category: "Tips & Guides",
+    keywords: ["niche perfume dupes India", "luxury perfume alternatives India"],
+    relatedProductId: "tom-ford-oud-wood",
+  },
+  {
+    title: "Luxury Perfume Alternatives India: What to Expect",
+    slug: "luxury-perfume-alternatives-india-what-to-expect",
+    category: "Fragrance Guides",
+    keywords: ["luxury perfume alternatives India", "inspired perfumes India"],
+    relatedProductId: "sauvage-noir",
+  },
+  {
+    title: "HUME Fragrance Review: Are the Clones Worth It?",
+    slug: "hume-fragrance-review",
+    category: "Fragrance Guides",
+    keywords: ["HUME fragrance review", "inspired perfumes India"],
+    relatedProductId: "creed-aventus",
+  },
+  {
+    title: "Oud Perfume India Online: How to Shop Safely",
+    slug: "oud-perfume-india-online-how-to-shop",
+    category: "Tips & Guides",
+    keywords: ["oud perfume India online", "niche perfume dupes India"],
+    relatedProductId: "tom-ford-oud-wood",
+  },
+  {
+    title: "Ombre Nomade Inspired Perfume: Best Alternatives in India",
+    slug: "ombre-nomade-inspired-perfume-best-alternatives-india",
+    category: "Fragrance Guides",
+    keywords: ["Ombre Nomade inspired perfume", "niche perfume dupes India"],
+    relatedProductId: "ombre-nomade",
+  },
+  {
+    title: "Long Lasting Perfumes Under ₹2000: Realistic Picks",
+    slug: "long-lasting-perfumes-under-2000-realistic-picks",
+    category: "Fragrance Guides",
+    keywords: ["long lasting perfumes under ₹2000", "inspired perfumes India"],
+    relatedProductId: "sauvage-noir",
+  },
+  {
+    title: "Sauvage Alternatives in India: Best Inspired Options",
+    slug: "sauvage-alternatives-in-india",
+    category: "Fragrance Guides",
+    keywords: ["inspired perfumes India", "luxury perfume alternatives India"],
+    relatedProductId: "sauvage-noir",
+  },
+  {
+    title: "Bleu de Chanel Alternatives: What Smells Closest?",
+    slug: "bleu-de-chanel-alternatives-what-smells-closest",
+    category: "Comparisons",
+    keywords: ["luxury perfume alternatives India", "inspired perfumes India"],
+    relatedProductId: "bleu-de-chanel",
+  },
+  {
+    title: "Creed Aventus Dupes India: Top Ranked Picks",
+    slug: "creed-aventus-dupes-india-top-ranked",
+    category: "Fragrance Guides",
+    keywords: ["niche perfume dupes India", "luxury perfume alternatives India"],
+    relatedProductId: "creed-aventus",
+  },
+  {
+    title: "Tom Ford Oud Wood Inspired Perfume: Is It Worth It?",
+    slug: "tom-ford-oud-wood-inspired-perfume-worth-it",
+    category: "Fragrance Guides",
+    keywords: ["oud perfume India online", "luxury perfume alternatives India"],
+    relatedProductId: "tom-ford-oud-wood",
+  },
+  {
+    title: "Leather Fragrances India: Ombre Leather Inspired Options",
+    slug: "leather-fragrances-india-ombre-leather-inspired",
+    category: "Fragrance Guides",
+    keywords: ["luxury perfume alternatives India", "niche perfume dupes India"],
+    relatedProductId: "ombre-leather",
+  },
+  {
+    title: "Imagination Inspired Perfume India: Citrus Done Right",
+    slug: "imagination-inspired-perfume-india-citrus",
+    category: "Fragrance Guides",
+    keywords: ["luxury perfume alternatives India", "inspired perfumes India"],
+    relatedProductId: "lv-imagination",
+  },
+  {
+    title: "Why Oud + Rose Is a Power Combo (And What to Buy)",
+    slug: "why-oud-rose-power-combo",
+    category: "Tips & Guides",
+    keywords: ["oud perfume India online", "niche perfume dupes India"],
+    relatedProductId: "ombre-nomade",
+  },
+  {
+    title: "Niche Perfume Dupes India: Oud Category Explained",
+    slug: "niche-perfume-dupes-india-oud-explained",
+    category: "Fragrance Guides",
+    keywords: ["niche perfume dupes India", "oud perfume India online"],
+    relatedProductId: "tom-ford-oud-wood",
+  },
+  {
+    title: "Best Office Perfumes in India (Inspired & Affordable)",
+    slug: "best-office-perfumes-india-inspired-affordable",
+    category: "Tips & Guides",
+    keywords: ["inspired perfumes India", "long lasting perfumes under ₹2000"],
+    relatedProductId: "bleu-de-chanel",
+  },
+  {
+    title: "Winter Perfumes Under ₹3000: Warm, Spicy, Long‑Lasting",
+    slug: "winter-perfumes-under-3000-warm-spicy",
+    category: "Fragrance Guides",
+    keywords: ["long lasting perfumes under ₹2000", "luxury perfume alternatives India"],
+    relatedProductId: "spicebomb",
+  },
+  {
+    title: "Date Night Perfumes in India: Inspired Choices",
+    slug: "date-night-perfumes-india-inspired",
+    category: "Tips & Guides",
+    keywords: ["inspired perfumes India", "luxury perfume alternatives India"],
+    relatedProductId: "ombre-leather",
+  },
+  {
+    title: "Fresh Citrus Perfumes India: Top Inspired Picks",
+    slug: "fresh-citrus-perfumes-india-inspired",
+    category: "Fragrance Guides",
+    keywords: ["inspired perfumes India", "long lasting perfumes under ₹2000"],
+    relatedProductId: "lv-imagination",
+  },
+  {
+    title: "How to Spot a Good Perfume Dupe (India Edition)",
+    slug: "how-to-spot-a-good-perfume-dupe-india",
+    category: "Tips & Guides",
+    keywords: ["niche perfume dupes India", "luxury perfume alternatives India"],
+    relatedProductId: "sauvage-noir",
+  },
+  {
+    title: "Luxury Perfume Alternatives Under ₹2000: What’s Realistic",
+    slug: "luxury-perfume-alternatives-under-2000",
+    category: "Fragrance Guides",
+    keywords: ["luxury perfume alternatives India", "long lasting perfumes under ₹2000"],
+    relatedProductId: "homme-intense",
+  },
+  {
+    title: "Oud Perfume Layering Guide for Indian Weather",
+    slug: "oud-perfume-layering-guide-indian-weather",
+    category: "Tips & Guides",
+    keywords: ["oud perfume India online", "long lasting perfumes under ₹2000"],
+    relatedProductId: "tom-ford-oud-wood",
+  },
+  {
+    title: "YSL Y EDP Inspired Perfume: Best Alternatives",
+    slug: "ysl-y-edp-inspired-perfume-best-alternatives",
+    category: "Fragrance Guides",
+    keywords: ["inspired perfumes India", "luxury perfume alternatives India"],
+    relatedProductId: "ysl-y-edp",
+  },
+  {
+    title: "Ombre Leather vs Oud Wood: Which Inspired Perfume Suits You?",
+    slug: "ombre-leather-vs-oud-wood-inspired",
+    category: "Comparisons",
+    keywords: ["niche perfume dupes India", "oud perfume India online"],
+    relatedProductId: "ombre-leather",
+  },
+  {
+    title: "Top Summer Perfumes India: Fresh & Long‑Lasting",
+    slug: "top-summer-perfumes-india-fresh-long-lasting",
+    category: "Fragrance Guides",
+    keywords: ["long lasting perfumes under ₹2000", "inspired perfumes India"],
+    relatedProductId: "allure-sport",
+  },
+  {
+    title: "Best Unisex Inspired Perfumes in India",
+    slug: "best-unisex-inspired-perfumes-india",
+    category: "Fragrance Guides",
+    keywords: ["inspired perfumes India", "luxury perfume alternatives India"],
+    relatedProductId: "myself",
+  },
+  {
+    title: "Gucci Guilty Inspired Perfume: Worth the Hype?",
+    slug: "gucci-guilty-inspired-perfume-worth-it",
+    category: "Fragrance Guides",
+    keywords: ["luxury perfume alternatives India", "inspired perfumes India"],
+    relatedProductId: "guilty-homme",
+  },
+  {
+    title: "Chanel Allure Homme Sport Alternatives in India",
+    slug: "allure-homme-sport-alternatives-india",
+    category: "Fragrance Guides",
+    keywords: ["inspired perfumes India", "long lasting perfumes under ₹2000"],
+    relatedProductId: "allure-sport",
+  },
+  {
+    title: "Why Ambroxan Smells So Addictive",
+    slug: "why-ambroxan-smells-addictive",
+    category: "Tips & Guides",
+    keywords: ["inspired perfumes India", "luxury perfume alternatives India"],
+    relatedProductId: "sauvage-noir",
+  },
+  {
+    title: "Spicebomb Inspired Perfume India: Best Picks",
+    slug: "spicebomb-inspired-perfume-india-best-picks",
+    category: "Fragrance Guides",
+    keywords: ["long lasting perfumes under ₹2000", "luxury perfume alternatives India"],
+    relatedProductId: "spicebomb",
+  },
+  {
+    title: "Oud vs Amber: Which One Lasts Longer?",
+    slug: "oud-vs-amber-which-lasts-longer",
+    category: "Comparisons",
+    keywords: ["oud perfume India online", "long lasting perfumes under ₹2000"],
+    relatedProductId: "tom-ford-oud-wood",
+  },
+  {
+    title: "Perfume Concentrations Explained: EDP, EDT, Parfum",
+    slug: "perfume-concentrations-explained",
+    category: "Tips & Guides",
+    keywords: ["long lasting perfumes under ₹2000", "inspired perfumes India"],
+    relatedProductId: "homme-intense",
+  },
+  {
+    title: "Top 5 Evening Perfumes Under ₹3000",
+    slug: "top-5-evening-perfumes-under-3000",
+    category: "Fragrance Guides",
+    keywords: ["long lasting perfumes under ₹2000", "luxury perfume alternatives India"],
+    relatedProductId: "ombre-nomade",
+  },
+  {
+    title: "Indian Oud Perfumes: What to Look For",
+    slug: "indian-oud-perfumes-what-to-look-for",
+    category: "Tips & Guides",
+    keywords: ["oud perfume India online", "niche perfume dupes India"],
+    relatedProductId: "tom-ford-oud-wood",
+  },
+  {
+    title: "Saffron in Perfumery: Why It’s So Luxurious",
+    slug: "saffron-in-perfumery-why-luxurious",
+    category: "Tips & Guides",
+    keywords: ["luxury perfume alternatives India", "niche perfume dupes India"],
+    relatedProductId: "ombre-nomade",
+  },
+  {
+    title: "Why Vanilla Works So Well in Men’s Perfumes",
+    slug: "why-vanilla-works-in-mens-perfumes",
+    category: "Tips & Guides",
+    keywords: ["long lasting perfumes under ₹2000", "inspired perfumes India"],
+    relatedProductId: "stronger-with-you-intensely",
+  },
+  {
+    title: "How to Choose a Signature Scent in India",
+    slug: "how-to-choose-a-signature-scent-india",
+    category: "Tips & Guides",
+    keywords: ["inspired perfumes India", "luxury perfume alternatives India"],
+    relatedProductId: "bleu-de-chanel",
+  },
+  {
+    title: "Fresh vs Woody Perfumes: Which One Suits You?",
+    slug: "fresh-vs-woody-perfumes-which-suits-you",
+    category: "Comparisons",
+    keywords: ["inspired perfumes India", "luxury perfume alternatives India"],
+    relatedProductId: "bleu-de-chanel",
+  },
+  {
+    title: "Top 7 Perfumes for Gifting in India",
+    slug: "top-7-perfumes-for-gifting-india",
+    category: "Fragrance Guides",
+    keywords: ["inspired perfumes India", "luxury perfume alternatives India"],
+    relatedProductId: "myself",
+  },
+  {
+    title: "Ombre Nomade Inspired Perfume Review (HUME)",
+    slug: "ombre-nomade-inspired-perfume-review-hume",
+    category: "Fragrance Guides",
+    keywords: ["Ombre Nomade inspired perfume", "HUME fragrance review"],
+    relatedProductId: "ombre-nomade",
+  },
+  {
+    title: "HUME Perfume Quality: What Makes It Different",
+    slug: "hume-perfume-quality-what-makes-it-different",
+    category: "Fragrance Guides",
+    keywords: ["HUME fragrance review", "luxury perfume alternatives India"],
+    relatedProductId: "sauvage-noir",
+  },
+  {
+    title: "Best Oud Perfumes Under ₹3000 in India",
+    slug: "best-oud-perfumes-under-3000-india",
+    category: "Fragrance Guides",
+    keywords: ["oud perfume India online", "long lasting perfumes under ₹2000"],
+    relatedProductId: "tom-ford-oud-wood",
+  },
+  {
+    title: "Perfume Projection Explained (Sillage for Beginners)",
+    slug: "perfume-projection-explained-sillage",
+    category: "Tips & Guides",
+    keywords: ["long lasting perfumes under ₹2000", "inspired perfumes India"],
+    relatedProductId: "ysl-y-edp",
+  },
+  {
+    title: "How to Store Perfume in Indian Weather",
+    slug: "how-to-store-perfume-in-indian-weather",
+    category: "Tips & Guides",
+    keywords: ["long lasting perfumes under ₹2000", "inspired perfumes India"],
+    relatedProductId: "sauvage-noir",
+  },
+  {
+    title: "Top 5 Oud Alternatives to Tom Ford Oud Wood",
+    slug: "top-5-oud-alternatives-to-tom-ford-oud-wood",
+    category: "Comparisons",
+    keywords: ["oud perfume India online", "niche perfume dupes India"],
+    relatedProductId: "tom-ford-oud-wood",
+  },
+  {
+    title: "Long‑Lasting Men’s Perfumes Under ₹2000",
+    slug: "long-lasting-mens-perfumes-under-2000",
+    category: "Fragrance Guides",
+    keywords: ["long lasting perfumes under ₹2000", "inspired perfumes India"],
+    relatedProductId: "bleu-de-chanel",
+  },
+  {
+    title: "Luxury Perfume Alternatives: Dior, Chanel, Tom Ford",
+    slug: "luxury-perfume-alternatives-dior-chanel-tom-ford",
+    category: "Comparisons",
+    keywords: ["luxury perfume alternatives India", "niche perfume dupes India"],
+    relatedProductId: "homme-intense",
+  },
+  {
+    title: "What Makes a Perfume ‘Niche’ — Explained Simply",
+    slug: "what-makes-a-perfume-niche-explained",
+    category: "Tips & Guides",
+    keywords: ["niche perfume dupes India", "luxury perfume alternatives India"],
+    relatedProductId: "creed-aventus",
+  },
+  {
+    title: "Citrus vs Amber Perfumes: Which Lasts Longer?",
+    slug: "citrus-vs-amber-perfumes-which-lasts-longer",
+    category: "Comparisons",
+    keywords: ["long lasting perfumes under ₹2000", "inspired perfumes India"],
+    relatedProductId: "lv-imagination",
+  },
+  {
+    title: "HUME’s Most Complimented Perfumes in India",
+    slug: "hume-most-complimented-perfumes-india",
+    category: "Fragrance Guides",
+    keywords: ["HUME fragrance review", "inspired perfumes India"],
+    relatedProductId: "creed-aventus",
+  },
+  {
+    title: "Best Perfumes for Summer Weddings in India",
+    slug: "best-perfumes-for-summer-weddings-india",
+    category: "Tips & Guides",
+    keywords: ["inspired perfumes India", "luxury perfume alternatives India"],
+    relatedProductId: "allure-sport",
+  },
+  {
+    title: "Oud Wood Inspired Perfume Review: HUME Oud Royale",
+    slug: "oud-wood-inspired-perfume-review-hume",
+    category: "Fragrance Guides",
+    keywords: ["oud perfume India online", "HUME fragrance review"],
+    relatedProductId: "tom-ford-oud-wood",
+  },
+  {
+    title: "Luxury Alternatives Under ₹2000: Editor’s Picks",
+    slug: "luxury-alternatives-under-2000-editors-picks",
+    category: "Fragrance Guides",
+    keywords: ["luxury perfume alternatives India", "long lasting perfumes under ₹2000"],
+    relatedProductId: "sauvage-noir",
+  },
+];
+
+const generatedPosts: BlogPost[] = generatedTopics.map((topic, idx) => {
+  const keywordLine = topic.keywords.join(", ");
+  const excerpt = `${topic.title} — a practical guide focused on ${keywordLine}.`;
+  const content = `
+## Overview
+
+${topic.title} explores how to choose the right inspired fragrance with a focus on ${keywordLine}.
+
+## What To Look For
+
+- Ingredients and concentration (EDP vs EDT)
+- Performance and projection
+- Season and occasion fit
+- Value vs original pricing
+
+## Our Recommended Pick
+
+Explore ${topic.relatedProductId ? "the matching HUME alternative" : "HUME's curated alternatives"} for the closest DNA and strong longevity.
+
+## Final Takeaway
+
+If you want premium inspired perfumes that last, prioritize quality oils, balanced notes, and real‑world wearability.
+  `.trim();
+
+  return {
+    id: `gen-${idx + 1}`,
+    title: topic.title,
+    slug: topic.slug,
+    excerpt,
+    content,
+    seoTitle: `${topic.title} | HUME Perfumes`,
+    seoDescription: `${topic.title}. Discover premium inspired alternatives for India with long‑lasting performance.`,
+    seoKeywords: topic.keywords,
+    category: topic.category,
+    author: "HUME Editorial",
+    date: "2026-02-16",
+    readTime: "4 min read",
+    featured: idx < 4,
+    imageUrl: "",
+    relatedProductId: topic.relatedProductId,
+  };
+});
 
 export const blogPosts: BlogPost[] = [
   {
@@ -76,6 +523,8 @@ You don't need to spend INR 100+ to smell like a million pounds. HUME's Sauvage 
     date: "2026-02-08",
     readTime: "5 min read",
     featured: true,
+    imageUrl: "",
+    relatedProductId: "sauvage-noir",
   },
   {
     id: "2",
@@ -137,6 +586,8 @@ If you value subtlety and sophistication, go for Oud Royale (Oud Wood inspired).
     date: "2026-02-05",
     readTime: "6 min read",
     featured: true,
+    imageUrl: "",
+    relatedProductId: "tom-ford-oud-wood",
   },
   {
     id: "3",
@@ -202,6 +653,8 @@ If you love Creed Aventus but not the price, HUME's Aventus Legend is the most c
     date: "2026-02-01",
     readTime: "5 min read",
     featured: true,
+    imageUrl: "",
+    relatedProductId: "creed-aventus",
   },
   {
     id: "4",
@@ -263,6 +716,8 @@ Both HUME alternatives deliver exceptional quality at under INR 50 - saving you 
     date: "2026-01-28",
     readTime: "5 min read",
     featured: false,
+    imageUrl: "",
+    relatedProductId: "bleu-de-chanel",
   },
   {
     id: "5",
@@ -334,6 +789,8 @@ The right application technique can double your fragrance's longevity. Combine t
     date: "2026-01-22",
     readTime: "4 min read",
     featured: false,
+    imageUrl: "",
+    relatedProductId: "sauvage-noir",
   },
   {
     id: "6",
@@ -398,7 +855,10 @@ Both are available at HUME for under INR 50 - saving over 50% compared to the YS
     date: "2026-01-18",
     readTime: "5 min read",
     featured: false,
+    imageUrl: "",
+    relatedProductId: "myself",
   },
+  ...generatedPosts,
 ];
 
 export const blogCategories = [

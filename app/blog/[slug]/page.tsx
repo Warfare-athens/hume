@@ -4,6 +4,7 @@ import type { Metadata } from "next";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import { JsonLd } from "@/components/JsonLd";
+import Seo from "@/components/Seo";
 import { getBreadcrumbSchema } from "@/lib/seo";
 import { getBlogPostBySlug, getAllBlogPosts } from "@/lib/db/blog";
 import { getAllProducts } from "@/lib/db/products";
@@ -65,6 +66,9 @@ export default async function BlogPostPage({
     .sort((a, b) => b.score - a.score)
     .slice(0, 4)
     .map((x) => x.product);
+  const explicitProduct = post.relatedProductId
+    ? allProducts.find((p) => p.id === post.relatedProductId)
+    : undefined;
 
   const linkTargets = relatedProducts.slice(0, 3).flatMap((product) => [
     {
@@ -129,6 +133,12 @@ export default async function BlogPostPage({
 
   return (
     <main className="bg-background min-h-screen">
+      <Seo
+        title={post.seoTitle}
+        description={post.seoDescription}
+        image={post.imageUrl}
+        url={`https://humeperfumes.com/blog/${post.slug}`}
+      />
       <JsonLd data={jsonLd} />
       <Header />
 
@@ -167,6 +177,21 @@ export default async function BlogPostPage({
               <span>{post.readTime}</span>
             </div>
           </header>
+
+          {post.imageUrl ? (
+            <div className="mb-10 border border-border overflow-hidden bg-secondary/30">
+              <img
+                src={post.imageUrl}
+                alt={post.title}
+                className="w-full h-[360px] object-cover"
+                loading="lazy"
+              />
+            </div>
+          ) : (
+            <div className="mb-10 border border-border bg-secondary/30 h-[240px] flex items-center justify-center text-[11px] uppercase tracking-[0.3em] text-muted-foreground">
+              Add Image
+            </div>
+          )}
 
           <div className="prose prose-neutral dark:prose-invert max-w-none prose-headings:font-serif prose-headings:font-light prose-headings:tracking-wide prose-p:text-muted-foreground prose-p:leading-relaxed prose-li:text-muted-foreground prose-strong:text-foreground prose-a:text-foreground prose-a:underline prose-a:underline-offset-4">
             {post.content.split("\n").map((line, i) => {
@@ -211,6 +236,25 @@ export default async function BlogPostPage({
               );
             })}
           </div>
+
+          {explicitProduct ? (
+            <section className="mt-12 border border-border p-8">
+              <h2 className="font-serif text-2xl font-light mb-4">
+                Featured Perfume For This Guide
+              </h2>
+              <Link
+                href={`/product/${explicitProduct.id}`}
+                className="group border border-border p-4 hover:border-foreground transition-luxury inline-block"
+              >
+                <p className="text-xs text-muted-foreground uppercase tracking-[0.12em]">
+                  Inspired by {explicitProduct.inspirationBrand} {explicitProduct.inspiration}
+                </p>
+                <p className="font-serif text-lg mt-1 group-hover:opacity-70 transition-opacity">
+                  {explicitProduct.name}
+                </p>
+              </Link>
+            </section>
+          ) : null}
 
           {relatedProducts.length > 0 ? (
             <section className="mt-16 border border-border p-8">

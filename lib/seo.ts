@@ -5,12 +5,14 @@ export const getOrganizationSchema = () => ({
   url: "https://humeperfumes.com",
   logo: "https://humeperfumes.com/logo.png",
   description:
-    "HUME Perfumes crafts premium inspired fragrances, offering affordable luxury alternatives to iconic designer scents from Dior, Chanel, Tom Ford, Creed, YSL, and more.",
+    "HUME Perfumes crafts premium fragrance interpretations, offering refined luxury scents inspired by iconic olfactory profiles.",
   sameAs: [],
   contactPoint: {
     "@type": "ContactPoint",
     contactType: "customer service",
     availableLanguage: "English",
+    telephone: "+91 95590 24822",
+    areaServed: "IN",
   },
 });
 
@@ -49,11 +51,11 @@ export const getProductSchema = (product: {
   return {
     "@context": "https://schema.org",
     "@type": "Product",
-    name: `${product.name} — ${product.inspirationBrand} ${product.inspiration} Inspired Perfume`,
+    name: `${product.name} - Luxury Fragrance`,
     description: product.seoDescription,
     image: product.images[0],
     brand: { "@type": "Brand", name: "HUME Perfumes" },
-    category: `Inspired Perfumes > ${product.category}`,
+    category: `Fragrances > ${product.category}`,
     url: `https://humeperfumes.com/product/${product.id}`,
     offers: {
       "@type": "Offer",
@@ -98,9 +100,9 @@ export const getCollectionPageSchema = (
 ) => ({
   "@context": "https://schema.org",
   "@type": "CollectionPage",
-  name: "Shop All Inspired Perfumes — HUME Perfumes",
+  name: "Shop All Fragrances - HUME Perfumes",
   description:
-    "Browse our complete collection of premium inspired fragrances. Affordable alternatives to Dior, Chanel, Tom Ford, Creed, YSL, Gucci and more iconic designer scents.",
+    "Browse our complete collection of premium fragrance interpretations and modern luxury scents.",
   url: "https://humeperfumes.com/shop",
   mainEntity: {
     "@type": "ItemList",
@@ -109,7 +111,7 @@ export const getCollectionPageSchema = (
       "@type": "ListItem",
       position: i + 1,
       url: `https://humeperfumes.com/product/${p.id}`,
-      name: `${p.name} — Inspired by ${p.inspiration}`,
+      name: `${p.name} - Luxury Fragrance`,
     })),
   },
 });
@@ -123,7 +125,7 @@ export const getFAQSchema = () => ({
       name: "What are inspired perfumes?",
       acceptedAnswer: {
         "@type": "Answer",
-        text: "Inspired perfumes are fragrances crafted to capture the essence and character of iconic designer scents. HUME Perfumes uses premium ingredients to create affordable alternatives to luxury brands like Dior, Chanel, Tom Ford, and Creed.",
+        text: "Inspired perfumes are fragrances crafted to capture the essence and character of iconic luxury scents. HUME Perfumes uses premium ingredients to create refined alternatives with a modern, elevated profile.",
       },
     },
     {
@@ -139,7 +141,7 @@ export const getFAQSchema = () => ({
       name: "Are HUME perfumes the same as designer originals?",
       acceptedAnswer: {
         "@type": "Answer",
-        text: "HUME perfumes are inspired by iconic designer fragrances and crafted to capture their essence. While they share similar scent profiles, they are unique formulations by HUME at a fraction of the designer price.",
+        text: "HUME perfumes are inspired by iconic fragrance profiles and crafted to capture their essence. While they share similar scent profiles, they are unique formulations by HUME with a modern, elevated character.", 
       },
     },
     {
@@ -147,7 +149,7 @@ export const getFAQSchema = () => ({
       name: "Which brands does HUME have inspired alternatives for?",
       acceptedAnswer: {
         "@type": "Answer",
-        text: "HUME offers inspired alternatives for Dior (Sauvage, Homme Intense), Chanel (Bleu de Chanel, Allure Homme Sport), Tom Ford (Oud Wood, Tobacco Vanille), Creed (Aventus), YSL (Myself, Y EDP), Gucci (Guilty), and more.",
+        text: "HUME offers inspired alternatives across a curated range of luxury scent profiles, with new interpretations added regularly.", 
       },
     },
   ],
@@ -168,7 +170,7 @@ export const getProductFAQSchema = (product: {
       name: `What does ${product.name} smell like?`,
       acceptedAnswer: {
         "@type": "Answer",
-        text: `${product.name} is inspired by ${product.inspirationBrand} ${product.inspiration} and is designed to deliver a similar scent profile with premium performance.`,
+        text: `${product.name} is crafted as a luxury interpretation with a refined scent profile and premium performance.`,
       },
     },
     {
@@ -184,7 +186,7 @@ export const getProductFAQSchema = (product: {
       name: `Who is ${product.name} best for?`,
       acceptedAnswer: {
         "@type": "Answer",
-        text: `${product.name} is positioned for ${product.gender} wearers and suitable for customers looking for high-quality inspired fragrances.`,
+        text: `${product.name} is positioned for ${product.gender} wearers and suitable for customers looking for premium fragrances.`,
       },
     },
   ],
@@ -215,3 +217,9 @@ export const getProductReviewSchema = (product: {
     },
   })),
 });
+
+
+
+
+
+

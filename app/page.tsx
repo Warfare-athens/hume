@@ -1,12 +1,20 @@
 import Header from "@/components/Header";
 import Hero from "@/components/Hero";
 import Collection from "@/components/Collection";
-import Craft from "@/components/Craft";
-import About from "@/components/About";
-import LatestJournal from "@/components/LatestJournal";
 import Footer from "@/components/Footer";
+import dynamic from "next/dynamic";
 import { JsonLd } from "@/components/JsonLd";
 import { getOrganizationSchema, getWebSiteSchema, getFAQSchema } from "@/lib/seo";
+
+const Craft = dynamic(() => import("@/components/Craft"), {
+  loading: () => <div className="py-24 md:py-32" />,
+});
+const LatestJournal = dynamic(() => import("@/components/LatestJournal"), {
+  loading: () => <div className="py-24 md:py-32" />,
+});
+const About = dynamic(() => import("@/components/About"), {
+  loading: () => <div className="py-24 md:py-32" />,
+});
 
 export default function Home() {
   const jsonLd = [

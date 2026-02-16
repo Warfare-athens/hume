@@ -45,8 +45,8 @@ const Footer = () => {
             <h4 className="text-caption mb-6">Contact</h4>
             <div className="space-y-3 text-body opacity-70">
               <p>hello@humeperfumes.com</p>
-              <p>+44 20 7123 4567</p>
-              <p>London, United Kingdom</p>
+              <p>WhatsApp: +91 95590 24822</p>
+              <p>Mumbai, Maharashtra, India</p>
             </div>
           </div>
         </div>

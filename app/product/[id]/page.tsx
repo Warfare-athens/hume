@@ -3,6 +3,7 @@ import { getProductById } from "@/lib/db/products";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import { JsonLd } from "@/components/JsonLd";
+import Seo from "@/components/Seo";
 import {
   getProductSchema,
   getBreadcrumbSchema,
@@ -54,6 +55,12 @@ export default async function ProductPage({
 
   return (
     <main className="bg-background min-h-screen">
+      <Seo
+        title={`${perfume.name} — ${perfume.inspirationBrand} ${perfume.inspiration} Inspired Perfume`}
+        description={perfume.seoDescription}
+        image={perfume.images?.[0]}
+        url={`https://humeperfumes.com/product/${perfume.id}`}
+      />
       <JsonLd data={productJsonLd} />
       <Header />
       <ProductDetailView perfume={perfume} />
