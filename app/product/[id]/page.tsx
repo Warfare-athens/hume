@@ -1,4 +1,4 @@
-import { notFound } from "next/navigation";
+﻿import { notFound } from "next/navigation";
 import { getProductById } from "@/lib/db/products";
 import { getRelatedBlogPostsByProductId } from "@/lib/db/blog";
 import Header from "@/components/Header";
@@ -26,7 +26,7 @@ export async function generateMetadata({
   if (!perfume)
     return { title: "Product Not Found" };
   return {
-    title: `${perfume.name} — ${perfume.inspirationBrand} ${perfume.inspiration} Inspired Perfume`,
+    title: `${perfume.name} â€” ${perfume.inspirationBrand} ${perfume.inspiration} Inspired Perfume`,
     description: perfume.seoDescription,
   };
 }
@@ -51,19 +51,19 @@ export default async function ProductPage({
     getProductFAQSchema(perfume),
     getProductReviewSchema(perfume),
     getBreadcrumbSchema([
-      { name: "Home", url: "https://humeperfumes.com" },
-      { name: "Shop", url: "https://humeperfumes.com/shop" },
-      { name: perfume.name, url: `https://humeperfumes.com/product/${perfume.id}` },
+      { name: "Home", url: "https://humefragrance.com" },
+      { name: "Shop", url: "https://humefragrance.com/shop" },
+      { name: perfume.name },
     ]),
   ];
 
   return (
     <main className="bg-background min-h-screen">
       <Seo
-        title={`${perfume.name} — ${perfume.inspirationBrand} ${perfume.inspiration} Inspired Perfume`}
+        title={`${perfume.name} â€” ${perfume.inspirationBrand} ${perfume.inspiration} Inspired Perfume`}
         description={perfume.seoDescription}
         image={perfume.images?.[0]}
-        url={`https://humeperfumes.com/product/${perfume.id}`}
+        url={`https://humefragrance.com/product/${perfume.id}`}
       />
       <JsonLd data={productJsonLd} />
       <Header />
@@ -72,3 +72,4 @@ export default async function ProductPage({
     </main>
   );
 }
+

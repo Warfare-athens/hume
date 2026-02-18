@@ -20,12 +20,18 @@ const cormorant = Cormorant_Garamond({
 });
 
 export const metadata: Metadata = {
+  metadataBase: new URL("https://humefragrance.com"),
   title: {
     default: "HUME Fragrance | Premium Inspired Perfumes in India | Shop Now",
     template: "%s | HUME Perfumes",
   },
   description:
-    "Discover HUME Perfumes - premium fragrance interpretations crafted to celebrate iconic scent profiles with refined quality and modern luxury. Free shipping over INR 75.",
+    "HUME Fragrance | Premium inspired perfumes for men & women in India. 8-10hr longevity. Fresh, leather, smoky, marine & floral. Free shipping. Shop now.",
+  icons: {
+    icon: "/logo.png",
+    shortcut: "/logo.png",
+    apple: "/logo.png",
+  },
   keywords: [
     "luxury fragrances",
     "modern perfume house",
@@ -35,8 +41,24 @@ export const metadata: Metadata = {
   ],
   openGraph: {
     type: "website",
-    locale: "en_GB",
-    siteName: "HUME Perfumes",
+    locale: "en_IN",
+    siteName: "HUME Fragrance",
+    url: "https://humefragrance.com",
+    images: [
+      {
+        url: "/logo.png",
+        width: 1024,
+        height: 1024,
+        alt: "HUME Fragrance",
+      },
+    ],
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "HUME Fragrance",
+    description:
+      "Premium inspired perfumes for men & women in India with refined quality and modern luxury.",
+    images: ["/logo.png"],
   },
 };
 

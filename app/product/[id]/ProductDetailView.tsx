@@ -22,6 +22,7 @@ import ProductDetailClient from "./ProductDetailClient";
 import type { PerfumeData } from "@/data/perfumes";
 import type { BlogPost } from "@/data/blogPosts";
 import { formatINR } from "@/lib/currency";
+import { getProductFaqItems } from "@/lib/seo";
 
 export default function ProductDetailView({
   perfume,
@@ -92,6 +93,7 @@ export default function ProductDetailView({
         : "Perfect for moments when you want to leave a refined trail.",
       `Pairs beautifully with crisp shirts, tailored layers, or minimal evening looks.`,
     ];
+  const faqItems = getProductFaqItems(perfume);
 
   const renderNoteGroup = (title: string, notes: string[]) => (
     <div className="px-1 sm:px-0">
@@ -343,6 +345,20 @@ export default function ProductDetailView({
                     <MessageCircle size={15} />
                     <span>Queries on WhatsApp: +91 95590 24822</span>
                   </a>
+                </div>
+              </div>
+
+              <div className="border-t border-border pt-8 mt-10">
+                <p className="text-caption text-muted-foreground mb-4">FAQs</p>
+                <div className="space-y-3">
+                  {faqItems.map((faq) => (
+                    <details key={faq.question} className="border border-border/70 bg-background/80 p-4 sm:p-5">
+                      <summary className="cursor-pointer list-none font-medium text-sm sm:text-base">
+                        {faq.question}
+                      </summary>
+                      <p className="mt-3 text-body text-muted-foreground">{faq.answer}</p>
+                    </details>
+                  ))}
                 </div>
               </div>
             </motion.div>

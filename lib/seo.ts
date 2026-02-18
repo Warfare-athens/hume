@@ -1,32 +1,34 @@
+const SITE_URL = "https://humefragrance.com";
+
 export const getOrganizationSchema = () => ({
   "@context": "https://schema.org",
   "@type": "Organization",
-  name: "HUME Perfumes",
-  url: "https://humeperfumes.com",
-  logo: "https://humeperfumes.com/logo.png",
+  name: "HUME Fragrance",
+  url: SITE_URL,
+  logo: `${SITE_URL}/logo.png`,
   description:
-    "HUME Perfumes crafts premium fragrance interpretations, offering refined luxury scents inspired by iconic olfactory profiles.",
-  sameAs: [],
+    "Premium inspired perfumes crafted to celebrate iconic scent profiles with refined quality and modern luxury.",
+  sameAs: ["https://instagram.com/humefragrance", "https://wa.me/919559024822"],
   contactPoint: {
     "@type": "ContactPoint",
     contactType: "customer service",
-    availableLanguage: "English",
-    telephone: "+91 95590 24822",
+    availableLanguage: "en",
+    telephone: "+91-9559024822",
     areaServed: "IN",
+  },
+  address: {
+    "@type": "PostalAddress",
+    addressCountry: "IN",
   },
 });
 
 export const getWebSiteSchema = () => ({
   "@context": "https://schema.org",
   "@type": "WebSite",
-  name: "HUME Perfumes",
-  url: "https://humeperfumes.com",
+  url: SITE_URL,
   potentialAction: {
     "@type": "SearchAction",
-    target: {
-      "@type": "EntryPoint",
-      urlTemplate: "https://humeperfumes.com/shop?search={search_term_string}",
-    },
+    target: `${SITE_URL}/search?q={search_term_string}`,
     "query-input": "required name=search_term_string",
   },
 });
@@ -51,18 +53,19 @@ export const getProductSchema = (product: {
   return {
     "@context": "https://schema.org",
     "@type": "Product",
-    name: `${product.name} - Luxury Fragrance`,
-    description: product.seoDescription,
+    name: product.name,
+    description: product.description || product.seoDescription,
     image: product.images[0],
-    brand: { "@type": "Brand", name: "HUME Perfumes" },
+    brand: { "@type": "Brand", name: "HUME Fragrance" },
     category: `Fragrances > ${product.category}`,
-    url: `https://humeperfumes.com/product/${product.id}`,
+    url: `${SITE_URL}/product/${product.id}`,
     offers: {
       "@type": "Offer",
       price: product.price.toFixed(2),
       priceCurrency: "INR",
       availability: "https://schema.org/InStock",
-      seller: { "@type": "Organization", name: "HUME Perfumes" },
+      url: `${SITE_URL}/product/${product.id}`,
+      seller: { "@type": "Organization", name: "HUME Fragrance" },
     },
     aggregateRating:
       product.reviews.length > 0
@@ -84,15 +87,25 @@ export const getProductSchema = (product: {
   };
 };
 
-export const getBreadcrumbSchema = (items: { name: string; url: string }[]) => ({
+export const getBreadcrumbSchema = (items: { name: string; url?: string }[]) => ({
   "@context": "https://schema.org",
   "@type": "BreadcrumbList",
-  itemListElement: items.map((item, i) => ({
-    "@type": "ListItem",
-    position: i + 1,
-    name: item.name,
-    item: item.url,
-  })),
+  itemListElement: items.map((item, i) => {
+    const node: {
+      "@type": "ListItem";
+      position: number;
+      name: string;
+      item?: string;
+    } = {
+      "@type": "ListItem",
+      position: i + 1,
+      name: item.name,
+    };
+    if (item.url) {
+      node.item = item.url;
+    }
+    return node;
+  }),
 });
 
 export const getCollectionPageSchema = (
@@ -100,17 +113,17 @@ export const getCollectionPageSchema = (
 ) => ({
   "@context": "https://schema.org",
   "@type": "CollectionPage",
-  name: "Shop All Fragrances - HUME Perfumes",
+  name: "Shop All Fragrances - HUME Fragrance",
   description:
     "Browse our complete collection of premium fragrance interpretations and modern luxury scents.",
-  url: "https://humeperfumes.com/shop",
+  url: `${SITE_URL}/shop`,
   mainEntity: {
     "@type": "ItemList",
     numberOfItems: products.length,
     itemListElement: products.map((p, i) => ({
       "@type": "ListItem",
       position: i + 1,
-      url: `https://humeperfumes.com/product/${p.id}`,
+      url: `${SITE_URL}/product/${p.id}`,
       name: `${p.name} - Luxury Fragrance`,
     })),
   },
@@ -155,41 +168,64 @@ export const getFAQSchema = () => ({
   ],
 });
 
-export const getProductFAQSchema = (product: {
+type ProductFaqInput = {
   name: string;
-  inspiration: string;
-  inspirationBrand: string;
+  size: string;
+  notes: {
+    top: string[];
+    heart: string[];
+    base: string[];
+  };
   longevity: { duration: string };
-  gender: string;
-}) => ({
+};
+
+export const getProductFaqItems = (product: ProductFaqInput) => {
+  const isAquaMarine = product.name.toLowerCase().includes("aqua marine");
+  const top1 = product.notes.top[0] ?? "citrus";
+  const top2 = product.notes.top[1] ?? "fresh accords";
+  const heart1 = product.notes.heart[0] ?? "aromatic notes";
+  const base1 = product.notes.base[0] ?? "musk";
+  const base2 = product.notes.base[1] ?? "amberwood";
+
+  return [
+    {
+      question: `How long does HUME ${product.name} last?`,
+      answer: `${product.longevity.duration} with moderate projection. EDP concentration ensures longevity even in Indian heat and humidity.`,
+    },
+    {
+      question: `What does ${product.name} smell like?`,
+      answer: isAquaMarine
+        ? "Fresh marine opening with bergamot and sea salt, aromatic lavender heart, settling into warm musk and mineral base."
+        : `Fresh opening with ${top1.toLowerCase()} and ${top2.toLowerCase()}, aromatic ${heart1.toLowerCase()} heart, settling into ${base1.toLowerCase()} and ${base2.toLowerCase()} base.`,
+    },
+    {
+      question: "Is this suitable for office wear?",
+      answer:
+        "Yes, it's fresh and professional without being overwhelming. Perfect for daily office use.",
+    },
+    {
+      question: "What's the bottle size?",
+      answer: `${product.size.toUpperCase()} EDP (Eau de Parfum)`,
+    },
+    {
+      question: "Do you ship across India?",
+      answer:
+        "Yes, free shipping on all orders. Dispatched within 24 hours.",
+    },
+  ];
+};
+
+export const getProductFAQSchema = (product: ProductFaqInput) => ({
   "@context": "https://schema.org",
   "@type": "FAQPage",
-  mainEntity: [
-    {
-      "@type": "Question",
-      name: `What does ${product.name} smell like?`,
-      acceptedAnswer: {
-        "@type": "Answer",
-        text: `${product.name} is crafted as a luxury interpretation with a refined scent profile and premium performance.`,
-      },
+  mainEntity: getProductFaqItems(product).map((item) => ({
+    "@type": "Question",
+    name: item.question,
+    acceptedAnswer: {
+      "@type": "Answer",
+      text: item.answer,
     },
-    {
-      "@type": "Question",
-      name: `How long does ${product.name} last?`,
-      acceptedAnswer: {
-        "@type": "Answer",
-        text: `${product.name} typically lasts around ${product.longevity.duration}, depending on skin type and application.`,
-      },
-    },
-    {
-      "@type": "Question",
-      name: `Who is ${product.name} best for?`,
-      acceptedAnswer: {
-        "@type": "Answer",
-        text: `${product.name} is positioned for ${product.gender} wearers and suitable for customers looking for premium fragrances.`,
-      },
-    },
-  ],
+  })),
 });
 
 export const getProductReviewSchema = (product: {
@@ -208,7 +244,7 @@ export const getProductReviewSchema = (product: {
       itemReviewed: {
         "@type": "Product",
         name: product.name,
-        url: `https://humeperfumes.com/product/${product.id}`,
+        url: `${SITE_URL}/product/${product.id}`,
       },
       author: { "@type": "Person", name: review.author },
       datePublished: review.date,
