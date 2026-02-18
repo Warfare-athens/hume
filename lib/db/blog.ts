@@ -1,5 +1,5 @@
 import { db } from "@/db";
-import { blogPosts } from "@/db/schema";
+import { blogPosts, products } from "@/db/schema";
 import { eq, desc } from "drizzle-orm";
 import { blogPosts as localBlogPosts, type BlogPost } from "@/data/blogPosts";
 
@@ -92,5 +92,47 @@ export async function getFeaturedBlogPosts(): Promise<BlogPost[]> {
   } catch (error) {
     console.error("Error loading featured blog posts from DB, using local fallback:", error);
     return localBlogPosts.filter((post) => post.featured);
+  }
+}
+
+// Get related blog posts by product ID
+export async function getRelatedBlogPostsByProductId(
+  productId: string,
+  limit = 3
+): Promise<BlogPost[]> {
+  try {
+    const directPosts = await db
+      .select()
+      .from(blogPosts)
+      .where(eq(blogPosts.relatedProductId, productId))
+      .orderBy(desc(blogPosts.createdAt))
+      .limit(limit);
+
+    if (directPosts.length > 0) {
+      return directPosts.map(transformBlogPost);
+    }
+
+    const [product] = await db
+      .select({ primaryBlogSlug: products.primaryBlogSlug })
+      .from(products)
+      .where(eq(products.id, productId))
+      .limit(1);
+
+    if (!product?.primaryBlogSlug) {
+      return [];
+    }
+
+    const slugPosts = await db
+      .select()
+      .from(blogPosts)
+      .where(eq(blogPosts.slug, product.primaryBlogSlug))
+      .limit(limit);
+
+    return slugPosts.map(transformBlogPost);
+  } catch (error) {
+    console.error(`Error loading related blogs for ${productId}, using local fallback:`, error);
+    return localBlogPosts
+      .filter((post) => post.relatedProductId === productId)
+      .slice(0, limit);
   }
 }

@@ -1,5 +1,6 @@
 import { notFound } from "next/navigation";
 import { getProductById } from "@/lib/db/products";
+import { getRelatedBlogPostsByProductId } from "@/lib/db/blog";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import { JsonLd } from "@/components/JsonLd";
@@ -36,7 +37,10 @@ export default async function ProductPage({
   params: Promise<{ id: string }>;
 }) {
   const { id } = await params;
-  const perfume = await getProductById(id);
+  const [perfume, relatedBlogs] = await Promise.all([
+    getProductById(id),
+    getRelatedBlogPostsByProductId(id, 3),
+  ]);
 
   if (!perfume) {
     notFound();
@@ -63,7 +67,7 @@ export default async function ProductPage({
       />
       <JsonLd data={productJsonLd} />
       <Header />
-      <ProductDetailView perfume={perfume} />
+      <ProductDetailView perfume={perfume} relatedBlogs={relatedBlogs} />
       <Footer />
     </main>
   );

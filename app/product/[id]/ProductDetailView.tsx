@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 
 import { motion } from "framer-motion";
 import { useEffect, useMemo, useState } from "react";
@@ -20,9 +20,16 @@ import ProductImageGallery from "@/components/ProductImageGallery";
 import ProductReviews from "@/components/ProductReviews";
 import ProductDetailClient from "./ProductDetailClient";
 import type { PerfumeData } from "@/data/perfumes";
+import type { BlogPost } from "@/data/blogPosts";
 import { formatINR } from "@/lib/currency";
 
-export default function ProductDetailView({ perfume }: { perfume: PerfumeData }) {
+export default function ProductDetailView({
+  perfume,
+  relatedBlogs = [],
+}: {
+  perfume: PerfumeData;
+  relatedBlogs?: BlogPost[];
+}) {
   const averageRating = getAverageRating(perfume.reviews);
   const [noteImages, setNoteImages] = useState<{
     id: string;
@@ -168,7 +175,7 @@ export default function ProductDetailView({ perfume }: { perfume: PerfumeData })
 
               <div className="text-center">
               <p className="text-[10px] uppercase tracking-[0.26em] text-muted-foreground mb-2">
-                HUME — {perfume.size.toUpperCase()}
+                HUME â€” {perfume.size.toUpperCase()}
               </p>
               <h1 className="font-serif text-[2.75rem] md:text-5xl lg:text-6xl font-light italic tracking-tight mb-2">
                 {perfume.name}
@@ -344,6 +351,25 @@ export default function ProductDetailView({ perfume }: { perfume: PerfumeData })
       </section>
 
       <ProductReviews reviews={perfume.reviews} productName={perfume.name} />
+      {relatedBlogs.length > 0 && (
+        <section className="pb-16 md:pb-24">
+          <div className="container-luxury">
+            <div className="max-w-4xl border-t border-border pt-8">
+              <article className="border border-border/60 bg-background/80 p-5 sm:p-6">
+                <p className="text-[10px] uppercase tracking-[0.2em] text-muted-foreground mb-3">
+                  {relatedBlogs[0].readTime} • {relatedBlogs[0].date}
+                </p>
+                <h3 className="font-serif text-2xl sm:text-3xl mb-4">{relatedBlogs[0].title}</h3>
+                <p className="text-body text-muted-foreground mb-4">{relatedBlogs[0].excerpt}</p>
+                <div className="text-body text-muted-foreground whitespace-pre-line leading-relaxed">
+                  {relatedBlogs[0].content}
+                </div>
+              </article>
+            </div>
+          </div>
+        </section>
+      )}
     </>
   );
 }
+

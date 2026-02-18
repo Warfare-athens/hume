@@ -34,6 +34,7 @@ export const products = pgTable("products", {
     occasion: string[];
   }>().notNull(),
   size: varchar("size", { length: 50 }).notNull(),
+  primaryBlogSlug: varchar("primary_blog_slug", { length: 255 }),
   createdAt: timestamp("created_at").defaultNow().notNull(),
   updatedAt: timestamp("updated_at").defaultNow().notNull(),
 });
