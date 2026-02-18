@@ -5,7 +5,7 @@ export const getOrganizationSchema = () => ({
   "@type": "Organization",
   name: "HUME Fragrance",
   url: SITE_URL,
-  logo: `${SITE_URL}/logo.png`,
+  logo: `${SITE_URL}/images/logo.png`,
   description:
     "Premium inspired perfumes crafted to celebrate iconic scent profiles with refined quality and modern luxury.",
   sameAs: ["https://instagram.com/humefragrance", "https://wa.me/919559024822"],

@@ -28,9 +28,9 @@ export const metadata: Metadata = {
   description:
     "HUME Fragrance | Premium inspired perfumes for men & women in India. 8-10hr longevity. Fresh, leather, smoky, marine & floral. Free shipping. Shop now.",
   icons: {
-    icon: "/logo.png",
-    shortcut: "/logo.png",
-    apple: "/logo.png",
+    icon: "/images/logo.png?v=2",
+    shortcut: "/images/logo.png?v=2",
+    apple: "/images/logo.png?v=2",
   },
   keywords: [
     "luxury fragrances",
@@ -46,7 +46,7 @@ export const metadata: Metadata = {
     url: "https://humefragrance.com",
     images: [
       {
-        url: "/logo.png",
+        url: "/images/logo.png?v=2",
         width: 1024,
         height: 1024,
         alt: "HUME Fragrance",
@@ -58,7 +58,7 @@ export const metadata: Metadata = {
     title: "HUME Fragrance",
     description:
       "Premium inspired perfumes for men & women in India with refined quality and modern luxury.",
-    images: ["/logo.png"],
+    images: ["/images/logo.png?v=2"],
   },
 };
 
@@ -72,6 +72,9 @@ export default function RootLayout({
       <head>
         <link rel="preconnect" href="https://res.cloudinary.com" />
         <link rel="dns-prefetch" href="https://res.cloudinary.com" />
+        <link rel="icon" href="/images/logo.png?v=2" type="image/png" />
+        <link rel="shortcut icon" href="/images/logo.png?v=2" type="image/png" />
+        <link rel="apple-touch-icon" href="/images/logo.png?v=2" />
       </head>
       <body className={`${inter.variable} ${cormorant.variable} antialiased`}>
         <Providers>
