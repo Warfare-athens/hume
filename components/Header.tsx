@@ -267,7 +267,7 @@ const Header = () => {
                         />
                         <p className="mt-2 text-[14px] text-gray-700 leading-none">{celeb.label}</p>
                         <p className="mt-1 text-[5px] uppercase tracking-[0.14em] text-muted-foreground">
-                          {celeb.subtitle}
+                          {celeb.description}
                         </p>
                       </button>
                     ))}
