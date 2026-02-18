@@ -204,12 +204,12 @@ export default function ShopContent({ perfumes }: { perfumes: PerfumeData[] }) {
             </div>
           </aside>
 
-          <div className="lg:hidden fixed bottom-6 right-6 z-40">
+          <div className="lg:hidden fixed bottom-6 left-1/2 -translate-x-1/2 z-40">
             <button
               onClick={() => setMobileFiltersOpen(true)}
-              className="flex items-center gap-2 px-5 py-3 bg-primary text-primary-foreground text-caption shadow-lg"
+              className="inline-flex items-center gap-3 rounded-full bg-foreground px-7 py-4 text-[11px] uppercase tracking-[0.32em] text-background shadow-[0_10px_28px_rgba(0,0,0,0.28)]"
             >
-              <SlidersHorizontal size={16} />
+              <SlidersHorizontal size={15} />
               Filters
             </button>
           </div>
@@ -283,21 +283,22 @@ export default function ShopContent({ perfumes }: { perfumes: PerfumeData[] }) {
             {filteredPerfumes.length > 0 ? (
               <motion.div
                 layout
-                className="grid grid-cols-2 md:grid-cols-3 xl:grid-cols-4 gap-6 md:gap-8"
+                className="grid grid-cols-2 md:grid-cols-3 xl:grid-cols-4 gap-6 md:gap-8 items-start"
               >
                 {filteredPerfumes.map((perfume, index) => (
-                  <PerfumeCard
-                    key={perfume.id}
-                    id={perfume.id}
-                    name={perfume.name}
-                    inspiration={perfume.inspiration}
-                    category={perfume.category}
-                    image={perfume.images[0]}
-                    price={perfume.price}
-                    index={index}
-                    bestSeller={perfume.badges?.bestSeller}
-                    limitedStock={perfume.badges?.limitedStock}
-                  />
+                  <div key={perfume.id} className={index % 2 === 1 ? "mt-24 md:mt-0" : ""}>
+                    <PerfumeCard
+                      id={perfume.id}
+                      name={perfume.name}
+                      inspiration={perfume.inspiration}
+                      category={perfume.category}
+                      image={perfume.images[0]}
+                      price={perfume.price}
+                      index={index}
+                      bestSeller={perfume.badges?.bestSeller}
+                      limitedStock={perfume.badges?.limitedStock}
+                    />
+                  </div>
                 ))}
               </motion.div>
             ) : (

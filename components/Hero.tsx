@@ -10,12 +10,18 @@ const fallbackSlides = [
   { url: "/images/collection-hero.jpg", label: "HUME collection", link: "/shop" },
   { url: "/images/hero-perfume.jpg", label: "HUME offers", link: "/shop" },
 ];
+const rotatingOffers = [
+  "Buy 3. Get 1 Complimentary",
+  "10% Off on 2 Perfumes",
+  "30% Off on 3 Perfumes",
+];
 
 const Hero = () => {
   const [api, setApi] = useState<CarouselApi | null>(null);
   const [selectedIndex, setSelectedIndex] = useState(0);
   const [slideCount, setSlideCount] = useState(fallbackSlides.length);
   const [slides, setSlides] = useState(fallbackSlides);
+  const [offerIndex, setOfferIndex] = useState(0);
 
   useEffect(() => {
     if (!api) {
@@ -72,6 +78,13 @@ const Hero = () => {
     };
   }, []);
 
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setOfferIndex((current) => (current + 1) % rotatingOffers.length);
+    }, 2600);
+    return () => clearInterval(interval);
+  }, []);
+
   return (
     <section className="min-h-screen flex items-center pt-24">
       <div className="container-luxury w-full">
@@ -80,31 +93,46 @@ const Hero = () => {
             initial={{ opacity: 0, y: 40 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8, delay: 0.2 }}
-            className="order-2 lg:order-1"
+            className="order-2 lg:order-1 text-center"
           >
-            <p className="text-caption text-muted-foreground mb-6">
+            <p className="text-caption text-muted-foreground/80 mb-4 tracking-[0.28em] uppercase">
               The Art of Impression
             </p>
-            <h1 className="text-display mb-8">
+            <h1 className="font-serif text-[3.2rem] leading-[0.95] md:text-[5.1rem] md:leading-[0.92] mb-8">
               Luxury
               <br />
-              <span className="italic">Reimagined</span>
+              <span className="italic font-light">Reimagined</span>
             </h1>
-            <div className="divider-elegant mb-8" />
-            <p className="hidden md:block text-body text-muted-foreground max-w-md mb-10">
-              Experience the world&apos;s most celebrated fragrance profiles,
-              meticulously reimagined. HUME creates refined luxury interpretations
-              that honour iconic scent DNA while remaining accessible.
+            <p className="hidden md:block mt-7 text-body text-muted-foreground max-w-lg mx-auto">
+              Experience iconic fragrance profiles, meticulously reimagined.
+              HUME crafts refined luxury interpretations designed for everyday wear.
             </p>
-            <div className="flex flex-wrap items-center gap-5">
+
+            <div className="mx-auto max-w-lg border border-border/70 bg-background/90 px-6 py-6 shadow-[0_10px_24px_rgba(0,0,0,0.08)]">
+              <p className="text-[11px] uppercase tracking-[0.3em] text-muted-foreground mb-3">
+                Limited Edition
+              </p>
+              <div className="mb-5 min-h-[3.9rem] md:min-h-[4.5rem]">
+                <motion.p
+                  key={offerIndex}
+                  initial={{ opacity: 0, y: 10 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  exit={{ opacity: 0, y: -10 }}
+                  transition={{ duration: 0.45, ease: "easeOut" }}
+                  className="font-serif italic text-[1.85rem] leading-tight md:text-[2.25rem]"
+                >
+                  {rotatingOffers[offerIndex]}
+                </motion.p>
+              </div>
               <Link
                 href="/shop"
-                className="inline-flex items-center justify-center px-8 py-3.5 bg-primary text-primary-foreground text-caption tracking-widest hover:bg-primary/90 transition-colors"
+                className="inline-flex w-full items-center justify-center bg-foreground px-8 py-3.5 text-[11px] uppercase tracking-[0.28em] text-background hover:opacity-90 transition-opacity"
               >
-                Shop All Perfumes
+                Shop The Collection
               </Link>
-
             </div>
+
+            
           </motion.div>
 
           <motion.div

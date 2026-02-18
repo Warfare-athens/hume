@@ -2,13 +2,13 @@
 
 import { useEffect, useMemo, useState } from "react";
 import { motion } from "framer-motion";
+import { FaPlus } from "react-icons/fa6";
 import { useCart } from "@/context/CartContext";
 import { toast } from "@/hooks/use-toast";
 import type { PerfumeData } from "@/data/perfumes";
 import {
   Dialog,
   DialogContent,
-  DialogDescription,
   DialogHeader,
   DialogTitle,
 } from "@/components/ui/dialog";
@@ -31,6 +31,7 @@ export default function ProductDetailClient({ perfume }: { perfume: PerfumeData 
     () => bottles.find((bottle) => bottle.id === selectedBottleId) ?? null,
     [bottles, selectedBottleId]
   );
+  const totalPrice = perfume.price + (selectedBottle?.price ?? 0);
 
   useEffect(() => {
     let active = true;
@@ -88,50 +89,57 @@ export default function ProductDetailClient({ perfume }: { perfume: PerfumeData 
   };
 
   return (
-    <div className="mb-12 space-y-4">
+    <div className="mb-3 space-y-4 pb-10 md:mb-12 md:space-y-5 md:pb-0">
       <motion.button
         onClick={handleAddToCart}
         whileHover={{ scale: 1.02 }}
         whileTap={{ scale: 0.98 }}
-        className="w-full py-4 bg-primary text-primary-foreground text-caption tracking-widest hover:bg-primary/90 transition-colors"
+        className="w-full py-4 bg-foreground text-background text-[11px] uppercase tracking-[0.28em] hover:opacity-90 transition-opacity"
       >
         Add to Bag
       </motion.button>
 
-      <motion.button
-        onClick={() => setIsBottleOpen(true)}
-        whileHover={{ scale: 1.02 }}
-        whileTap={{ scale: 0.98 }}
-        animate={{ backgroundPosition: ["0% 50%", "100% 50%", "0% 50%"] }}
-        transition={{ duration: 6, repeat: Infinity, ease: "linear" }}
-        style={{
-          backgroundImage:
-            "linear-gradient(120deg, #ff4d4f, #ffb347, #7f5cff, #2ad4ff, #ff4d4f)",
-          backgroundSize: "200% 200%",
-        }}
-        className="w-full py-4 text-caption tracking-[0.2em] text-white uppercase relative overflow-hidden shadow-[0_0_30px_rgba(255,120,200,0.35)]"
-      >
-        Choose Your Beautiful Bottle
-      </motion.button>
-
-      <div className="flex items-center gap-3 border border-border/60 bg-secondary/20 p-3">
-        {selectedBottle ? (
-          <>
-            <img
-              src={selectedBottle.imageUrl}
-              alt={selectedBottle.name}
-              className="w-16 h-20 object-cover bg-secondary"
-            />
-            <div>
-              <p className="text-xs uppercase tracking-[0.18em] text-muted-foreground">Selected Bottle</p>
-              <p className="font-serif text-base">{selectedBottle.name}</p>
-            </div>
-          </>
-        ) : (
-          <p className="text-xs uppercase tracking-[0.18em] text-muted-foreground">
-            No bottle selected yet
-          </p>
-        )}
+      <div className="space-y-3">
+        <p className="text-[10px] uppercase tracking-[0.24em] text-muted-foreground">
+          Personalize your bottle
+        </p>
+        <div className="grid grid-cols-4 gap-3">
+          {bottles.slice(0, 3).map((bottle) => {
+            const isActive = selectedBottleId === bottle.id;
+            return (
+              <button
+                key={bottle.id}
+                onClick={() => handleSelectBottle(bottle.id)}
+                className={`relative aspect-square overflow-hidden bg-secondary/30 p-1 border transition-colors ${
+                  isActive ? "border-foreground" : "border-border/60 hover:border-foreground/35"
+                }`}
+                aria-label={`Select ${bottle.name} bottle`}
+              >
+                <div className="h-full w-full overflow-hidden border border-border/30 bg-background">
+                  <img src={bottle.imageUrl} alt={bottle.name} className="h-full w-full object-cover" />
+                </div>
+              </button>
+            );
+          })}
+          <motion.button
+            type="button"
+            onClick={() => setIsBottleOpen(true)}
+            animate={{ backgroundPosition: ["0% 50%", "100% 50%", "0% 50%"] }}
+            transition={{ duration: 6, repeat: Infinity, ease: "linear" }}
+            style={{
+              backgroundImage:
+                "linear-gradient(135deg, #2bd177, #1ec4c9, #4f86ff, #7a5cff, #2bd177)",
+              backgroundSize: "260% 260%",
+            }}
+            className="inline-flex aspect-square items-center justify-center border border-transparent text-3xl leading-none text-white shadow-[0_8px_22px_rgba(39,112,255,0.28)] hover:opacity-95"
+            aria-label="Choose from more bottles"
+          >
+            <FaPlus className="h-5 w-5" />
+          </motion.button>
+        </div>
+        <div className="border border-border/60 px-3 py-3 text-center text-[10px] uppercase tracking-[0.24em] text-muted-foreground">
+          {selectedBottle ? `Selected: ${selectedBottle.name}` : "Default: Clear Glass Rose Gold"}
+        </div>
       </div>
 
       <Dialog open={isBottleOpen} onOpenChange={setIsBottleOpen}>
@@ -199,6 +207,21 @@ export default function ProductDetailClient({ perfume }: { perfume: PerfumeData 
           </div>
         </DialogContent>
       </Dialog>
+
+      <div className="fixed inset-x-0 bottom-0 z-40 border-t border-border bg-background/95 px-4 py-3 backdrop-blur-sm md:hidden">
+        <div className="mx-auto flex max-w-xl items-center justify-between gap-4">
+          <div>
+            <p className="text-[10px] uppercase tracking-[0.2em] text-muted-foreground">Price</p>
+            <p className="font-serif text-xl">{formatINR(totalPrice)}</p>
+          </div>
+          <button
+            onClick={handleAddToCart}
+            className="inline-flex min-w-[9rem] items-center justify-center bg-foreground px-6 py-3 text-[10px] uppercase tracking-[0.28em] text-background"
+          >
+            Add to Bag
+          </button>
+        </div>
+      </div>
     </div>
   );
 }

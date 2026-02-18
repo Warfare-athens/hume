@@ -4,9 +4,10 @@ import { useEffect, useState } from "react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { motion, AnimatePresence } from "framer-motion";
-import { Menu, X, ShoppingBag, Search, Sparkles, ExternalLink } from "lucide-react";
+import { Menu, X, Search, ExternalLink } from "lucide-react";
+import { HiOutlineShoppingBag } from "react-icons/hi2";
 import { useCart } from "@/context/CartContext";
-import ShopMegaMenu, { shopSections } from "./ShopMegaMenu";
+import ShopMegaMenu from "./ShopMegaMenu";
 import type { FilterType } from "./ShopMegaMenu";
 import SearchOverlay from "./SearchOverlay";
 import { celebrityFavorites } from "@/lib/celebrity-favorites";
@@ -41,6 +42,15 @@ const Header = () => {
       mounted = false;
     };
   }, []);
+
+  useEffect(() => {
+    if (!isMenuOpen) return;
+    const previous = document.body.style.overflow;
+    document.body.style.overflow = "hidden";
+    return () => {
+      document.body.style.overflow = previous;
+    };
+  }, [isMenuOpen]);
 
   const handleMobileFilterClick = (filterType: FilterType, value: string, href?: string) => {
     setIsMenuOpen(false);
@@ -98,7 +108,7 @@ const Header = () => {
               className="relative p-2 hover:bg-muted transition-colors"
               aria-label="Open cart"
             >
-              <ShoppingBag size={18} />
+              <HiOutlineShoppingBag size={18} />
               {totalItems > 0 && (
                 <span className="absolute -top-0.5 -right-0.5 w-4 h-4 bg-foreground text-background text-[10px] flex items-center justify-center">
                   {totalItems}
@@ -113,108 +123,158 @@ const Header = () => {
         {isMenuOpen && (
           <motion.div
             initial={{ opacity: 0, height: 0 }}
-            animate={{ opacity: 1, height: "auto" }}
+            animate={{ opacity: 1, height: "100dvh" }}
             exit={{ opacity: 0, height: 0 }}
-            transition={{ duration: 0.3 }}
-            className="md:hidden bg-background border-t border-border overflow-hidden"
+            transition={{ duration: 0.25 }}
+            className="fixed inset-0 z-[80] md:hidden"
           >
-            <nav className="container-luxury py-6">
-              <div className="pl-1 pb-2 space-y-5">
-                <p className="text-caption text-foreground">Shop</p>
+            <div className="h-full overflow-y-auto bg-background text-foreground">
+              <div className="flex items-center justify-between border-b border-border px-5 py-5">
+                <button
+                  onClick={() => setIsMenuOpen(false)}
+                  className="inline-flex h-9 w-9 items-center justify-center"
+                  aria-label="Close menu"
+                >
+                  <X size={22} />
+                </button>
+                <span className="font-serif text-4xl leading-none tracking-[0.28em]">HUME</span>
+                <div className="flex items-center gap-3">
+                  <button
+                    onClick={() => {
+                      setIsMenuOpen(false);
+                      setIsSearchOpen(true);
+                    }}
+                    className="inline-flex h-9 w-9 items-center justify-center"
+                    aria-label="Search"
+                  >
+                    <Search size={19} />
+                  </button>
+                  <button
+                    onClick={() => {
+                      setIsMenuOpen(false);
+                      setIsCartOpen(true);
+                    }}
+                    className="relative inline-flex h-9 w-9 items-center justify-center"
+                    aria-label="Open cart"
+                  >
+                    <HiOutlineShoppingBag size={19} />
+                    {totalItems > 0 && (
+                      <span className="absolute -top-0.5 -right-0.5 h-4 min-w-4 rounded-full bg-[#c7a65b] px-1 text-[10px] leading-4 text-black">
+                        {totalItems}
+                      </span>
+                    )}
+                  </button>
+                </div>
+              </div>
 
-                {shopSections.map((section) => (
-                  <div key={section.title}>
-                    {section.title === "Celebrities' Favorite" ? (
+              <div className="px-6 py-5 space-y-6">
+                <section>
+                  <p className="text-[10px] uppercase tracking-[0.34em] text-muted-foreground mb-2">
+                    Navigation
+                  </p>
+                  <button
+                    onClick={() => {
+                      setIsMenuOpen(false);
+                      router.push("/shop");
+                    }}
+                    className="inline-flex items-center gap-2.5 font-serif text-[2.05rem] italic leading-none"
+                  >
+                    <span className="underline underline-offset-4">The Collection</span>
+                    <span aria-hidden="true">→</span>
+                  </button>
+                </section>
+
+                <section>
+                  <div className="space-y-2.5">
+                    <button
+                      onClick={() => {
+                        setIsMenuOpen(false);
+                        router.push("/scent-quiz");
+                      }}
+                      className="w-full border border-foreground bg-foreground px-4 py-3 text-left text-background"
+                    >
+                      <div className="flex items-center justify-between">
+                        <p className="font-serif text-[1.4rem]">
+                          Scent Quiz <span className="text-[0.65em] italic opacity-80">(60s)</span>
+                        </p>
+                        <span className="text-[1.9rem] opacity-70">→</span>
+                      </div>
+                    </button>
+                    <button
+                      onClick={() => {
+                        setIsMenuOpen(false);
+                        router.push("/kit-pack");
+                      }}
+                      className="w-full border border-foreground/45 px-4 py-3 text-left"
+                    >
+                      <div className="flex items-center justify-between">
+                        <p className="font-serif text-[1.4rem]">
+                          Build Your Kit <span className="text-[0.65em] text-muted-foreground">Pack of 4</span>
+                        </p>
+                        <span className="text-[1.9rem] text-muted-foreground">→</span>
+                      </div>
+                    </button>
+                  </div>
+                </section>
+
+                <section>
+                  <p className="text-[11px] uppercase tracking-[0.38em] text-muted-foreground mb-5">
+                    By Occasion
+                  </p>
+                  <div className="grid grid-cols-3 gap-2">
+                    {["Gym", "Daily Wear", "Office", "Date Night", "Party", "Formal"].map((occasion) => (
                       <button
+                        key={occasion}
+                        onClick={() => handleMobileFilterClick("occasion", occasion)}
+                        className="inline-flex min-h-7 items-center justify-center border border-border px-2 text-center text-xs font-light tracking-tight hover:bg-muted/50"
+                      >
+                        {occasion}
+                      </button>
+                    ))}
+                  </div>
+                </section>
+
+                <section>
+                  <div className="mb-5 flex items-center justify-between">
+                    <p className="text-[11px] uppercase tracking-[0.38em] text-muted-foreground">
+                      Celebrities&apos; Favorite
+                    </p>
+                    <button
+                      onClick={() => {
+                        setIsMenuOpen(false);
+                        router.push("/celebrities-favorites");
+                      }}
+                      className="text-muted-foreground"
+                      aria-label="Open celebrities favorite"
+                    >
+                      <ExternalLink size={16} />
+                    </button>
+                  </div>
+                  <div className="grid grid-cols-2 gap-4">
+                    {celebrityFavorites.slice(0, 2).map((celeb) => (
+                      <button
+                        key={celeb.label}
                         onClick={() => {
                           setIsMenuOpen(false);
-                          router.push("/celebrities-favorites");
+                          router.push(`/celebrities-favorites?celebrity=${encodeURIComponent(celeb.label)}`);
                         }}
-                        className="text-xs text-muted-foreground uppercase tracking-[0.15em] mb-2 flex items-center gap-1.5 hover:text-foreground transition-luxury cursor-pointer group"
+                        className="text-left"
                       >
-                        {section.title}
-                        <ExternalLink size={12} className="transition-transform duration-200 group-hover:translate-x-0.5" />
+                        <img
+                          src={celebImageByLabel[celeb.label] || celeb.image}
+                          alt={celeb.label}
+                          className="aspect-[3/4] w-full object-cover border border-border/60"
+                        />
+                        <p className="mt-2 text-[14px] text-gray-700 leading-none">{celeb.label}</p>
+                        <p className="mt-1 text-[5px] uppercase tracking-[0.14em] text-muted-foreground">
+                          {celeb.subtitle}
+                        </p>
                       </button>
-                    ) : (
-                      <h4 className="text-xs text-muted-foreground uppercase tracking-[0.15em] mb-2">
-                        {section.title}
-                      </h4>
-                    )}
-                    <div className="flex flex-wrap gap-2">
-                      {(section.title === "Celebrities' Favorite"
-                        ? section.items.slice(0, 4)
-                        : section.items
-                      ).map((item) =>
-                        item.href ? (
-                          <motion.button
-                            key={item.label}
-                            onClick={() => handleMobileFilterClick(item.filterType, item.label, item.href)}
-                            initial={{ opacity: 0.92, y: 0 }}
-                            animate={{ opacity: [0.92, 1, 0.92], y: [0, -1.5, 0] }}
-                            transition={{ duration: 2.2, repeat: Infinity, ease: "easeInOut" }}
-                            className="text-sm font-medium text-background px-3 py-2 border border-foreground/20 bg-gradient-to-r from-foreground to-zinc-700 transition-luxury flex items-center gap-2 cursor-pointer hover:scale-[1.01]"
-                          >
-                            {item.label}
-                          </motion.button>
-                        ) : (
-                          <button
-                            key={item.label}
-                            onClick={() => handleMobileFilterClick(item.filterType, item.label, item.href)}
-                            className="text-sm font-light text-foreground px-3 py-1.5 border border-border hover:bg-muted transition-luxury flex items-center gap-2 cursor-pointer"
-                          >
-                            {item.image ? (
-                              <img
-                                src={
-                                  section.title === "Celebrities' Favorite"
-                                    ? celebImageByLabel[item.label] || item.image
-                                    : item.image
-                                }
-                                alt={item.label}
-                                className={`object-cover border border-border ${
-                                  section.title === "Celebrities' Favorite"
-                                    ? "w-10 h-10 rounded-sm"
-                                    : "w-6 h-6 rounded-md"
-                                }`}
-                              />
-                            ) : null}
-                            {item.label}
-                          </button>
-                        )
-                      )}
-                    </div>
-
+                    ))}
                   </div>
-                ))}
-
-                <button
-                  onClick={() => {
-                    setIsMenuOpen(false);
-                    router.push("/shop");
-                  }}
-                  className="text-caption link-underline text-foreground mt-2 cursor-pointer"
-                >
-                  View All Perfumes -&gt;
-                </button>
-
-                <motion.button
-                  onClick={() => {
-                    setIsMenuOpen(false);
-                    router.push("/kit-pack");
-                  }}
-                  initial={{ opacity: 0.85, y: 0 }}
-                  animate={{ opacity: [0.85, 1, 0.85], y: [0, -2, 0] }}
-                  transition={{ duration: 2.4, repeat: Infinity, ease: "easeInOut" }}
-                  className="w-full mt-6 text-left p-4 border border-foreground/20 bg-gradient-to-r from-foreground text-background to-zinc-700"
-                >
-                  <div className="flex items-center gap-2 mb-1">
-                    <Sparkles size={16} />
-                    <span className="text-xs uppercase tracking-[0.15em]">Limited Offer</span>
-                  </div>
-                  <p className="font-serif text-xl leading-tight">Build Your Kit</p>
-                  <p className="text-sm opacity-90">Pack of 4 x 20ml perfumes</p>
-                </motion.button>
+                </section>
               </div>
-            </nav>
+            </div>
           </motion.div>
         )}
       </AnimatePresence>

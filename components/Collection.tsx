@@ -81,7 +81,7 @@ const Collection = () => {
             <button
               key={cat.id}
               onClick={() => setActiveCategory(cat.id)}
-              className={`text-caption px-4 py-2 transition-all duration-300 ${
+              className={`text-[10px] md:text-caption px-3 md:px-4 py-1.5 md:py-2 transition-all duration-300 ${
                 activeCategory === cat.id
                   ? "bg-primary text-primary-foreground"
                   : "bg-transparent text-muted-foreground hover:text-foreground border border-border hover:border-foreground"
@@ -95,21 +95,22 @@ const Collection = () => {
         {/* Perfume Grid */}
         <motion.div
           layout
-          className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-6 md:gap-8"
+          className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-6 md:gap-8 items-start"
         >
           {visiblePerfumes.map((perfume, index) => (
-            <PerfumeCard
-              key={perfume.id}
-              id={perfume.id}
-              name={perfume.name}
-              inspiration={perfume.inspiration}
-              category={perfume.category}
-              image={perfume.images[0]}
-              price={perfume.price}
-              index={index}
-              bestSeller={perfume.badges?.bestSeller}
-              limitedStock={perfume.badges?.limitedStock}
-            />
+            <div key={perfume.id} className={index % 2 === 1 ? "mt-24 md:mt-0" : ""}>
+              <PerfumeCard
+                id={perfume.id}
+                name={perfume.name}
+                inspiration={perfume.inspiration}
+                category={perfume.category}
+                image={perfume.images[0]}
+                price={perfume.price}
+                index={index}
+                bestSeller={perfume.badges?.bestSeller}
+                limitedStock={perfume.badges?.limitedStock}
+              />
+            </div>
           ))}
         </motion.div>
 

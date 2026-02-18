@@ -1,7 +1,7 @@
 "use client";
 
 import { motion } from "framer-motion";
-import { Plus } from "lucide-react";
+import { LiaCartPlusSolid } from "react-icons/lia";
 import Link from "next/link";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
@@ -85,24 +85,28 @@ const PerfumeCard = ({
             </div>
           )}
           <div className="absolute inset-0 bg-foreground/0 group-hover:bg-foreground/5 transition-all duration-500" />
+          <button
+            onClick={handleAddToCart}
+            className="absolute bottom-2 right-2 z-10 inline-flex h-11 w-11 sm:h-12 sm:w-12 items-center justify-center rounded-full bg-white text-foreground shadow-[0_8px_24px_rgba(0,0,0,0.18)] transition-all duration-300 hover:-translate-y-0.5 hover:shadow-[0_10px_28px_rgba(0,0,0,0.24)]"
+            aria-label={`Add ${name} to bag`}
+          >
+            <LiaCartPlusSolid className="h-[22px] w-[22px] sm:h-[22px] sm:w-[22px]" />
+          </button>
         </div>
         <div className="flex flex-col h-[170px]">
-          <p className="text-caption text-muted-foreground mb-2">{category}</p>
-          <h3 className="font-serif text-xl md:text-2xl font-light tracking-wide mb-1">
+          <p className="text-[11px] uppercase tracking-[0.28em] text-muted-foreground/80 mb-2">
+            {category}
+          </p>
+          <h3 className="font-serif text-[1.25rem] md:text-2xl font-light tracking-wide mb-1">
             {name}
           </h3>
-          <p className="text-body text-muted-foreground h-14 overflow-hidden">
+          <p className="h-14 overflow-hidden text-[0.86rem] sm:text-[clamp(0.92rem,0.95vw,1.25rem)] italic text-muted-foreground/90">
             Inspired by {inspiration}
           </p>
           <div className="flex items-center justify-between gap-3 ">
-            <p className="font-serif text-lg">{formatINR(price)}</p>
-            <button
-              onClick={handleAddToCart}
-              className="text-[10px] uppercase tracking-[0.14em] px-3 py-1.5 rounded-none border border-foreground/15 bg-gradient-to-r from-foreground to-zinc-700 text-background shadow-[0_4px_14px_rgba(0,0,0,0.18)] hover:shadow-[0_6px_18px_rgba(0,0,0,0.24)] hover:-translate-y-0.5 transition-all duration-300"
-              aria-label={`Add ${name} to bag`}
-            >
-              + Bag
-            </button>
+            <p className="text-[1.35rem] leading-none font-light tracking-tight text-foreground/90">
+              {formatINR(price)}
+            </p>
           </div>
         </div>
       </Link>

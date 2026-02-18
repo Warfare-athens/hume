@@ -24,7 +24,6 @@ import { formatINR } from "@/lib/currency";
 
 export default function ProductDetailView({ perfume }: { perfume: PerfumeData }) {
   const averageRating = getAverageRating(perfume.reviews);
-  const [countdown, setCountdown] = useState("00:00:00");
   const [noteImages, setNoteImages] = useState<{
     id: string;
     label: string;
@@ -54,24 +53,6 @@ export default function ProductDetailView({ perfume }: { perfume: PerfumeData })
     return () => {
       active = false;
     };
-  }, []);
-
-  useEffect(() => {
-    const updateCountdown = () => {
-      const now = new Date();
-      const midnight = new Date();
-      midnight.setHours(24, 0, 0, 0);
-      const diff = Math.max(0, midnight.getTime() - now.getTime());
-      const hours = Math.floor(diff / 3_600_000);
-      const minutes = Math.floor((diff % 3_600_000) / 60_000);
-      const seconds = Math.floor((diff % 60_000) / 1000);
-      const pad = (value: number) => value.toString().padStart(2, "0");
-      setCountdown(`${pad(hours)}:${pad(minutes)}:${pad(seconds)}`);
-    };
-
-    updateCountdown();
-    const interval = setInterval(updateCountdown, 1000);
-    return () => clearInterval(interval);
   }, []);
 
   const noteImageLookup = useMemo(() => {
@@ -107,54 +88,41 @@ export default function ProductDetailView({ perfume }: { perfume: PerfumeData })
 
   const renderNoteGroup = (title: string, notes: string[]) => (
     <div className="px-1 sm:px-0">
-      <div className="flex items-center justify-between mb-4">
+      <div className="flex items-center justify-between mb-5">
         <div>
           <p className="text-caption text-muted-foreground">{title}</p>
-          <div className="mt-2 h-px w-12 bg-foreground/15" />
         </div>
         <span className="text-[10px] uppercase tracking-[0.4em] text-muted-foreground/70">
           {notes.length} notes
         </span>
       </div>
-      <div className="-mx-4 sm:mx-0">
-        <div className="flex gap-3 overflow-x-auto px-0 sm:px-0 scrollbar-none snap-x snap-mandatory lg:grid lg:grid-cols-3 lg:gap-1 lg:overflow-visible lg:snap-none">
+      <div className="grid grid-cols-3 gap-4 sm:gap-5">
           {notes.map((note) => {
             const key = note.trim().toLowerCase();
             const image = noteImageLookup.get(key);
             return (
-              <div
-                key={note}
-                className="w-24 sm:w-36 lg:w-auto shrink-0 flex flex-col snap-start lg:snap-none lg:shrink"
-              >
-                <div
-                  className="relative h-24 w-24 sm:h-36 sm:w-36 lg:h-28 lg:w-28 overflow-hidden"
-                  style={{ borderRadius: 10 }}
-                >
+              <div key={note} className="flex flex-col">
+                <div className="relative aspect-square overflow-hidden bg-secondary/40">
                   {image?.url ? (
-                      <img
-                        src={image.url}
-                        alt={`${note} note`}
-                        className="h-full w-full object-cover"
-                        style={{ borderRadius: 10 }}
-                        loading="lazy"
-                        decoding="async"
-                      />
+                    <img
+                      src={image.url}
+                      alt={`${note} note`}
+                      className="h-full w-full object-cover"
+                      loading="lazy"
+                      decoding="async"
+                    />
                   ) : (
                     <div className="flex h-full w-full items-center justify-center text-[11px] uppercase tracking-[0.2em] text-muted-foreground border border-border/50">
                       {note}
                     </div>
                   )}
-                  <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-black/35 via-transparent to-transparent" />
-                  <div className="pointer-events-none absolute inset-x-0 bottom-0 px-4 pb-4">
-                    <p className="text-xs uppercase tracking-[0.32em] text-white/90">
-                      {note}
-                    </p>
-                  </div>
                 </div>
+                <p className="mt-3 text-center font-semibold text-[8px] uppercase tracking-[0.18em] text-foreground/80">
+                  {note}
+                </p>
               </div>
             );
           })}
-        </div>
       </div>
     </div>
   );
@@ -179,64 +147,56 @@ export default function ProductDetailView({ perfume }: { perfume: PerfumeData })
               transition={{ duration: 0.6, delay: 0.1 }}
               className="flex flex-col"
             >
-              <div className="flex flex-wrap gap-2 md:pt-10 mb-4">
-                <span className="inline-flex items-center px-3 py-1 bg-primary text-primary-foreground text-caption">
+              <div className="flex flex-wrap justify-center gap-2 md:pt-10 mb-4">
+                <span className="inline-flex items-center border border-foreground/35 px-3 py-1 text-[10px] uppercase tracking-[0.18em] text-foreground">
                   {perfume.gender}
                 </span>
-                <span className="inline-flex items-center px-3 py-1 border border-border text-caption text-muted-foreground">
+                <span className="inline-flex items-center border border-border px-3 py-1 text-[10px] uppercase tracking-[0.18em] text-muted-foreground">
                   {perfume.category}
                 </span>
                 {perfume.badges?.bestSeller && (
-                  <span className="inline-flex items-center px-3 py-1 bg-foreground text-background text-caption">
+                  <span className="inline-flex items-center border border-border px-3 py-1 text-[10px] uppercase tracking-[0.18em] text-muted-foreground">
                     Best Seller
                   </span>
                 )}
                 {perfume.badges?.limitedStock && (
-                  <span className="inline-flex items-center px-3 py-1 bg-amber-200/90 text-amber-900 text-caption">
+                  <span className="inline-flex items-center border border-amber-500/40 px-3 py-1 text-[10px] uppercase tracking-[0.18em] text-amber-800">
                     Limited Stock
                   </span>
                 )}
               </div>
 
-              <p className="text-caption text-muted-foreground mb-2">HUME - {perfume.size}</p>
-              <h1 className="font-serif text-4xl md:text-5xl lg:text-6xl font-light tracking-wide mb-3">
+              <div className="text-center">
+              <p className="text-[10px] uppercase tracking-[0.26em] text-muted-foreground mb-2">
+                HUME — {perfume.size.toUpperCase()}
+              </p>
+              <h1 className="font-serif text-[2.75rem] md:text-5xl lg:text-6xl font-light italic tracking-tight mb-2">
                 {perfume.name}
               </h1>
-              <p className="text-body text-muted-foreground mb-4">Inspired by {perfume.inspiration}</p>
+              <p className="text-[clamp(0.9rem,1vw,1rem)] italic text-muted-foreground mb-4">
+                Inspired by {perfume.inspirationBrand} {perfume.inspiration}
+              </p>
 
-              <div className="flex items-center gap-3 mb-6">
+              <div className="flex items-center justify-center gap-3 mb-5">
                 <div className="flex gap-0.5">
                   {[1, 2, 3, 4, 5].map((star) => (
                     <Star
                       key={star}
-                      size={14}
+                      size={13}
                       className={
                         star <= Math.round(averageRating)
-                          ? "fill-primary text-primary"
-                          : "fill-muted text-muted"
+                          ? "fill-foreground text-foreground"
+                          : "fill-muted text-muted/70"
                       }
                     />
                   ))}
                 </div>
-                <span className="text-caption text-muted-foreground">
+                <span className="text-[11px] uppercase tracking-[0.16em] text-muted-foreground">
                   {averageRating} ({perfume.reviews.length} reviews)
                 </span>
               </div>
 
-              <p className="font-serif text-2xl mb-8">{formatINR(perfume.price)}</p>
-
-              <div className="grid gap-3 border border-border/60 bg-secondary/10 px-4 py-3 mb-8">
-                <p className="text-caption text-foreground">
-                  Only 12 bottles left
-                </p>
-                <div className="flex flex-wrap items-center gap-3 text-xs uppercase tracking-[0.25em] text-muted-foreground">
-                  <span>Free delivery on orders before midnight</span>
-                  <span className="hidden sm:inline">•</span>
-                  <span>47 people viewed this today</span>
-                </div>
-                <div className="text-xs uppercase tracking-[0.35em] text-muted-foreground">
-                  Welcome offer ends in <span className="text-foreground">{countdown}</span>
-                </div>
+              <p className="text-[2.05rem] leading-none text-center font-light mb-8">{formatINR(perfume.price)}</p>
               </div>
 
               <p className="text-body text-muted-foreground leading-relaxed mb-10">{perfume.description}</p>
@@ -268,41 +228,45 @@ export default function ProductDetailView({ perfume }: { perfume: PerfumeData })
                   <div className="hidden sm:block h-px w-20 bg-foreground/20" />
                 </div>
 
-                <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 sm:gap-6">
-                  <div className="border border-border/70 bg-background/80 p-4 sm:p-5">
-                    <div className="flex items-center justify-between mb-3">
-                      <p className="text-caption text-muted-foreground">Longevity</p>
-                      <Clock size={16} className="text-muted-foreground" />
+                <div className="grid grid-cols-2 gap-0 border border-border/60 bg-background/80">
+                  <div className="min-h-[86px] sm:min-h-[120px] border-r border-b border-border/60 p-3 sm:p-5">
+                    <div className="mb-4 flex items-center justify-between">
+                      <p className="text-[10px] sm:text-caption uppercase tracking-[0.2em] text-muted-foreground">Longevity</p>
+                      <Clock size={12} className="text-muted-foreground/80 sm:h-[14px] sm:w-[14px]" />
                     </div>
-                    <p className="font-serif text-lg">{perfume.longevity.duration}</p>
-                    <div className="mt-3 sm:mt-4 h-px w-full bg-foreground/10" />
+                    <p className="font-serif text-[1.05rem] sm:text-[2.05rem] leading-snug sm:leading-tight">
+                      {perfume.longevity.duration}
+                    </p>
                   </div>
 
-                  <div className="border border-border/70 bg-background/80 p-4 sm:p-5">
-                    <div className="flex items-center justify-between mb-3">
-                      <p className="text-caption text-muted-foreground">Projection</p>
-                      <Wind size={16} className="text-muted-foreground" />
+                  <div className="min-h-[86px] sm:min-h-[120px] border-b border-border/60 p-3 sm:p-5">
+                    <div className="mb-4 flex items-center justify-between">
+                      <p className="text-[10px] sm:text-caption uppercase tracking-[0.2em] text-muted-foreground">Projection</p>
+                      <Wind size={12} className="text-muted-foreground/80 sm:h-[14px] sm:w-[14px]" />
                     </div>
-                    <p className="font-serif text-lg">{perfume.longevity.sillage}</p>
-                    <div className="mt-3 sm:mt-4 h-px w-full bg-foreground/10" />
+                    <p className="font-serif text-[1.05rem] sm:text-[2.05rem] leading-snug sm:leading-tight">
+                      {perfume.longevity.sillage}
+                    </p>
                   </div>
 
-                  <div className="border border-border/70 bg-background/80 p-4 sm:p-5">
-                    <div className="flex items-center justify-between mb-3">
-                      <p className="text-caption text-muted-foreground">Best Season</p>
-                      <Sun size={16} className="text-muted-foreground" />
+                  <div className="min-h-[86px] sm:min-h-[120px] border-r border-border/60 p-3 sm:p-5">
+                    <div className="mb-4 flex items-center justify-between">
+                      <p className="text-[10px] sm:text-caption uppercase tracking-[0.2em] text-muted-foreground">Best Season</p>
+                      <Sun size={12} className="text-muted-foreground/80 sm:h-[14px] sm:w-[14px]" />
                     </div>
-                    <p className="font-serif text-lg">{perfume.longevity.season.join(", ")}</p>
-                    <div className="mt-3 sm:mt-4 h-px w-full bg-foreground/10" />
+                    <p className="font-serif text-[1.05rem] sm:text-[2.05rem] leading-snug sm:leading-tight">
+                      {perfume.longevity.season.join(", ")}
+                    </p>
                   </div>
 
-                  <div className="border border-border/70 bg-background/80 p-4 sm:p-5">
-                    <div className="flex items-center justify-between mb-3">
-                      <p className="text-caption text-muted-foreground">Occasion</p>
-                      <Calendar size={16} className="text-muted-foreground" />
+                  <div className="min-h-[86px] sm:min-h-[120px] p-3 sm:p-5">
+                    <div className="mb-4 flex items-center justify-between">
+                      <p className="text-[10px] sm:text-caption uppercase tracking-[0.2em] text-muted-foreground">Occasion</p>
+                      <Calendar size={12} className="text-muted-foreground/80 sm:h-[14px] sm:w-[14px]" />
                     </div>
-                    <p className="font-serif text-lg">{perfume.longevity.occasion.join(", ")}</p>
-                    <div className="mt-3 sm:mt-4 h-px w-full bg-foreground/10" />
+                    <p className="font-serif text-[1.05rem] sm:text-[2.05rem] leading-snug sm:leading-tight">
+                      {perfume.longevity.occasion.join(" / ")}
+                    </p>
                   </div>
                 </div>
               </div>

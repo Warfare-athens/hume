@@ -5,6 +5,8 @@ import { blogPosts as blogPostsData } from "../data/blogPosts";
 
 config({ path: resolve(process.cwd(), ".env.local") });
 const defaultCelebImage = "https://placehold.co/600x600?text=Celeb";
+const defaultBlogImage =
+  "https://res.cloudinary.com/dmbfo7uzl/image/upload/v1771309250/Gemini_Generated_Image_y1gde7y1gde7y1gd_toe3wm.png";
 
 async function seed() {
   const { db } = await import("../db/index");
@@ -72,10 +74,15 @@ async function seed() {
         date: post.date,
         readTime: post.readTime,
         featured: post.featured,
-        imageUrl: post.imageUrl ?? "",
+        imageUrl: post.imageUrl?.trim() ? post.imageUrl : defaultBlogImage,
         relatedProductId: post.relatedProductId ?? "",
       }))
     ).onConflictDoNothing();
+
+    // Keep blog images in sync without creating duplicate posts.
+    await db.update(blogPostsTable).set({
+      imageUrl: defaultBlogImage,
+    });
 
     console.log("Database seeded successfully.");
   } catch (error) {
