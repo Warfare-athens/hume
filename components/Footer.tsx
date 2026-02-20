@@ -1,68 +1,110 @@
-"use client";
+﻿"use client";
 
 import Link from "next/link";
 
 const Footer = () => {
+  const shopLinks = [
+    { href: "/shop", label: "Shop All Perfumes" },
+    { href: "/bottles", label: "Choose Your Bottle" },
+    { href: "/kit-pack", label: "Build Your Kit" },
+    { href: "/celebrities-favorites", label: "Celebrities' Favorites" },
+  ];
+
+  const categoryLinks = [
+    { href: "/shop?category=fresh", label: "Fresh Fragrances" },
+    { href: "/shop?category=woody", label: "Woody Fragrances" },
+    { href: "/shop?category=oud", label: "Oud Fragrances" },
+    { href: "/shop?category=oriental", label: "Oriental Fragrances" },
+    { href: "/shop?category=sweet", label: "Sweet Fragrances" },
+  ];
+
+  const discoverLinks = [
+    { href: "/blog", label: "Journal" },
+    { href: "/scent-quiz", label: "Scent Quiz" },
+    { href: "/alternatives/creed-aventus", label: "Perfume Alternatives" },
+    { href: "/alternatives/ombre-nomade", label: "Oud Alternatives" },
+  ];
+
+  const companyLinks = [
+    { href: "/#about", label: "About HUME" },
+    { href: "/#craft", label: "Our Craft" },
+    { href: "/#collection", label: "Best Sellers" },
+    { href: "/sitemap.xml", label: "Sitemap" },
+  ];
+
   return (
     <footer id="contact" className="py-16 md:py-24 bg-primary text-primary-foreground">
       <div className="container-luxury">
-        <div className="grid md:grid-cols-4 gap-12 mb-16">
-          {/* Brand */}
-          <div className="md:col-span-2">
-            <Link href="/" className="flex items-baseline gap-1 mb-6">
-              <span className="font-serif text-2xl md:text-3xl font-light tracking-widest">
-                HUME
-              </span>
-              <span className="text-caption opacity-60">PERFUMES</span>
+        <div className="grid grid-cols-2 md:grid-cols-6 gap-10 mb-16">
+          <div className="col-span-2">
+            <Link href="/" className="flex items-baseline gap-1 mb-5">
+              <span className="font-serif text-2xl md:text-3xl font-light tracking-widest">HUME</span>
+              <span className="text-caption opacity-60">FRAGRANCE</span>
             </Link>
             <p className="text-body opacity-70 max-w-sm">
-              Luxury fragrances reimagined. Experience the world's most
-              celebrated scents, crafted with passion and precision.
+              Premium inspired perfumes crafted for modern luxury, long wear, and signature presence.
             </p>
-          </div>
-
-          {/* Quick Links */}
-          <div>
-            <h4 className="text-caption mb-6">Explore</h4>
-            <nav className="flex flex-col gap-3">
-              <a href="#collection" className="text-body opacity-70 hover:opacity-100 transition-opacity">
-                Collection
-              </a>
-              <Link href="/blog" className="text-body opacity-70 hover:opacity-100 transition-opacity">
-                Journal
-              </Link>
-              <a href="#craft" className="text-body opacity-70 hover:opacity-100 transition-opacity">
-                Our Craft
-              </a>
-              <a href="#about" className="text-body opacity-70 hover:opacity-100 transition-opacity">
-                About Us
-              </a>
-            </nav>
-          </div>
-
-          {/* Contact */}
-          <div>
-            <h4 className="text-caption mb-6">Contact</h4>
-            <div className="space-y-3 text-body opacity-70">
-              <p>hello@humeperfumes.com</p>
+            <div className="space-y-2 text-body opacity-70 mt-5">
+              <p>hello@humefragrance.com</p>
               <p>WhatsApp: +91 95590 24822</p>
               <p>Mumbai, Maharashtra, India</p>
             </div>
           </div>
+
+          <div>
+            <h4 className="text-caption mb-5">Shop</h4>
+            <nav className="flex flex-col gap-2.5">
+              {shopLinks.map((link) => (
+                <Link key={link.href} href={link.href} className="text-body opacity-70 hover:opacity-100 transition-opacity">
+                  {link.label}
+                </Link>
+              ))}
+            </nav>
+          </div>
+
+          <div>
+            <h4 className="text-caption mb-5">Categories</h4>
+            <nav className="flex flex-col gap-2.5">
+              {categoryLinks.map((link) => (
+                <Link key={link.href} href={link.href} className="text-body opacity-70 hover:opacity-100 transition-opacity">
+                  {link.label}
+                </Link>
+              ))}
+            </nav>
+          </div>
+
+          <div>
+            <h4 className="text-caption mb-5">Discover</h4>
+            <nav className="flex flex-col gap-2.5">
+              {discoverLinks.map((link) => (
+                <Link key={link.href} href={link.href} className="text-body opacity-70 hover:opacity-100 transition-opacity">
+                  {link.label}
+                </Link>
+              ))}
+            </nav>
+          </div>
+
+          <div>
+            <h4 className="text-caption mb-5">Company</h4>
+            <nav className="flex flex-col gap-2.5">
+              {companyLinks.map((link) => (
+                <Link key={link.href} href={link.href} className="text-body opacity-70 hover:opacity-100 transition-opacity">
+                  {link.label}
+                </Link>
+              ))}
+            </nav>
+          </div>
         </div>
 
-        {/* Bottom */}
         <div className="pt-8 border-t border-primary-foreground/10 flex flex-col md:flex-row justify-between items-center gap-4">
-          <p className="text-caption opacity-50">
-            © 2025 HUME Perfumes. All rights reserved.
-          </p>
+          <p className="text-caption opacity-50">© 2026 HUME Fragrance. All rights reserved.</p>
           <div className="flex gap-6">
-            <a href="#" className="text-caption opacity-50 hover:opacity-100 transition-opacity">
-              Privacy Policy
-            </a>
-            <a href="#" className="text-caption opacity-50 hover:opacity-100 transition-opacity">
-              Terms of Service
-            </a>
+            <Link href="/shop" className="text-caption opacity-50 hover:opacity-100 transition-opacity">
+              Shop
+            </Link>
+            <Link href="/blog" className="text-caption opacity-50 hover:opacity-100 transition-opacity">
+              Blog
+            </Link>
           </div>
         </div>
       </div>

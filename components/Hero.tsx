@@ -1,13 +1,14 @@
 "use client";
 
 import { motion } from "framer-motion";
+import Image from "next/image";
 import Link from "next/link";
 import { useEffect, useState } from "react";
 import { Carousel, CarouselContent, CarouselItem, type CarouselApi } from "@/components/ui/carousel";
 
 const fallbackSlides = [
-  { url: "/images/hero-perfume.jpg", label: "HUME luxury perfume", link: "/shop" },
   { url: "/images/collection-hero.jpg", label: "HUME collection", link: "/shop" },
+  { url: "/images/hero-perfume.jpg", label: "HUME luxury perfume", link: "/shop" },
   { url: "/images/hero-perfume.jpg", label: "HUME offers", link: "/shop" },
 ];
 const rotatingOffers = [
@@ -147,35 +148,42 @@ const Hero = () => {
               className="w-screen sm:w-full"
             >
               <CarouselContent className="-ml-0">
-                {slides.map((slide, index) => (
-                  <CarouselItem key={`${slide.url}-${index}`} className="pl-0">
-                    <div className="relative w-full aspect-square">
-                      {slide.link?.startsWith("http") ? (
-                        <a href={slide.link} className="block w-full h-full" target="_blank" rel="noreferrer">
-                          <img
-                            src={slide.url}
-                            alt={slide.label}
-                            className="object-cover w-full h-full"
-                            loading={index === 0 ? "eager" : "lazy"}
-                            decoding="async"
-                            fetchPriority={index === 0 ? "high" : "auto"}
-                          />
-                        </a>
-                      ) : (
-                        <Link href={slide.link ?? "/shop"} className="block w-full h-full">
-                          <img
-                            src={slide.url}
-                            alt={slide.label}
-                            className="object-cover w-full h-full"
-                            loading={index === 0 ? "eager" : "lazy"}
-                            decoding="async"
-                            fetchPriority={index === 0 ? "high" : "auto"}
-                          />
-                        </Link>
-                      )}
-                    </div>
-                  </CarouselItem>
-                ))}
+                {slides.map((slide, index) => {
+                  const isLcpCandidate = index === 0 || slide.url.includes("collection-hero.jpg");
+                  return (
+                    <CarouselItem key={`${slide.url}-${index}`} className="pl-0">
+                      <div className="relative w-full aspect-square">
+                        {slide.link?.startsWith("http") ? (
+                          <a href={slide.link} className="block w-full h-full" target="_blank" rel="noreferrer">
+                            <Image
+                              src={slide.url}
+                              alt={slide.label}
+                              fill
+                              sizes="(max-width: 640px) 100vw, 50vw"
+                              className="object-cover"
+                              loading={isLcpCandidate ? "eager" : "lazy"}
+                              fetchPriority={isLcpCandidate ? "high" : "auto"}
+                              priority={isLcpCandidate}
+                            />
+                          </a>
+                        ) : (
+                          <Link href={slide.link ?? "/shop"} className="block w-full h-full">
+                            <Image
+                              src={slide.url}
+                              alt={slide.label}
+                              fill
+                              sizes="(max-width: 640px) 100vw, 50vw"
+                              className="object-cover"
+                              loading={isLcpCandidate ? "eager" : "lazy"}
+                              fetchPriority={isLcpCandidate ? "high" : "auto"}
+                              priority={isLcpCandidate}
+                            />
+                          </Link>
+                        )}
+                      </div>
+                    </CarouselItem>
+                  );
+                })}
               </CarouselContent>
             </Carousel>
             <div className="mt-4 flex items-center justify-center gap-3 sm:justify-center">

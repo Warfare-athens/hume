@@ -1,24 +1,9 @@
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
-import PerfumeCard from "@/components/PerfumeCard";
+import CelebrityFavoriteCard from "@/components/CelebrityFavoriteCard";
 import { getAllProducts } from "@/lib/db/products";
-import { celebrityFavorites } from "@/lib/celebrity-favorites";
-import type { PerfumeData } from "@/data/perfumes";
 
 export const dynamic = "force-dynamic";
-
-function toSlug(value: string): string {
-  return value.toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/(^-|-$)/g, "");
-}
-
-function sortCelebrities(selected?: string) {
-  if (!selected) return celebrityFavorites;
-  return [...celebrityFavorites].sort((a, b) => {
-    if (a.label === selected) return -1;
-    if (b.label === selected) return 1;
-    return a.label.localeCompare(b.label);
-  });
-}
 
 export default async function CelebritiesFavoritesPage({
   searchParams,
@@ -27,8 +12,13 @@ export default async function CelebritiesFavoritesPage({
 }) {
   const { celebrity } = await searchParams;
   const allPerfumes = await getAllProducts();
-  const perfumeMap = new Map(allPerfumes.map((p) => [p.id, p]));
-  const orderedCelebrities = sortCelebrities(celebrity);
+  const favoritePerfumes = allPerfumes
+    .filter((perfume) => Boolean(perfume.woreBy))
+    .filter((perfume) =>
+      celebrity
+        ? (perfume.woreBy || "").toLowerCase().includes(celebrity.toLowerCase())
+        : true
+    );
 
   return (
     <main className="bg-background min-h-screen">
@@ -42,60 +32,32 @@ export default async function CelebritiesFavoritesPage({
               Celebrities&apos; <span className="italic">Favorite Perfumes</span>
             </h1>
             <p className="text-body text-muted-foreground max-w-2xl mx-auto">
-              Explore signature-inspired fragrances linked to SRK, Virat Kohli,
-              Taylor Swift, David Beckham, and Johnny Depp.
+              Signature-inspired picks worn and loved by icons.
             </p>
           </div>
 
-          <div className="space-y-16">
-            {orderedCelebrities.map((person) => {
-              const favorites = person.perfumeIds
-                .map((id) => perfumeMap.get(id))
-                .filter(Boolean) as PerfumeData[];
-              const celebImage = favorites[0]?.woreByImageUrl || person.image;
-
-              return (
-                <section key={person.label} id={toSlug(person.label)} className="space-y-6">
-                  <div className="flex items-center gap-4">
-                    <img
-                      src={celebImage}
-                      alt={person.label}
-                      className="w-16 h-16 rounded-md object-cover border border-border"
-                    />
-                    <div>
-                      <h2 className="font-serif text-2xl md:text-3xl font-light">
-                        {person.label}
-                      </h2>
-                      <p className="text-muted-foreground">{person.description}</p>
-                    </div>
-                  </div>
-
-                  {favorites.length > 0 ? (
-                    <div className="grid grid-cols-2 md:grid-cols-3 xl:grid-cols-4 gap-6 md:gap-8">
-                      {favorites.map((perfume, index) => (
-                        <PerfumeCard
-                          key={perfume.id}
-                          id={perfume.id}
-                          name={perfume.name}
-                          inspiration={perfume.inspiration}
-                          category={perfume.category}
-                          image={perfume.images[0]}
-                          price={perfume.price}
-                          index={index}
-                          bestSeller={perfume.badges?.bestSeller}
-                          limitedStock={perfume.badges?.limitedStock}
-                        />
-                      ))}
-                    </div>
-                  ) : (
-                    <p className="text-muted-foreground">
-                      No favorites mapped yet for this celebrity.
-                    </p>
-                  )}
-                </section>
-              );
-            })}
-          </div>
+          {favoritePerfumes.length > 0 ? (
+            <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-10 md:gap-12">
+              {favoritePerfumes.map((perfume, index) => (
+                <CelebrityFavoriteCard
+                  key={perfume.id}
+                  id={perfume.id}
+                  name={perfume.name}
+                  inspiration={perfume.inspiration}
+                  category={perfume.category}
+                  image={perfume.images[0]}
+                  price={perfume.price}
+                  celebrityName={perfume.woreBy}
+                  celebrityImage={perfume.woreByImageUrl}
+                  index={index}
+                />
+              ))}
+            </div>
+          ) : (
+            <p className="text-center text-muted-foreground">
+              No celebrity favorite perfumes found.
+            </p>
+          )}
         </div>
       </section>
 

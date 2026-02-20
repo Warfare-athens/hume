@@ -72,6 +72,12 @@ export default function RootLayout({
       <head>
         <link rel="preconnect" href="https://res.cloudinary.com" />
         <link rel="dns-prefetch" href="https://res.cloudinary.com" />
+        <link
+          rel="preload"
+          as="image"
+          href="/images/collection-hero.jpg"
+          fetchPriority="high"
+        />
         <link rel="icon" href="/images/logo.png?v=2" type="image/png" />
         <link rel="shortcut icon" href="/images/logo.png?v=2" type="image/png" />
         <link rel="apple-touch-icon" href="/images/logo.png?v=2" />
