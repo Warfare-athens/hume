@@ -210,7 +210,7 @@ export const getProductFaqItems = (product: ProductFaqInput) => {
     {
       question: "Do you ship across India?",
       answer:
-        "Yes, free shipping on all orders. Dispatched within 24 hours.",
+        "Yes, free shipping on orders above INR 799. Dispatched within 24 hours.",
     },
   ];
 };

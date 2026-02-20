@@ -1,6 +1,7 @@
 "use client";
 
 import { createContext, useContext, useEffect, useState, ReactNode } from "react";
+import { tierGiftAccessories } from "@/data/accessories";
 
 export interface CartItem {
   id: string;
@@ -29,10 +30,38 @@ interface CartContextType {
 }
 
 const CartContext = createContext<CartContextType | undefined>(undefined);
-
+const CART_STORAGE_KEY = "hume_cart_v1";
 export const CartProvider = ({ children }: { children: ReactNode }) => {
   const [items, setItems] = useState<CartItem[]>([]);
   const [isCartOpen, setIsCartOpen] = useState(false);
+  const [hydrated, setHydrated] = useState(false);
+
+  // Hydrate cart from local storage
+  useEffect(() => {
+    try {
+      const raw = window.localStorage.getItem(CART_STORAGE_KEY);
+      if (!raw) {
+        setHydrated(true);
+        return;
+      }
+      const parsed = JSON.parse(raw) as CartItem[];
+      if (Array.isArray(parsed)) {
+        setItems(
+          parsed.filter((item) =>
+            item &&
+            typeof item.id === "string" &&
+            typeof item.name === "string" &&
+            typeof item.price === "number" &&
+            typeof item.quantity === "number"
+          )
+        );
+      }
+    } catch (error) {
+      console.error("Failed to hydrate cart from storage:", error);
+    } finally {
+      setHydrated(true);
+    }
+  }, []);
 
   const addItem = (item: Omit<CartItem, "quantity">) => {
     setItems((prev) => {
@@ -63,19 +92,49 @@ export const CartProvider = ({ children }: { children: ReactNode }) => {
 
   const clearCart = () => setItems([]);
 
-  // Keep gift eligibility consistent: free gift only when 3 paid 50ml items exist.
+  // Keep gift eligibility consistent with spend tiers:
+  // 1 gift above 799, 2 gifts above 1399.
   useEffect(() => {
+    if (!hydrated) return;
     setItems((prev) => {
-      const eligibleCount = prev.reduce(
-        (sum, item) =>
-          sum + (!item.isGift && (item.size ?? "50ml") === "50ml" ? item.quantity : 0),
+      const paidSubtotal = prev.reduce(
+        (sum, item) => sum + (!item.isGift ? item.price * item.quantity : 0),
         0
       );
-      if (eligibleCount >= 3) return prev;
-      const filtered = prev.filter((item) => !item.isGift);
-      return filtered.length === prev.length ? prev : filtered;
+      const allowedGiftCount = paidSubtotal >= 1399 ? 2 : paidSubtotal >= 799 ? 1 : 0;
+      const paidItems = prev.filter((item) => !item.isGift);
+      const nextGiftItems = tierGiftAccessories.slice(0, allowedGiftCount).map((gift) => ({
+        id: `gift-${gift.id}`,
+        name: gift.name,
+        inspiration: gift.shortDescription,
+        category: "Gift",
+        image: gift.images[0],
+        price: 0,
+        size: "Gift",
+        isGift: true,
+        quantity: 1,
+      }));
+      const next = [...paidItems, ...nextGiftItems];
+
+      if (
+        prev.length === next.length &&
+        prev.every((item, idx) => item.id === next[idx].id && item.quantity === next[idx].quantity)
+      ) {
+        return prev;
+      }
+      return next;
     });
-  }, [items]);
+  }, [items, hydrated]);
+
+  // Persist cart to local storage
+  useEffect(() => {
+    if (!hydrated) return;
+    try {
+      window.localStorage.setItem(CART_STORAGE_KEY, JSON.stringify(items));
+    } catch (error) {
+      console.error("Failed to persist cart to storage:", error);
+    }
+  }, [items, hydrated]);
 
   const totalItems = items.reduce((sum, item) => sum + item.quantity, 0);
   const totalPrice = items.reduce(

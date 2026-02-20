@@ -1,4 +1,4 @@
-import { pgTable, text, varchar, decimal, jsonb, boolean, timestamp, pgEnum } from "drizzle-orm/pg-core";
+import { pgTable, text, varchar, decimal, jsonb, boolean, timestamp, pgEnum, integer } from "drizzle-orm/pg-core";
 
 // Enums
 export const genderEnum = pgEnum("gender", ["Men", "Women", "Unisex"]);
@@ -86,6 +86,21 @@ export const bottles = pgTable("bottles", {
   updatedAt: timestamp("updated_at").defaultNow().notNull(),
 });
 
+// Accessories Table
+export const accessories = pgTable("accessories", {
+  id: varchar("id", { length: 255 }).primaryKey(),
+  name: varchar("name", { length: 255 }).notNull(),
+  shortDescription: text("short_description").notNull(),
+  description: text("description").notNull(),
+  images: jsonb("images").$type<string[]>().notNull(),
+  price: decimal("price", { precision: 10, scale: 2 }).notNull(),
+  priceCurrency: varchar("price_currency", { length: 3 }).notNull().default("INR"),
+  isComplementary: boolean("is_complementary").notNull().default(false),
+  giftTier: integer("gift_tier"),
+  createdAt: timestamp("created_at").defaultNow().notNull(),
+  updatedAt: timestamp("updated_at").defaultNow().notNull(),
+});
+
 // Images Library Table
 export const images = pgTable("images", {
   id: varchar("id", { length: 255 }).primaryKey(),
@@ -94,6 +109,20 @@ export const images = pgTable("images", {
   link: varchar("link", { length: 2048 }),
   usage: varchar("usage", { length: 100 }).notNull().default("general"),
   tags: jsonb("tags").$type<string[]>().notNull().default([]),
+  createdAt: timestamp("created_at").defaultNow().notNull(),
+  updatedAt: timestamp("updated_at").defaultNow().notNull(),
+});
+
+// Coupons Table
+export const coupons = pgTable("coupons", {
+  id: varchar("id", { length: 255 }).primaryKey(),
+  code: varchar("code", { length: 50 }).notNull().unique(),
+  title: varchar("title", { length: 255 }).notNull(),
+  description: text("description").notNull(),
+  type: varchar("type", { length: 20 }).notNull(),
+  value: decimal("value", { precision: 10, scale: 2 }).notNull(),
+  minSubtotal: decimal("min_subtotal", { precision: 10, scale: 2 }).notNull().default("0"),
+  active: boolean("active").notNull().default(true),
   createdAt: timestamp("created_at").defaultNow().notNull(),
   updatedAt: timestamp("updated_at").defaultNow().notNull(),
 });
@@ -107,5 +136,9 @@ export type BlogPost = typeof blogPosts.$inferSelect;
 export type NewBlogPost = typeof blogPosts.$inferInsert;
 export type Bottle = typeof bottles.$inferSelect;
 export type NewBottle = typeof bottles.$inferInsert;
+export type Accessory = typeof accessories.$inferSelect;
+export type NewAccessory = typeof accessories.$inferInsert;
 export type ImageAsset = typeof images.$inferSelect;
 export type NewImageAsset = typeof images.$inferInsert;
+export type Coupon = typeof coupons.$inferSelect;
+export type NewCoupon = typeof coupons.$inferInsert;

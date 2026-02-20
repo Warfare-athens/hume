@@ -19,7 +19,7 @@ const AnnouncementBar = () => {
         >
           <div className="relative flex items-center justify-center py-2.5 px-10">
             <span className="font-light">
-              Complimentary shipping on all orders over INR 75 - Use code{" "}
+              Complimentary shipping on all orders above INR 799 - Use code{" "}
               <span className="font-medium">HUME15</span> for 15% off your
               first order
             </span>
@@ -38,6 +38,5 @@ const AnnouncementBar = () => {
 };
 
 export default AnnouncementBar;
-
 
 

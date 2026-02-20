@@ -2,114 +2,137 @@
 
 import { useEffect, useMemo, useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { X, Minus, Plus, ShoppingBag, MessageCircle, Sparkles, Trash2, ChevronDown, BadgePercent } from "lucide-react";
+import { X, Minus, Plus, MessageCircle, Trash2, Gift, IndianRupee, ChevronDown, ChevronUp, Info } from "lucide-react";
+import Image from "next/image";
+import { useRouter } from "next/navigation";
 import { useCart } from "@/context/CartContext";
 import { Button } from "@/components/ui/button";
 import { toast } from "@/hooks/use-toast";
 import { formatINR } from "@/lib/currency";
-import { perfumes } from "@/data/perfumes";
+
+interface Coupon {
+  id: string;
+  code: string;
+  title: string;
+  description: string;
+  type: "percent" | "fixed";
+  value: number;
+  minSubtotal: number;
+  active: boolean;
+}
 
 const CartDrawer = () => {
-  const {
-    items,
-    addItem,
-    removeItem,
-    updateQuantity,
-    totalItems,
-    totalPrice,
-    isCartOpen,
-    setIsCartOpen,
-  } = useCart();
+  const router = useRouter();
+  const { items, removeItem, updateQuantity, totalItems, totalPrice, isCartOpen, setIsCartOpen } = useCart();
 
-  const giftGoal = 3;
-  const freeDeliveryThreshold = 1000;
+  const freeDeliveryThreshold = 800;
   const deliveryChargeBelowThreshold = 100;
-  const [selectedOffer, setSelectedOffer] = useState<"10off2" | "20off3" | "gift">("gift");
-  const eligible50mlCount = items.reduce(
-    (sum, item) => sum + (!item.isGift && (item.size ?? "50ml") === "50ml" ? item.quantity : 0),
-    0
-  );
-  const paidItemCount = items.reduce((sum, item) => sum + (!item.isGift ? item.quantity : 0), 0);
-  const giftUnlocked = selectedOffer === "gift" && eligible50mlCount >= giftGoal;
-  const hasClaimedGift = items.some((item) => item.isGift);
-  const remainingForGift = Math.max(0, giftGoal - eligible50mlCount);
-  const giftProgress = Math.min(100, (eligible50mlCount / giftGoal) * 100);
+  const firstGiftThreshold = 799;
+  const secondGiftThreshold = 1399;
+
+  const [isBreakupOpen, setIsBreakupOpen] = useState(false);
+  const [coupons, setCoupons] = useState<Coupon[]>([]);
+  const [appliedCouponCode, setAppliedCouponCode] = useState<string | null>(null);
+  const [isOffersOpen, setIsOffersOpen] = useState(false);
+
   const subtotal = totalPrice;
   const shippingFee = subtotal > 0 && subtotal < freeDeliveryThreshold ? deliveryChargeBelowThreshold : 0;
-  const discountPercent =
-    selectedOffer === "10off2" && paidItemCount >= 2
-      ? 0.1
-      : selectedOffer === "20off3" && paidItemCount >= 3
-        ? 0.2
-        : 0;
-  const discountAmount = subtotal * discountPercent;
-  const grandTotal = subtotal - discountAmount + shippingFee;
 
-  const giftCandidates = useMemo(
-    () => perfumes.filter((p) => (p.size || "50ml").toLowerCase() === "50ml"),
-    []
+  const appliedCoupon = useMemo(
+    () => coupons.find((coupon) => coupon.code === appliedCouponCode) ?? null,
+    [coupons, appliedCouponCode]
   );
-  const [selectedGiftId, setSelectedGiftId] = useState(giftCandidates[0]?.id ?? "");
+
+  const couponDiscount =
+    appliedCoupon && subtotal >= appliedCoupon.minSubtotal
+      ? appliedCoupon.type === "percent"
+        ? (subtotal * appliedCoupon.value) / 100
+        : appliedCoupon.value
+      : 0;
+
+  const normalizedCouponDiscount = Math.min(subtotal, couponDiscount);
+  const grandTotal = subtotal - normalizedCouponDiscount + shippingFee;
+  const mrpTotal = subtotal + shippingFee;
+  const discountOnMrp = Math.max(0, mrpTotal - grandTotal);
+  const discountPercent = mrpTotal > 0 ? Math.round((discountOnMrp / mrpTotal) * 100) : 0;
+
+  const unlockedGiftCount = subtotal >= secondGiftThreshold ? 2 : subtotal >= firstGiftThreshold ? 1 : 0;
+  const claimedGiftCount = items.filter((item) => item.isGift).length;
+  const amountToFirstGift = Math.max(0, firstGiftThreshold - subtotal);
+  const amountToSecondGift = Math.max(0, secondGiftThreshold - subtotal);
+  const giftProgress = Math.min(100, (subtotal / secondGiftThreshold) * 100);
+
+  const progressMessage =
+    subtotal < firstGiftThreshold
+      ? `Add ${formatINR(amountToFirstGift)} more for Gift 1`
+      : subtotal < secondGiftThreshold
+        ? `Add ${formatINR(amountToSecondGift)} more for Gift 2`
+        : "Gift 1 and Gift 2 unlocked";
+
   useEffect(() => {
-    if (selectedOffer === "gift") return;
-    const giftItems = items.filter((item) => item.isGift);
-    if (giftItems.length === 0) return;
-    giftItems.forEach((gift) => removeItem(gift.id));
-  }, [items, removeItem, selectedOffer]);
+    let active = true;
+    const loadCoupons = async () => {
+      try {
+        const response = await fetch("/api/coupons");
+        if (!response.ok) throw new Error("Failed to fetch coupons");
+        const data = (await response.json()) as Coupon[];
+        if (active && Array.isArray(data)) {
+          setCoupons(data);
+        }
+      } catch (error) {
+        console.error("Failed to load coupons:", error);
+      }
+    };
+    loadCoupons();
+    return () => {
+      active = false;
+    };
+  }, []);
+
+  useEffect(() => {
+    if (!appliedCoupon) return;
+    if (subtotal < appliedCoupon.minSubtotal) {
+      setAppliedCouponCode(null);
+    }
+  }, [appliedCoupon, subtotal]);
+
+  const handleApplyToggleCoupon = (coupon: Coupon) => {
+    if (appliedCouponCode === coupon.code) {
+      setAppliedCouponCode(null);
+      toast({ title: "Coupon removed", description: `${coupon.code} has been unapplied.` });
+      return;
+    }
+    if (subtotal < coupon.minSubtotal) {
+      toast({
+        title: "Coupon not eligible",
+        description: `Add ${formatINR(coupon.minSubtotal - subtotal)} more to apply ${coupon.code}.`,
+      });
+      return;
+    }
+    setAppliedCouponCode(coupon.code);
+    toast({ title: "Coupon applied", description: `${coupon.code} has been applied.` });
+  };
 
   const generateOrderMessage = () => {
     const orderLines = items
       .map(
         (item) =>
-          `* ${item.name}${item.isGift ? " [FREE GIFT]" : ""} (${item.size ?? "50ml"}, Inspired by ${item.inspiration}${item.bottleName ? `, Bottle: ${item.bottleName}${item.bottlePrice ? ` (${formatINR(item.bottlePrice)})` : ""}` : ""}) x${item.quantity} - ${formatINR(item.price * item.quantity)}`
+          `* ${item.name}${item.isGift ? " [FREE GIFT]" : ""} (${item.size ?? "50ml"}, Inspired by ${item.inspiration}) x${item.quantity} - ${formatINR(item.price * item.quantity)}`
       )
       .join("\n");
 
-    const offerLine =
-      selectedOffer === "gift"
-        ? giftUnlocked
-          ? "\n\nPromo: Buy 3 get 1 free (50ml). Please include my selected gift in this order."
-          : "\n\nPromo: Buy 3 get 1 free (50ml)."
-        : selectedOffer === "10off2"
-          ? "\n\nPromo: 10% off on 2 perfumes."
-          : "\n\nPromo: 20% off on 3 perfumes.";
+    const couponLine =
+      appliedCoupon && normalizedCouponDiscount > 0
+        ? `\nCoupon (${appliedCoupon.code}): -${formatINR(normalizedCouponDiscount)}`
+        : "";
 
-    const discountLine =
-      discountAmount > 0 ? `\nDiscount: -${formatINR(discountAmount)}` : "";
-
-    return `Hello HUME Perfumes,\n\nI would like to place an order:\n\n${orderLines}\n\nSubtotal: ${formatINR(subtotal)}${discountLine}\nDelivery: ${shippingFee === 0 ? "FREE" : formatINR(shippingFee)}\nGrand Total: ${formatINR(grandTotal)}${offerLine}\n\nPlease let me know how to proceed with the payment.`;
+    return `Hello HUME Perfumes,\n\nI would like to place an order:\n\n${orderLines}\n\nSubtotal: ${formatINR(subtotal)}${couponLine}\nDelivery: ${shippingFee === 0 ? "FREE" : formatINR(shippingFee)}\nGrand Total: ${formatINR(grandTotal)}\nAuto Gifts: ${claimedGiftCount}/${unlockedGiftCount} added based on subtotal tiers (₹799 and ₹1399).\n\nPlease let me know how to proceed with the payment.`;
   };
 
   const handleWhatsAppCheckout = () => {
     const message = encodeURIComponent(generateOrderMessage());
-    const whatsappNumber = "919559024822";
-    window.open(`https://wa.me/${whatsappNumber}?text=${message}`, "_blank");
-    toast({
-      title: "Opening WhatsApp",
-      description: "Complete your order via WhatsApp.",
-    });
-  };
-
-  const handleClaimGift = () => {
-    if (!giftUnlocked || hasClaimedGift) return;
-    const selected = giftCandidates.find((p) => p.id === selectedGiftId);
-    if (!selected) return;
-
-    addItem({
-      id: `gift-${selected.id}`,
-      name: `${selected.name} - Free Gift`,
-      inspiration: selected.inspiration,
-      category: selected.category,
-      image: selected.images[0],
-      price: 0,
-      size: "50ml",
-      isGift: true,
-    });
-
-    toast({
-      title: "Gift added",
-      description: `${selected.name} added as your free 50ml gift.`,
-    });
+    window.open(`https://wa.me/919559024822?text=${message}`, "_blank");
+    toast({ title: "Opening WhatsApp", description: "Complete your order via WhatsApp." });
   };
 
   return (
@@ -131,186 +154,130 @@ const CartDrawer = () => {
             transition={{ type: "tween", duration: 0.3 }}
             className="fixed right-0 top-0 h-full w-full max-w-md bg-background z-50 shadow-2xl flex flex-col"
           >
-            <div className="flex items-center justify-between p-4 border-b border-border">
-              <div className="flex items-center gap-3">
-                <ShoppingBag size={16} />
-                <h2 className="font-serif text-base">Your Bag</h2>
-                <span className="text-[11px] uppercase tracking-[0.12em] text-muted-foreground">
-                  ({totalItems} {totalItems === 1 ? "item" : "items"})
-                </span>
+            <div className="flex items-center justify-between border-b border-border/70 px-5 py-4">
+              <div className="flex items-center gap-2">
+                <h2 className="font-sans text-xl font-semibold">Your Bag</h2>
+                <span className="text-sm text-[#8fa1b6]">({totalItems} items)</span>
               </div>
               <button onClick={() => setIsCartOpen(false)} className="p-2 hover:bg-muted transition-colors">
                 <X size={20} />
               </button>
             </div>
 
-            <div className="flex-1 overflow-y-auto p-6">
+            <div className="flex-1 overflow-y-auto scrollbar-none px-5 py-4">
               {items.length === 0 ? (
                 <div className="h-full flex flex-col items-center justify-center text-center">
-                  <ShoppingBag size={48} className="text-muted-foreground mb-4" />
-                  <p className="font-serif text-xl mb-2">Your bag is empty</p>
-                  <p className="text-body text-muted-foreground">Discover our collection of luxury fragrances</p>
+                  <p className="text-xl font-medium mb-2">Your bag is empty</p>
+                  <p className="text-sm text-muted-foreground">Discover our collection of fragrances</p>
                 </div>
               ) : (
-                <div className="space-y-6">
-                  <div className="border border-border p-3 bg-secondary/20 space-y-3">
-                    <details className="border border-border/60 bg-background/70 p-2">
-                      <summary className="cursor-pointer text-caption text-foreground flex items-center justify-between list-none [&::-webkit-details-marker]:hidden">
-                        <span className="inline-flex items-center gap-2">
-                          <BadgePercent className=" text-emerald-400" size={18} />
-
-                          Choose Your Offer
+                <div className="space-y-5">
+                  <div className="mb-8 pb-4 border-b border-border/70">
+                    <div className="flex items-center justify-between mb-3 text-sm font-medium">
+                      <span>{progressMessage}</span>
+                      <span className="text-[#8fa1b6] text-[12px]">{claimedGiftCount}/{unlockedGiftCount} Unlocked</span>
+                    </div>
+                    <div className="relative pt-6">
+                      <div className="absolute inset-x-0 top-0 text-[10px] font-medium text-[#8fa1b6]">
+                        <span className="absolute left-0">₹0</span>
+                        <span
+                          className="absolute -translate-x-1/2"
+                          style={{ left: `${(firstGiftThreshold / secondGiftThreshold) * 100}%` }}
+                        >
+                          ₹799
                         </span>
-                        <ChevronDown size={14} className="text-muted-foreground" />
-                      </summary>
-                      <div className="mt-2 space-y-2 text-xs text-muted-foreground">
-                        <label className="flex items-center gap-2">
-                          <input
-                            type="radio"
-                            name="offer"
-                            checked={selectedOffer === "10off2"}
-                            onChange={() => setSelectedOffer("10off2")}
-                          />
-                          10% off when you add 2 perfumes
-                        </label>
-                        <label className="flex items-center gap-2">
-                          <input
-                            type="radio"
-                            name="offer"
-                            checked={selectedOffer === "20off3"}
-                            onChange={() => setSelectedOffer("20off3")}
-                          />
-                          20% off when you add 3 perfumes
-                        </label>
-                        <label className="flex items-center gap-2">
-                          <input
-                            type="radio"
-                            name="offer"
-                            checked={selectedOffer === "gift"}
-                            onChange={() => setSelectedOffer("gift")}
-                          />
-                          Buy 3 get 1 free (50ml)
-                        </label>
+                        <span className="absolute right-0">₹1399</span>
                       </div>
-                    </details>
-
-                    {discountAmount > 0 && (
-                      <div className="flex items-center justify-between text-[11px] uppercase tracking-[0.12em] text-emerald-700">
-                        <span>Offer Savings</span>
-                        <span className=" font-semibold  text-emerald-700">-{formatINR(discountAmount)}</span>
+                      <div className="relative h-1.5 rounded-full bg-[#e8edf4] overflow-hidden">
+                        <motion.div
+                          initial={{ width: 0 }}
+                          animate={{ width: `${giftProgress}%` }}
+                          transition={{ duration: 0.35, ease: "easeOut" }}
+                          className="h-full bg-[#20c45a]"
+                        />
                       </div>
-                    )}
-
-                    {selectedOffer === "gift" && (
-                      <>
-                        <div className="flex items-center justify-between mb-2">
-                          <p className="text-xs uppercase tracking-[0.14em] text-muted-foreground">Free 50ml Gift Progress</p>
-                          <p className="text-xs text-muted-foreground">{Math.min(eligible50mlCount, giftGoal)}/{giftGoal}</p>
-                        </div>
-                        <div className="h-2 bg-muted overflow-hidden">
-                          <motion.div
-                            initial={{ width: 0 }}
-                            animate={{ width: `${giftProgress}%` }}
-                            transition={{ duration: 0.35, ease: "easeOut" }}
-                            className="h-full bg-foreground"
-                          />
-                        </div>
-
-                        {giftUnlocked ? (
-                          <motion.div
-                            initial={{ opacity: 0, y: 6 }}
-                            animate={{ opacity: 1, y: 0 }}
-                            className="mt-3 p-3 border border-emerald-400/40 bg-emerald-50 text-emerald-900"
+                      <div className="relative mt-[-11px] h-0">
+                        {[(firstGiftThreshold / secondGiftThreshold) * 100, 100].map((left, idx) => (
+                          <span
+                            key={`gift-marker-${idx}`}
+                            className="absolute -translate-x-1/2 inline-flex h-5 w-5 items-center justify-center rounded-full border border-[#20c45a] bg-white shadow-sm"
+                            style={{ left: `${left}%` }}
                           >
-                            <p className="text-sm flex items-center gap-2">
-                              <Sparkles size={14} />
-                              Your free 50ml gift is ready to claim.
-                            </p>
-                            {!hasClaimedGift ? (
-                              <div className="mt-3 flex items-center gap-2">
-                                <select
-                                  value={selectedGiftId}
-                                  onChange={(e) => setSelectedGiftId(e.target.value)}
-                                  className="flex-1 bg-white border border-emerald-200 text-emerald-900 text-xs px-2 py-1.5 outline-none"
-                                >
-                                  {giftCandidates.map((p) => (
-                                    <option key={p.id} value={p.id} className="text-black">
-                                      {p.name}
-                                    </option>
-                                  ))}
-                                </select>
-                                <button
-                                  onClick={handleClaimGift}
-                                  className="px-3 py-1.5 text-xs uppercase tracking-[0.14em] border border-emerald-300 hover:bg-emerald-100 transition-luxury"
-                                >
-                                  Claim
-                                </button>
-                              </div>
-                            ) : (
-                              <p className="text-xs mt-2 text-emerald-800">Gift already added to your bag.</p>
-                            )}
-                          </motion.div>
-                        ) : (
-                          <p className="text-xs text-muted-foreground mt-3">
-                            Add {remainingForGift} more 50ml {remainingForGift === 1 ? "item" : "items"} to unlock your free 50ml gift.
-                          </p>
-                        )}
-                      </>
-                    )}
+                            <Gift className="h-3 w-3 text-[#20c45a]" />
+                          </span>
+                        ))}
+                      </div>
+                    </div>
                   </div>
 
                   {items.map((item) => (
                     <motion.div
                       key={item.id}
                       layout
-                      initial={{ opacity: 0, y: 20 }}
+                      initial={{ opacity: 0, y: 16 }}
                       animate={{ opacity: 1, y: 0 }}
-                      exit={{ opacity: 0, y: -20 }}
-                      className="flex gap-4"
+                      exit={{ opacity: 0, y: -16 }}
+                      className={`flex gap-3 pb-4 border-b border-border/40 ${item.isGift ? "cursor-pointer rounded-lg bg-secondary/20 p-2 border border-border/60" : ""}`}
+                      onClick={() => {
+                        if (!item.isGift) return;
+                        router.push(`/accessory/${item.id.replace(/^gift-/, "")}`);
+                      }}
                     >
-                      <img src={item.image} alt={item.name} className="w-20 h-24 object-cover bg-secondary" />
-                      <div className="flex-1">
-                        <h3 className="font-serif text-base">{item.name}</h3>
-                        {item.category === "Kit" ? (
-                          <p className="text-[11px] text-muted-foreground/70 mb-2 whitespace-pre-wrap">
-                            {item.inspiration.split(", ").join(" | ")}
+                      <img
+                        src={item.image || "/images/logo.png?v=2"}
+                        alt={item.name}
+                        className="w-20 h-20 rounded-md object-cover bg-secondary"
+                        onError={(e) => {
+                          e.currentTarget.onerror = null;
+                          e.currentTarget.src = "/images/logo.png?v=2";
+                        }}
+                      />
+                      <div className="flex-1 min-w-0">
+                        <div className="grid grid-cols-[minmax(0,1fr)_auto] items-start gap-2">
+                          <h3 className="font-sans text-[14px] font-medium leading-tight min-w-0">{item.name}</h3>
+                          <p className="text-[14px] font-semibold leading-none whitespace-nowrap pl-2">
+                            {item.isGift ? "FREE" : formatINR(item.price)}
                           </p>
-                        ) : (
-                          <p className="text-[11px] text-muted-foreground/70 mb-2 line-clamp-1">
-                            Inspired by {item.inspiration}
-                          </p>
-                        )}
-                        {item.bottleName && (
-                          <p className="text-[11px] text-muted-foreground/70 mb-2">
-                            Bottle: {item.bottleName}
-                            {item.bottlePrice ? ` (${formatINR(item.bottlePrice)})` : ""}
-                          </p>
-                        )}
-                        <p className="text-body font-medium">{item.isGift ? "FREE" : formatINR(item.price)}</p>
+                        </div>
+                        <p className="max-w-full  pt-1 pr-2 text-[12px] italic text-[#8fa1b6] leading-snug break-words">
+                          Inspired by {item.inspiration}
+                        </p>
 
-                        <div className="flex items-center gap-3 mt-3">
-                        {item.isGift ? (
-                          <span className="text-xs uppercase tracking-[0.12em] text-emerald-700">Free Gift Item</span>
-                        ) : (
-                            <>
+                        <div className="flex items-center gap-3 mt-2">
+                          {item.isGift ? (
+                            <span className="text-[11px] uppercase tracking-[0.08em] font-semibold text-[#20c45a]">Free Gift Item</span>
+                          ) : (
+                            <div className="inline-flex items-center">
                               <button
-                                onClick={() => updateQuantity(item.id, item.quantity - 1)}
-                                className="w-8 h-8 flex items-center justify-center border border-border hover:bg-muted transition-colors"
+                                onClick={(e) => {
+                                  e.stopPropagation();
+                                  updateQuantity(item.id, item.quantity - 1);
+                                }}
+                                className="h-7 w-7 rounded-xl flex items-center justify-center border border-border bg-[#f2f4f8]"
                               >
                                 <Minus size={14} />
                               </button>
-                              <span className="text-body w-6 text-center">{item.quantity}</span>
+                              <span className="h-7 w-7 flex items-center justify-center border-y border-border bg-white text-[14px] font-medium">
+                                {item.quantity}
+                              </span>
                               <button
-                                onClick={() => updateQuantity(item.id, item.quantity + 1)}
-                                className="w-8 h-8 flex items-center justify-center border border-border hover:bg-muted transition-colors"
+                                onClick={(e) => {
+                                  e.stopPropagation();
+                                  updateQuantity(item.id, item.quantity + 1);
+                                }}
+                                className="h-7 w-7 rounded-xl flex items-center justify-center border border-border bg-[#f2f4f8]"
                               >
                                 <Plus size={14} />
                               </button>
-                            </>
+                            </div>
                           )}
+
                           <button
-                            onClick={() => removeItem(item.id)}
-                            className="ml-auto w-8 h-8 flex items-center justify-center border border-red-300 bg-red-50 text-red-600 hover:bg-red-100 transition-colors"
+                            onClick={(e) => {
+                              e.stopPropagation();
+                              removeItem(item.id);
+                            }}
+                            className="ml-auto w-8 h-8 flex items-center justify-center rounded-2xl  bg-red-50 text-red-500 hover:text-red-600"
                             aria-label="Remove item"
                           >
                             <Trash2 size={14} />
@@ -319,60 +286,134 @@ const CartDrawer = () => {
                       </div>
                     </motion.div>
                   ))}
+
+                  {coupons.length > 0 && (
+                    <div className="relative border border-border rounded-2xl bg-secondary/10 p-3">
+                      {(() => {
+                        const featuredCoupon = coupons[0];
+                        const featuredApplied = appliedCouponCode === featuredCoupon.code;
+                        const featuredEligible = subtotal >= featuredCoupon.minSubtotal;
+                        return (
+                          <div className="flex items-center justify-between rounded-xl bg-muted/50 px-3 py-2">
+                            <div>
+                              <p className="text-base font-semibold">{featuredCoupon.code}</p>
+                              {featuredApplied && normalizedCouponDiscount > 0 ? (
+                                <p className="text-xs text-emerald-700">You save {formatINR(normalizedCouponDiscount)}</p>
+                              ) : (
+                                <p className="text-xs text-emerald-700">
+                                  {featuredCoupon.type === "percent"
+                                    ? `${featuredCoupon.value}% off`
+                                    : `${formatINR(featuredCoupon.value)} off`}
+                                  {` above ${formatINR(featuredCoupon.minSubtotal)}`}
+                                </p>
+                              )}
+                            </div>
+                            <button
+                              type="button"
+                              onClick={() => handleApplyToggleCoupon(featuredCoupon)}
+                              className={`rounded-full px-4 py-1.5 text-xs font-semibold transition-colors ${
+                                featuredApplied || featuredEligible
+                                  ? "bg-emerald-100 text-emerald-700 hover:bg-emerald-200"
+                                  : "bg-muted text-foreground/70 hover:bg-muted/80"
+                              }`}
+                            >
+                              {featuredApplied ? "Unapply" : "Apply"}
+                            </button>
+                          </div>
+                        );
+                      })()}
+
+                      <button
+                        type="button"
+                        onClick={() => setIsOffersOpen((v) => !v)}
+                        className="mt-3 w-full rounded-full border border-[#0b5ca8]/30 bg-[#0b5ca8]/5 px-4 py-2 text-center text-sm font-semibold text-[#0b5ca8] hover:bg-[#0b5ca8]/10"
+                      >
+                        View All Offers {isOffersOpen ? "▴" : "▾"}
+                      </button>
+
+                      {isOffersOpen && (
+                        <div className="mt-3 rounded-xl border border-border bg-background p-3 space-y-3">
+                          <p className="font-semibold text-base">Available Offers</p>
+                          {coupons.map((coupon) => {
+                            const isApplied = appliedCouponCode === coupon.code;
+                            const isEligible = subtotal >= coupon.minSubtotal;
+                            return (
+                              <div key={coupon.id} className="rounded-lg border border-border p-3">
+                                <div className="flex items-center justify-between">
+                                  <p className="font-semibold text-lg">{coupon.code}</p>
+                                  <button
+                                    type="button"
+                                    onClick={() => handleApplyToggleCoupon(coupon)}
+                                    className={`rounded-full px-4 py-1.5 text-xs font-semibold transition-colors ${
+                                      isApplied || isEligible
+                                        ? "bg-emerald-100 text-emerald-700 hover:bg-emerald-200"
+                                        : "bg-muted text-foreground/70 hover:bg-muted/80"
+                                    }`}
+                                  >
+                                    {isApplied ? "Unapply" : "Apply"}
+                                  </button>
+                                </div>
+                                <p className="mt-1 text-emerald-700 text-xs">
+                                  {coupon.type === "percent"
+                                    ? `You save ${coupon.value}%`
+                                    : `You save ${formatINR(coupon.value)}`}
+                                </p>
+                                <p className="text-xs text-muted-foreground">{coupon.description}</p>
+                                {!isEligible && !isApplied ? (
+                                  <p className="mt-1 text-xs text-muted-foreground">Min order: {formatINR(coupon.minSubtotal)}</p>
+                                ) : null}
+                              </div>
+                            );
+                          })}
+                        </div>
+                      )}
+                    </div>
+                  )}
                 </div>
               )}
             </div>
 
             {items.length > 0 && (
-              <div className="border-t border-border p-6 space-y-4">
-                <details className="border border-border p-3 bg-secondary/20">
-                  <summary className="cursor-pointer text-caption text-foreground flex items-center justify-between list-none [&::-webkit-details-marker]:hidden">
-                    <span>Order Summary</span>
-                    <ChevronDown size={14} className="text-muted-foreground" />
-                  </summary>
-                  <div className="mt-3 space-y-2 text-sm">
-                    <div className="flex justify-between">
-                      <span className="text-muted-foreground">Subtotal</span>
-                      <span>{formatINR(subtotal)}</span>
-                    </div>
-                    {discountAmount > 0 && (
-                      <div className="flex justify-between text-emerald-700">
-                        <span className="text-emerald-700">Offer Savings</span>
-                        <span>-{formatINR(discountAmount)}</span>
-                      </div>
-                    )}
-                    <div className="flex justify-between">
-                      <span className="text-muted-foreground">Delivery</span>
-                      <span className={shippingFee === 0 ? "text-emerald-700" : ""}>
-                        {shippingFee === 0 ? "FREE" : formatINR(shippingFee)}
+              <div className="border-t border-border px-5 py-4 space-y-3">
+                <button type="button" onClick={() => setIsBreakupOpen((v) => !v)} className="w-full flex items-center justify-between">
+                  <span className="inline-flex items-center gap-2 text-[13px] font-medium">
+                    <Image src="/images/ruppee.png" alt="₹" width={16} height={16} />
+                    Estimated Total
+                    {isBreakupOpen ? <ChevronUp className="h-3.5 w-3.5 text-muted-foreground" /> : <ChevronDown className="h-3.5 w-3.5 text-muted-foreground" />}
+                  </span>
+                  <span className="text-[18px] leading-none font-semibold">{formatINR(grandTotal).replace(/[^\d.,₹]/g, "")}</span>
+                </button>
+
+                {isBreakupOpen && (
+                  <div className="rounded-xl border border-border bg-secondary/20 p-4 space-y-2 text-[14px]">
+                    <div className="flex items-center justify-between">
+                      <span className="font-medium">Order Summary</span>
+                      <span className="rounded bg-emerald-100 px-2 py-1 text-xs text-emerald-700">
+                        {formatINR(discountOnMrp)} saved so far
                       </span>
                     </div>
-                    <div className="flex justify-between pt-2 border-t border-border">
-                      <span className="font-medium">Grand Total</span>
-                      <span className="font-medium">{formatINR(grandTotal)}</span>
+                    <div className="flex justify-between"><span className="text-muted-foreground">MRP total</span><span>{formatINR(mrpTotal)}</span></div>
+                    <div className="flex justify-between"><span className="text-muted-foreground">Discount on MRP</span><span className="text-emerald-600">{formatINR(discountOnMrp)}</span></div>
+                    {appliedCoupon && normalizedCouponDiscount > 0 ? (
+                      <div className="flex justify-between"><span className="text-muted-foreground">Coupon ({appliedCoupon.code})</span><span className="text-emerald-600">-{formatINR(normalizedCouponDiscount)}</span></div>
+                    ) : null}
+                    <div className="flex justify-between"><span className="text-muted-foreground">Cart Subtotal</span><span>{formatINR(subtotal)}</span></div>
+                    <div className="flex justify-between"><span className="text-muted-foreground">Shipping Charges</span><span className={shippingFee === 0 ? "text-emerald-600" : ""}>{shippingFee === 0 ? "FREE" : formatINR(shippingFee)}</span></div>
+                    <div className="flex justify-between text-muted-foreground">
+                      <span className="inline-flex items-center gap-1">Prepaid Discount <Info className="h-3.5 w-3.5" /></span>
+                      <span>To be calculated</span>
                     </div>
-                    {subtotal < freeDeliveryThreshold && (
-                      <p className="text-xs text-muted-foreground">
-                        Free delivery on orders of {formatINR(freeDeliveryThreshold)} or more.
-                        Orders below {formatINR(freeDeliveryThreshold)} include {formatINR(deliveryChargeBelowThreshold)} delivery.
-                      </p>
-                    )}
+                    <div className="flex justify-between pt-2 border-t border-border text-base font-semibold">
+                      <span>Estimated Total</span>
+                      <span>{formatINR(grandTotal)}</span>
+                    </div>
                   </div>
-                </details>
+                )}
 
-                <div className="flex items-center justify-between text-sm">
-                  <span className="text-muted-foreground">Grand Total</span>
-                  <span className="font-medium">{formatINR(grandTotal)}</span>
-                </div>
-                <div className="space-y-2">
-                  <Button
-                    onClick={handleWhatsAppCheckout}
-                    className="w-full bg-[#25D366] hover:bg-[#20bd5a] text-primary-foreground"
-                  >
-                    <MessageCircle size={18} className="mr-2" />
-                    Order via WhatsApp
-                  </Button>
-                </div>
+                <Button onClick={handleWhatsAppCheckout} className="h-11 w-full rounded-md bg-[#25D366] hover:bg-[#20bd5a] text-white text-[14px] font-semibold">
+                  <MessageCircle size={18} className="mr-2" />
+                  Order via WhatsApp
+                </Button>
               </div>
             )}
           </motion.div>

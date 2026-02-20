@@ -2,6 +2,8 @@ import { config } from "dotenv";
 import { resolve } from "path";
 import { perfumes } from "../data/perfumes";
 import { blogPosts as blogPostsData } from "../data/blogPosts";
+import { accessories as accessoriesData } from "../data/accessories";
+import { coupons as couponsData } from "../data/coupons";
 
 config({ path: resolve(process.cwd(), ".env.local") });
 const defaultCelebImage = "https://placehold.co/600x600?text=Celeb";
@@ -10,7 +12,7 @@ const defaultBlogImage =
 
 async function seed() {
   const { db } = await import("../db/index");
-  const { products, reviews, blogPosts: blogPostsTable } = await import("../db/schema");
+  const { products, reviews, blogPosts: blogPostsTable, accessories, coupons } = await import("../db/schema");
 
   console.log("Seeding database...");
 
@@ -83,6 +85,41 @@ async function seed() {
     await db.update(blogPostsTable).set({
       imageUrl: defaultBlogImage,
     });
+
+    console.log(`Inserting ${accessoriesData.length} accessories...`);
+    for (const accessory of accessoriesData) {
+      await db
+        .insert(accessories)
+        .values({
+          id: accessory.id,
+          name: accessory.name,
+          shortDescription: accessory.shortDescription,
+          description: accessory.description,
+          images: accessory.images,
+          price: accessory.price.toString(),
+          priceCurrency: accessory.priceCurrency,
+          isComplementary: accessory.isComplementary,
+          giftTier: accessory.giftTier ?? null,
+        })
+        .onConflictDoNothing();
+    }
+
+    console.log(`Inserting ${couponsData.length} coupons...`);
+    for (const coupon of couponsData) {
+      await db
+        .insert(coupons)
+        .values({
+          id: coupon.id,
+          code: coupon.code,
+          title: coupon.title,
+          description: coupon.description,
+          type: coupon.type,
+          value: coupon.value.toString(),
+          minSubtotal: coupon.minSubtotal.toString(),
+          active: coupon.active,
+        })
+        .onConflictDoNothing();
+    }
 
     console.log("Database seeded successfully.");
   } catch (error) {

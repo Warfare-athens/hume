@@ -285,7 +285,7 @@ export default async function BlogPostPage({
               Explore Our Collection
             </h3>
             <p className="text-muted-foreground mb-6">
-              Discover premium inspired fragrances from INR 42. Free shipping over INR 75.
+              Discover premium inspired fragrances from INR 42. Free shipping above INR 799.
             </p>
             <Link
               href="/shop"
