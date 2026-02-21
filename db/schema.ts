@@ -123,6 +123,7 @@ export const coupons = pgTable("coupons", {
   value: decimal("value", { precision: 10, scale: 2 }).notNull(),
   minSubtotal: decimal("min_subtotal", { precision: 10, scale: 2 }).notNull().default("0"),
   active: boolean("active").notNull().default(true),
+  displayInCart: boolean("display_in_cart").notNull().default(true),
   createdAt: timestamp("created_at").defaultNow().notNull(),
   updatedAt: timestamp("updated_at").defaultNow().notNull(),
 });

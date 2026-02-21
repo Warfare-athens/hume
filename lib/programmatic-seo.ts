@@ -1,0 +1,128 @@
+import programmaticSeoData from "@/data/programmatic-seo.json";
+
+export interface ProgrammaticInspiration {
+  slug: string;
+  originalName: string;
+  originalBrand: string;
+  humeProduct: {
+    slug: string;
+    note: string;
+  };
+  scent_profile: {
+    family: string;
+    top_notes: string[];
+    heart_notes: string[];
+    base_notes: string[];
+  };
+  characteristics: {
+    longevity: string;
+    projection: string;
+    seasons: string[];
+    occasions: string[];
+  };
+  why_inspired: string;
+  what_makes_original_iconic: string;
+  how_hume_captures_essence: string;
+  formulated_for_india: string;
+  original_price: number;
+  savings: number;
+}
+
+export interface ProgrammaticAlternative {
+  slug: string;
+  title: string;
+  targetKeyword: string;
+  humeProducts: string[];
+  searchIntent: string;
+  monthlySearches: number;
+  difficulty: string;
+  intro: string;
+  why_this_matters: string;
+}
+
+type ProgrammaticSeoData = {
+  inspirations: ProgrammaticInspiration[];
+  alternatives: ProgrammaticAlternative[];
+};
+
+const data = programmaticSeoData as ProgrammaticSeoData;
+
+export const getAllProgrammaticInspirations = () => data.inspirations;
+
+export const getProgrammaticInspirationBySlug = (slug: string) =>
+  data.inspirations.find((item) => item.slug === slug);
+
+export const getAllProgrammaticAlternatives = () => data.alternatives;
+
+export const getProgrammaticAlternativeBySlug = (slug: string) =>
+  data.alternatives.find((item) => item.slug === slug);
+
+export const getAlternativeToBySlug = (slug: string) =>
+  data.inspirations.find((item) => item.slug === slug);
+
+export function buildInspiredFaq(item: ProgrammaticInspiration) {
+  return [
+    {
+      question: `How long does this ${item.originalName} inspired perfume last?`,
+      answer: `Expected wear is ${item.characteristics.longevity} with ${item.characteristics.projection.toLowerCase()} projection, depending on weather and skin type.`,
+    },
+    {
+      question: `Is this similar to ${item.originalBrand} ${item.originalName}?`,
+      answer:
+        "It follows the same scent family and note direction while being priced for daily use in India.",
+    },
+    {
+      question: "Is this suitable for Indian weather?",
+      answer: item.formulated_for_india,
+    },
+    {
+      question: "Where can I buy the full product?",
+      answer: `You can order it directly from the product page at /product/${item.humeProduct.slug}.`,
+    },
+  ];
+}
+
+export function buildBestPageFaq(item: ProgrammaticAlternative) {
+  return [
+    {
+      question: `What is the best option for ${item.targetKeyword}?`,
+      answer:
+        "Choose based on your preferred note family, weather, and occasion. This page highlights practical picks with strong value.",
+    },
+    {
+      question: "Do these options last in Indian heat?",
+      answer:
+        "Yes, listed picks focus on EDP-style longevity and base-note strength suitable for Indian conditions.",
+    },
+    {
+      question: "Can I wear these daily?",
+      answer:
+        "Most recommendations are versatile enough for office and casual use; heavier options are better for evenings.",
+    },
+  ];
+}
+
+export function getProgrammaticSitemapEntries(baseUrl: string) {
+  const inspired = data.inspirations.map((item) => ({
+    url: `${baseUrl}/inspired-by/${item.slug}`,
+    lastModified: new Date(),
+    changeFrequency: "monthly" as const,
+    priority: 0.7,
+  }));
+
+  const alternativesTo = data.inspirations.map((item) => ({
+    url: `${baseUrl}/alternatives-to/${item.slug}`,
+    lastModified: new Date(),
+    changeFrequency: "monthly" as const,
+    priority: 0.7,
+  }));
+
+  const best = data.alternatives.map((item) => ({
+    url: `${baseUrl}/best/${item.slug}`,
+    lastModified: new Date(),
+    changeFrequency: "monthly" as const,
+    priority: 0.7,
+  }));
+
+  return [...inspired, ...alternativesTo, ...best];
+}

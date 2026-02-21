@@ -117,6 +117,7 @@ async function seed() {
           value: coupon.value.toString(),
           minSubtotal: coupon.minSubtotal.toString(),
           active: coupon.active,
+          displayInCart: coupon.displayInCart,
         })
         .onConflictDoNothing();
     }

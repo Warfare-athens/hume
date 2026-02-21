@@ -5,6 +5,7 @@ import Footer from "@/components/Footer";
 import dynamic from "next/dynamic";
 import { JsonLd } from "@/components/JsonLd";
 import { getOrganizationSchema, getWebSiteSchema, getFAQSchema } from "@/lib/seo";
+import { getAllProducts } from "@/lib/db/products";
 
 const Craft = dynamic(() => import("@/components/Craft"), {
   loading: () => <div className="py-24 md:py-32" />,
@@ -16,7 +17,8 @@ const About = dynamic(() => import("@/components/About"), {
   loading: () => <div className="py-24 md:py-32" />,
 });
 
-export default function Home() {
+export default async function Home() {
+  const perfumes = await getAllProducts();
   const jsonLd = [
     getOrganizationSchema(),
     getWebSiteSchema(),
@@ -28,7 +30,7 @@ export default function Home() {
       <JsonLd data={jsonLd} />
       <Header />
       <Hero />
-      <Collection />
+      <Collection perfumes={perfumes} />
       <Craft />
       <LatestJournal />
       <About />

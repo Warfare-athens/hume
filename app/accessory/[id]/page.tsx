@@ -2,7 +2,6 @@ import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
-import Seo from "@/components/Seo";
 import { JsonLd } from "@/components/JsonLd";
 import { getAccessoryById } from "@/lib/db/accessories";
 import AccessoryDetailClient from "./AccessoryDetailClient";
@@ -17,9 +16,19 @@ export async function generateMetadata({
   const { id } = await params;
   const accessory = await getAccessoryById(id);
   if (!accessory) return { title: "Accessory Not Found" };
+  const canonicalUrl = `https://humefragrance.com/accessory/${accessory.id}`;
   return {
     title: `${accessory.name} | HUME Accessories`,
     description: accessory.shortDescription,
+    alternates: {
+      canonical: canonicalUrl,
+    },
+    openGraph: {
+      title: `${accessory.name} | HUME Accessories`,
+      description: accessory.shortDescription,
+      url: canonicalUrl,
+      images: accessory.images?.[0] ? [accessory.images[0]] : [],
+    },
   };
 }
 
@@ -54,12 +63,6 @@ export default async function AccessoryPage({
 
   return (
     <main className="bg-background min-h-screen">
-      <Seo
-        title={`${accessory.name} | HUME Accessories`}
-        description={accessory.shortDescription}
-        image={accessory.images[0]}
-        url={`https://humefragrance.com/accessory/${accessory.id}`}
-      />
       <JsonLd data={jsonLd} />
       <Header />
       <AccessoryDetailClient accessory={accessory} />
@@ -67,4 +70,3 @@ export default async function AccessoryPage({
     </main>
   );
 }
-

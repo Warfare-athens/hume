@@ -4,7 +4,6 @@ import type { Metadata } from "next";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import { JsonLd } from "@/components/JsonLd";
-import Seo from "@/components/Seo";
 import { getBreadcrumbSchema } from "@/lib/seo";
 import { getBlogPostBySlug, getAllBlogPosts } from "@/lib/db/blog";
 import { getAllProducts } from "@/lib/db/products";
@@ -19,9 +18,20 @@ export async function generateMetadata({
   const { slug } = await params;
   const post = await getBlogPostBySlug(slug);
   if (!post) return { title: "Not Found" };
+  const canonicalUrl = `https://humeperfumes.com/blog/${post.slug}`;
   return {
     title: post.seoTitle,
     description: post.seoDescription,
+    alternates: {
+      canonical: canonicalUrl,
+    },
+    openGraph: {
+      title: post.seoTitle,
+      description: post.seoDescription,
+      url: canonicalUrl,
+      images: post.imageUrl ? [post.imageUrl] : [],
+      type: "article",
+    },
   };
 }
 
@@ -133,12 +143,6 @@ export default async function BlogPostPage({
 
   return (
     <main className="bg-background min-h-screen">
-      <Seo
-        title={post.seoTitle}
-        description={post.seoDescription}
-        image={post.imageUrl}
-        url={`https://humeperfumes.com/blog/${post.slug}`}
-      />
       <JsonLd data={jsonLd} />
       <Header />
 

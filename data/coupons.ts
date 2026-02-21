@@ -9,6 +9,7 @@ export interface CouponData {
   value: number;
   minSubtotal: number;
   active: boolean;
+  displayInCart: boolean;
 }
 
 export const coupons: CouponData[] = [
@@ -21,6 +22,7 @@ export const coupons: CouponData[] = [
     value: 5,
     minSubtotal: 499,
     active: true,
+    displayInCart: true,
   },
   {
     id: "hume100",
@@ -31,6 +33,6 @@ export const coupons: CouponData[] = [
     value: 100,
     minSubtotal: 999,
     active: true,
+    displayInCart: true,
   },
 ];
-

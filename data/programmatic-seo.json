@@ -1,0 +1,2177 @@
+{
+  "inspirations": [
+    {
+      "slug": "creed-aventus",
+      "originalName": "Creed Aventus",
+      "originalBrand": "Creed",
+      "humeProduct": {
+        "slug": "creed-aventus",
+        "note": "Maps to existing product id in Neon DB"
+      },
+      "scent_profile": {
+        "family": "Fresh Fruity",
+        "top_notes": [
+          "Pineapple",
+          "Bergamot",
+          "Apple"
+        ],
+        "heart_notes": [
+          "Birch",
+          "Patchouli",
+          "Jasmine"
+        ],
+        "base_notes": [
+          "Musk",
+          "Oakmoss",
+          "Ambergris"
+        ]
+      },
+      "characteristics": {
+        "longevity": "10-12 hours",
+        "projection": "Strong",
+        "seasons": [
+          "Fall",
+          "Winter",
+          "Monsoon"
+        ],
+        "occasions": [
+          "Date Night",
+          "Events",
+          "Evening"
+        ]
+      },
+      "why_inspired": "Creed Aventus remains a benchmark in the fresh fruity style, so demand for this profile stays consistently high in India.",
+      "what_makes_original_iconic": "Creed Aventus by Creed became iconic because it balanced recognisable character with wide versatility across settings.",
+      "how_hume_captures_essence": "HUME keeps the same scent direction with a matching note pyramid and a practical EDP build for daily wear.",
+      "formulated_for_india": "The blend is tuned for Indian heat and humidity with stronger base support so the dry down lasts longer on skin.",
+      "original_price": 29000,
+      "savings": 28501
+    },
+    {
+      "slug": "dior-sauvage",
+      "originalName": "Dior Sauvage",
+      "originalBrand": "Dior",
+      "humeProduct": {
+        "slug": "sauvage-noir",
+        "note": "Maps to existing product id in Neon DB"
+      },
+      "scent_profile": {
+        "family": "Fresh Aromatic",
+        "top_notes": [
+          "Calabrian Bergamot",
+          "Pepper"
+        ],
+        "heart_notes": [
+          "Lavender",
+          "Sichuan Pepper",
+          "Geranium"
+        ],
+        "base_notes": [
+          "Ambroxan",
+          "Cedar",
+          "Labdanum"
+        ]
+      },
+      "characteristics": {
+        "longevity": "8-10 hours",
+        "projection": "Moderate to Strong",
+        "seasons": [
+          "Spring",
+          "Summer",
+          "Monsoon"
+        ],
+        "occasions": [
+          "Office",
+          "Daily Wear",
+          "Evening"
+        ]
+      },
+      "why_inspired": "Dior Sauvage remains a benchmark in the fresh aromatic style, so demand for this profile stays consistently high in India.",
+      "what_makes_original_iconic": "Dior Sauvage by Dior became iconic because it balanced recognisable character with wide versatility across settings.",
+      "how_hume_captures_essence": "HUME keeps the same scent direction with a matching note pyramid and a practical EDP build for daily wear.",
+      "formulated_for_india": "The blend is tuned for Indian heat and humidity with stronger base support so the dry down lasts longer on skin.",
+      "original_price": 8500,
+      "savings": 8001
+    },
+    {
+      "slug": "acqua-di-gio-profondo",
+      "originalName": "Acqua di Gio Profondo",
+      "originalBrand": "Giorgio Armani",
+      "humeProduct": {
+        "slug": "acqua-di-gio-profondo",
+        "note": "Maps to existing product id in Neon DB"
+      },
+      "scent_profile": {
+        "family": "Aquatic Aromatic",
+        "top_notes": [
+          "Marine Notes",
+          "Green Mandarin",
+          "Bergamot"
+        ],
+        "heart_notes": [
+          "Lavender",
+          "Rosemary",
+          "Cypress"
+        ],
+        "base_notes": [
+          "Musk",
+          "Patchouli",
+          "Mineral Amber"
+        ]
+      },
+      "characteristics": {
+        "longevity": "8-10 hours",
+        "projection": "Strong",
+        "seasons": [
+          "Fall",
+          "Winter",
+          "Monsoon"
+        ],
+        "occasions": [
+          "Date Night",
+          "Events",
+          "Evening"
+        ]
+      },
+      "why_inspired": "Acqua di Gio Profondo remains a benchmark in the aquatic aromatic style, so demand for this profile stays consistently high in India.",
+      "what_makes_original_iconic": "Acqua di Gio Profondo by Giorgio Armani became iconic because it balanced recognisable character with wide versatility across settings.",
+      "how_hume_captures_essence": "HUME keeps the same scent direction with a matching note pyramid and a practical EDP build for daily wear.",
+      "formulated_for_india": "The blend is tuned for Indian heat and humidity with stronger base support so the dry down lasts longer on skin.",
+      "original_price": 8500,
+      "savings": 8001
+    },
+    {
+      "slug": "tom-ford-oud-wood",
+      "originalName": "Tom Ford Oud Wood",
+      "originalBrand": "Tom Ford",
+      "humeProduct": {
+        "slug": "tom-ford-oud-wood",
+        "note": "Maps to existing product id in Neon DB"
+      },
+      "scent_profile": {
+        "family": "Woody Oriental",
+        "top_notes": [
+          "Oud",
+          "Rosewood",
+          "Cardamom"
+        ],
+        "heart_notes": [
+          "Sandalwood",
+          "Vetiver",
+          "Rose"
+        ],
+        "base_notes": [
+          "Amber",
+          "Tonka Bean",
+          "Vanilla"
+        ]
+      },
+      "characteristics": {
+        "longevity": "10-12 hours",
+        "projection": "Moderate to Strong",
+        "seasons": [
+          "Spring",
+          "Summer",
+          "Monsoon"
+        ],
+        "occasions": [
+          "Office",
+          "Daily Wear",
+          "Evening"
+        ]
+      },
+      "why_inspired": "Tom Ford Oud Wood remains a benchmark in the woody oriental style, so demand for this profile stays consistently high in India.",
+      "what_makes_original_iconic": "Tom Ford Oud Wood by Tom Ford became iconic because it balanced recognisable character with wide versatility across settings.",
+      "how_hume_captures_essence": "HUME keeps the same scent direction with a matching note pyramid and a practical EDP build for daily wear.",
+      "formulated_for_india": "The blend is tuned for Indian heat and humidity with stronger base support so the dry down lasts longer on skin.",
+      "original_price": 18000,
+      "savings": 17501
+    },
+    {
+      "slug": "bleu-de-chanel",
+      "originalName": "Bleu de Chanel",
+      "originalBrand": "Chanel",
+      "humeProduct": {
+        "slug": "bleu-de-chanel",
+        "note": "Maps to existing product id in Neon DB"
+      },
+      "scent_profile": {
+        "family": "Woody Aromatic",
+        "top_notes": [
+          "Lemon",
+          "Mint",
+          "Pink Pepper"
+        ],
+        "heart_notes": [
+          "Ginger",
+          "Jasmine",
+          "Incense"
+        ],
+        "base_notes": [
+          "Cedar",
+          "Sandalwood",
+          "Vetiver"
+        ]
+      },
+      "characteristics": {
+        "longevity": "8-10 hours",
+        "projection": "Strong",
+        "seasons": [
+          "Fall",
+          "Winter",
+          "Monsoon"
+        ],
+        "occasions": [
+          "Date Night",
+          "Events",
+          "Evening"
+        ]
+      },
+      "why_inspired": "Bleu de Chanel remains a benchmark in the woody aromatic style, so demand for this profile stays consistently high in India.",
+      "what_makes_original_iconic": "Bleu de Chanel by Chanel became iconic because it balanced recognisable character with wide versatility across settings.",
+      "how_hume_captures_essence": "HUME keeps the same scent direction with a matching note pyramid and a practical EDP build for daily wear.",
+      "formulated_for_india": "The blend is tuned for Indian heat and humidity with stronger base support so the dry down lasts longer on skin.",
+      "original_price": 10500,
+      "savings": 10001
+    },
+    {
+      "slug": "dior-homme-intense",
+      "originalName": "Dior Homme Intense",
+      "originalBrand": "Dior",
+      "humeProduct": {
+        "slug": "homme-intense",
+        "note": "Maps to existing product id in Neon DB"
+      },
+      "scent_profile": {
+        "family": "Powdery Woody",
+        "top_notes": [
+          "Lavender"
+        ],
+        "heart_notes": [
+          "Iris",
+          "Ambrette",
+          "Pear"
+        ],
+        "base_notes": [
+          "Cedar",
+          "Vetiver",
+          "Musk"
+        ]
+      },
+      "characteristics": {
+        "longevity": "8-10 hours",
+        "projection": "Moderate to Strong",
+        "seasons": [
+          "Spring",
+          "Summer",
+          "Monsoon"
+        ],
+        "occasions": [
+          "Office",
+          "Daily Wear",
+          "Evening"
+        ]
+      },
+      "why_inspired": "Dior Homme Intense remains a benchmark in the powdery woody style, so demand for this profile stays consistently high in India.",
+      "what_makes_original_iconic": "Dior Homme Intense by Dior became iconic because it balanced recognisable character with wide versatility across settings.",
+      "how_hume_captures_essence": "HUME keeps the same scent direction with a matching note pyramid and a practical EDP build for daily wear.",
+      "formulated_for_india": "The blend is tuned for Indian heat and humidity with stronger base support so the dry down lasts longer on skin.",
+      "original_price": 12000,
+      "savings": 11501
+    },
+    {
+      "slug": "ysl-y-edp",
+      "originalName": "YSL Y EDP",
+      "originalBrand": "Yves Saint Laurent",
+      "humeProduct": {
+        "slug": "ysl-y-edp",
+        "note": "Maps to existing product id in Neon DB"
+      },
+      "scent_profile": {
+        "family": "Aromatic Fresh",
+        "top_notes": [
+          "Apple",
+          "Ginger",
+          "Bergamot"
+        ],
+        "heart_notes": [
+          "Sage",
+          "Juniper",
+          "Geranium"
+        ],
+        "base_notes": [
+          "Amberwood",
+          "Tonka Bean",
+          "Cedar"
+        ]
+      },
+      "characteristics": {
+        "longevity": "10-12 hours",
+        "projection": "Strong",
+        "seasons": [
+          "Fall",
+          "Winter",
+          "Monsoon"
+        ],
+        "occasions": [
+          "Date Night",
+          "Events",
+          "Evening"
+        ]
+      },
+      "why_inspired": "YSL Y EDP remains a benchmark in the aromatic fresh style, so demand for this profile stays consistently high in India.",
+      "what_makes_original_iconic": "YSL Y EDP by Yves Saint Laurent became iconic because it balanced recognisable character with wide versatility across settings.",
+      "how_hume_captures_essence": "HUME keeps the same scent direction with a matching note pyramid and a practical EDP build for daily wear.",
+      "formulated_for_india": "The blend is tuned for Indian heat and humidity with stronger base support so the dry down lasts longer on skin.",
+      "original_price": 9000,
+      "savings": 8501
+    },
+    {
+      "slug": "gucci-guilty-homme",
+      "originalName": "Gucci Guilty Homme",
+      "originalBrand": "Gucci",
+      "humeProduct": {
+        "slug": "guilty-homme",
+        "note": "Maps to existing product id in Neon DB"
+      },
+      "scent_profile": {
+        "family": "Aromatic Woody",
+        "top_notes": [
+          "Lavender",
+          "Lemon"
+        ],
+        "heart_notes": [
+          "Orange Blossom",
+          "Neroli"
+        ],
+        "base_notes": [
+          "Patchouli",
+          "Cedar",
+          "Musk"
+        ]
+      },
+      "characteristics": {
+        "longevity": "8-10 hours",
+        "projection": "Moderate to Strong",
+        "seasons": [
+          "Spring",
+          "Summer",
+          "Monsoon"
+        ],
+        "occasions": [
+          "Office",
+          "Daily Wear",
+          "Evening"
+        ]
+      },
+      "why_inspired": "Gucci Guilty Homme remains a benchmark in the aromatic woody style, so demand for this profile stays consistently high in India.",
+      "what_makes_original_iconic": "Gucci Guilty Homme by Gucci became iconic because it balanced recognisable character with wide versatility across settings.",
+      "how_hume_captures_essence": "HUME keeps the same scent direction with a matching note pyramid and a practical EDP build for daily wear.",
+      "formulated_for_india": "The blend is tuned for Indian heat and humidity with stronger base support so the dry down lasts longer on skin.",
+      "original_price": 8700,
+      "savings": 8201
+    },
+    {
+      "slug": "allure-homme-sport",
+      "originalName": "Allure Homme Sport",
+      "originalBrand": "Chanel",
+      "humeProduct": {
+        "slug": "allure-sport",
+        "note": "Maps to existing product id in Neon DB"
+      },
+      "scent_profile": {
+        "family": "Citrus Aromatic",
+        "top_notes": [
+          "Orange",
+          "Sea Notes",
+          "Aldehydes"
+        ],
+        "heart_notes": [
+          "Neroli",
+          "Pepper",
+          "Cedar"
+        ],
+        "base_notes": [
+          "Tonka Bean",
+          "Amber",
+          "Vetiver"
+        ]
+      },
+      "characteristics": {
+        "longevity": "8-10 hours",
+        "projection": "Strong",
+        "seasons": [
+          "Fall",
+          "Winter",
+          "Monsoon"
+        ],
+        "occasions": [
+          "Date Night",
+          "Events",
+          "Evening"
+        ]
+      },
+      "why_inspired": "Allure Homme Sport remains a benchmark in the citrus aromatic style, so demand for this profile stays consistently high in India.",
+      "what_makes_original_iconic": "Allure Homme Sport by Chanel became iconic because it balanced recognisable character with wide versatility across settings.",
+      "how_hume_captures_essence": "HUME keeps the same scent direction with a matching note pyramid and a practical EDP build for daily wear.",
+      "formulated_for_india": "The blend is tuned for Indian heat and humidity with stronger base support so the dry down lasts longer on skin.",
+      "original_price": 11000,
+      "savings": 10501
+    },
+    {
+      "slug": "versace-eros-flame",
+      "originalName": "Versace Eros Flame",
+      "originalBrand": "Versace",
+      "humeProduct": {
+        "slug": "eros-flame",
+        "note": "Maps to existing product id in Neon DB"
+      },
+      "scent_profile": {
+        "family": "Spicy Oriental",
+        "top_notes": [
+          "Lemon",
+          "Mandarin",
+          "Black Pepper"
+        ],
+        "heart_notes": [
+          "Rosemary",
+          "Geranium",
+          "Pepperwood"
+        ],
+        "base_notes": [
+          "Tonka Bean",
+          "Vanilla",
+          "Cedar"
+        ]
+      },
+      "characteristics": {
+        "longevity": "10-12 hours",
+        "projection": "Moderate to Strong",
+        "seasons": [
+          "Spring",
+          "Summer",
+          "Monsoon"
+        ],
+        "occasions": [
+          "Office",
+          "Daily Wear",
+          "Evening"
+        ]
+      },
+      "why_inspired": "Versace Eros Flame remains a benchmark in the spicy oriental style, so demand for this profile stays consistently high in India.",
+      "what_makes_original_iconic": "Versace Eros Flame by Versace became iconic because it balanced recognisable character with wide versatility across settings.",
+      "how_hume_captures_essence": "HUME keeps the same scent direction with a matching note pyramid and a practical EDP build for daily wear.",
+      "formulated_for_india": "The blend is tuned for Indian heat and humidity with stronger base support so the dry down lasts longer on skin.",
+      "original_price": 8900,
+      "savings": 8401
+    },
+    {
+      "slug": "armani-stronger-with-you-intensely",
+      "originalName": "Stronger With You Intensely",
+      "originalBrand": "Armani",
+      "humeProduct": {
+        "slug": "stronger-with-you-intensely",
+        "note": "Maps to existing product id in Neon DB"
+      },
+      "scent_profile": {
+        "family": "Sweet Spicy",
+        "top_notes": [
+          "Pink Pepper",
+          "Juniper",
+          "Violet"
+        ],
+        "heart_notes": [
+          "Toffee",
+          "Cinnamon",
+          "Sage"
+        ],
+        "base_notes": [
+          "Tonka Bean",
+          "Vanilla",
+          "Amber"
+        ]
+      },
+      "characteristics": {
+        "longevity": "8-10 hours",
+        "projection": "Strong",
+        "seasons": [
+          "Fall",
+          "Winter",
+          "Monsoon"
+        ],
+        "occasions": [
+          "Date Night",
+          "Events",
+          "Evening"
+        ]
+      },
+      "why_inspired": "Stronger With You Intensely remains a benchmark in the sweet spicy style, so demand for this profile stays consistently high in India.",
+      "what_makes_original_iconic": "Stronger With You Intensely by Armani became iconic because it balanced recognisable character with wide versatility across settings.",
+      "how_hume_captures_essence": "HUME keeps the same scent direction with a matching note pyramid and a practical EDP build for daily wear.",
+      "formulated_for_india": "The blend is tuned for Indian heat and humidity with stronger base support so the dry down lasts longer on skin.",
+      "original_price": 9200,
+      "savings": 8701
+    },
+    {
+      "slug": "valentino-born-in-roma-intense",
+      "originalName": "Valentino Born in Roma Intense",
+      "originalBrand": "Valentino",
+      "humeProduct": {
+        "slug": "valentino-born-in-roma-intense",
+        "note": "Maps to existing product id in Neon DB"
+      },
+      "scent_profile": {
+        "family": "Amber Vanilla",
+        "top_notes": [
+          "Vanilla",
+          "Lavender"
+        ],
+        "heart_notes": [
+          "Lavandin",
+          "Vetiver"
+        ],
+        "base_notes": [
+          "Amber",
+          "Musk",
+          "Woods"
+        ]
+      },
+      "characteristics": {
+        "longevity": "8-10 hours",
+        "projection": "Moderate to Strong",
+        "seasons": [
+          "Spring",
+          "Summer",
+          "Monsoon"
+        ],
+        "occasions": [
+          "Office",
+          "Daily Wear",
+          "Evening"
+        ]
+      },
+      "why_inspired": "Valentino Born in Roma Intense remains a benchmark in the amber vanilla style, so demand for this profile stays consistently high in India.",
+      "what_makes_original_iconic": "Valentino Born in Roma Intense by Valentino became iconic because it balanced recognisable character with wide versatility across settings.",
+      "how_hume_captures_essence": "HUME keeps the same scent direction with a matching note pyramid and a practical EDP build for daily wear.",
+      "formulated_for_india": "The blend is tuned for Indian heat and humidity with stronger base support so the dry down lasts longer on skin.",
+      "original_price": 9800,
+      "savings": 9301
+    },
+    {
+      "slug": "creed-viking",
+      "originalName": "Creed Viking",
+      "originalBrand": "Creed",
+      "humeProduct": {
+        "slug": "creed-viking",
+        "note": "Maps to existing product id in Neon DB"
+      },
+      "scent_profile": {
+        "family": "Spicy Woody",
+        "top_notes": [
+          "Bergamot",
+          "Lemon",
+          "Pink Pepper"
+        ],
+        "heart_notes": [
+          "Rose",
+          "Peppermint",
+          "Lavender"
+        ],
+        "base_notes": [
+          "Vetiver",
+          "Sandalwood",
+          "Patchouli"
+        ]
+      },
+      "characteristics": {
+        "longevity": "10-12 hours",
+        "projection": "Strong",
+        "seasons": [
+          "Fall",
+          "Winter",
+          "Monsoon"
+        ],
+        "occasions": [
+          "Date Night",
+          "Events",
+          "Evening"
+        ]
+      },
+      "why_inspired": "Creed Viking remains a benchmark in the spicy woody style, so demand for this profile stays consistently high in India.",
+      "what_makes_original_iconic": "Creed Viking by Creed became iconic because it balanced recognisable character with wide versatility across settings.",
+      "how_hume_captures_essence": "HUME keeps the same scent direction with a matching note pyramid and a practical EDP build for daily wear.",
+      "formulated_for_india": "The blend is tuned for Indian heat and humidity with stronger base support so the dry down lasts longer on skin.",
+      "original_price": 32000,
+      "savings": 31501
+    },
+    {
+      "slug": "louis-vuitton-imagination",
+      "originalName": "Louis Vuitton Imagination",
+      "originalBrand": "Louis Vuitton",
+      "humeProduct": {
+        "slug": "lv-imagination",
+        "note": "Maps to existing product id in Neon DB"
+      },
+      "scent_profile": {
+        "family": "Citrus Amber",
+        "top_notes": [
+          "Citron",
+          "Bergamot",
+          "Orange"
+        ],
+        "heart_notes": [
+          "Neroli",
+          "Ginger",
+          "Cinnamon"
+        ],
+        "base_notes": [
+          "Black Tea",
+          "Ambroxan",
+          "Frankincense"
+        ]
+      },
+      "characteristics": {
+        "longevity": "8-10 hours",
+        "projection": "Moderate to Strong",
+        "seasons": [
+          "Spring",
+          "Summer",
+          "Monsoon"
+        ],
+        "occasions": [
+          "Office",
+          "Daily Wear",
+          "Evening"
+        ]
+      },
+      "why_inspired": "Louis Vuitton Imagination remains a benchmark in the citrus amber style, so demand for this profile stays consistently high in India.",
+      "what_makes_original_iconic": "Louis Vuitton Imagination by Louis Vuitton became iconic because it balanced recognisable character with wide versatility across settings.",
+      "how_hume_captures_essence": "HUME keeps the same scent direction with a matching note pyramid and a practical EDP build for daily wear.",
+      "formulated_for_india": "The blend is tuned for Indian heat and humidity with stronger base support so the dry down lasts longer on skin.",
+      "original_price": 33000,
+      "savings": 32501
+    },
+    {
+      "slug": "tom-ford-ombre-leather",
+      "originalName": "Tom Ford Ombre Leather",
+      "originalBrand": "Tom Ford",
+      "humeProduct": {
+        "slug": "ombre-leather",
+        "note": "Maps to existing product id in Neon DB"
+      },
+      "scent_profile": {
+        "family": "Leather Spicy",
+        "top_notes": [
+          "Cardamom",
+          "Black Pepper"
+        ],
+        "heart_notes": [
+          "Leather"
+        ],
+        "base_notes": [
+          "Patchouli",
+          "Moss",
+          "Amber"
+        ]
+      },
+      "characteristics": {
+        "longevity": "8-10 hours",
+        "projection": "Strong",
+        "seasons": [
+          "Fall",
+          "Winter",
+          "Monsoon"
+        ],
+        "occasions": [
+          "Date Night",
+          "Events",
+          "Evening"
+        ]
+      },
+      "why_inspired": "Tom Ford Ombre Leather remains a benchmark in the leather spicy style, so demand for this profile stays consistently high in India.",
+      "what_makes_original_iconic": "Tom Ford Ombre Leather by Tom Ford became iconic because it balanced recognisable character with wide versatility across settings.",
+      "how_hume_captures_essence": "HUME keeps the same scent direction with a matching note pyramid and a practical EDP build for daily wear.",
+      "formulated_for_india": "The blend is tuned for Indian heat and humidity with stronger base support so the dry down lasts longer on skin.",
+      "original_price": 16000,
+      "savings": 15501
+    },
+    {
+      "slug": "louis-vuitton-ombre-nomade",
+      "originalName": "Louis Vuitton Ombre Nomade",
+      "originalBrand": "Louis Vuitton",
+      "humeProduct": {
+        "slug": "ombre-nomade",
+        "note": "Maps to existing product id in Neon DB"
+      },
+      "scent_profile": {
+        "family": "Oud Rose",
+        "top_notes": [
+          "Oud",
+          "Raspberry",
+          "Saffron"
+        ],
+        "heart_notes": [
+          "Rose",
+          "Geranium",
+          "Birch"
+        ],
+        "base_notes": [
+          "Benzoin",
+          "Amberwood",
+          "Incense"
+        ]
+      },
+      "characteristics": {
+        "longevity": "10-12 hours",
+        "projection": "Moderate to Strong",
+        "seasons": [
+          "Spring",
+          "Summer",
+          "Monsoon"
+        ],
+        "occasions": [
+          "Office",
+          "Daily Wear",
+          "Evening"
+        ]
+      },
+      "why_inspired": "Louis Vuitton Ombre Nomade remains a benchmark in the oud rose style, so demand for this profile stays consistently high in India.",
+      "what_makes_original_iconic": "Louis Vuitton Ombre Nomade by Louis Vuitton became iconic because it balanced recognisable character with wide versatility across settings.",
+      "how_hume_captures_essence": "HUME keeps the same scent direction with a matching note pyramid and a practical EDP build for daily wear.",
+      "formulated_for_india": "The blend is tuned for Indian heat and humidity with stronger base support so the dry down lasts longer on skin.",
+      "original_price": 36000,
+      "savings": 35501
+    },
+    {
+      "slug": "byredo-gypsy-water",
+      "originalName": "Byredo Gypsy Water",
+      "originalBrand": "Byredo",
+      "humeProduct": {
+        "slug": "gypsy-water",
+        "note": "Maps to existing product id in Neon DB"
+      },
+      "scent_profile": {
+        "family": "Woody Aromatic",
+        "top_notes": [
+          "Bergamot",
+          "Lemon",
+          "Juniper"
+        ],
+        "heart_notes": [
+          "Incense",
+          "Pine",
+          "Orris"
+        ],
+        "base_notes": [
+          "Amber",
+          "Sandalwood",
+          "Vanilla"
+        ]
+      },
+      "characteristics": {
+        "longevity": "8-10 hours",
+        "projection": "Strong",
+        "seasons": [
+          "Fall",
+          "Winter",
+          "Monsoon"
+        ],
+        "occasions": [
+          "Date Night",
+          "Events",
+          "Evening"
+        ]
+      },
+      "why_inspired": "Byredo Gypsy Water remains a benchmark in the woody aromatic style, so demand for this profile stays consistently high in India.",
+      "what_makes_original_iconic": "Byredo Gypsy Water by Byredo became iconic because it balanced recognisable character with wide versatility across settings.",
+      "how_hume_captures_essence": "HUME keeps the same scent direction with a matching note pyramid and a practical EDP build for daily wear.",
+      "formulated_for_india": "The blend is tuned for Indian heat and humidity with stronger base support so the dry down lasts longer on skin.",
+      "original_price": 19000,
+      "savings": 18501
+    },
+    {
+      "slug": "ysl-myslf",
+      "originalName": "YSL MYSLF",
+      "originalBrand": "Yves Saint Laurent",
+      "humeProduct": {
+        "slug": "myself",
+        "note": "Maps to existing product id in Neon DB"
+      },
+      "scent_profile": {
+        "family": "Fresh Woody",
+        "top_notes": [
+          "Bergamot",
+          "Lemon"
+        ],
+        "heart_notes": [
+          "Orange Blossom",
+          "Ginger"
+        ],
+        "base_notes": [
+          "Ambrofix",
+          "Guaiac Wood",
+          "Vanilla"
+        ]
+      },
+      "characteristics": {
+        "longevity": "8-10 hours",
+        "projection": "Moderate to Strong",
+        "seasons": [
+          "Spring",
+          "Summer",
+          "Monsoon"
+        ],
+        "occasions": [
+          "Office",
+          "Daily Wear",
+          "Evening"
+        ]
+      },
+      "why_inspired": "YSL MYSLF remains a benchmark in the fresh woody style, so demand for this profile stays consistently high in India.",
+      "what_makes_original_iconic": "YSL MYSLF by Yves Saint Laurent became iconic because it balanced recognisable character with wide versatility across settings.",
+      "how_hume_captures_essence": "HUME keeps the same scent direction with a matching note pyramid and a practical EDP build for daily wear.",
+      "formulated_for_india": "The blend is tuned for Indian heat and humidity with stronger base support so the dry down lasts longer on skin.",
+      "original_price": 9400,
+      "savings": 8901
+    },
+    {
+      "slug": "dior-sauvage-elixir",
+      "originalName": "Dior Sauvage Elixir",
+      "originalBrand": "Dior",
+      "humeProduct": {
+        "slug": "sauvage-noir",
+        "note": "Maps to existing product id in Neon DB"
+      },
+      "scent_profile": {
+        "family": "Spicy Aromatic",
+        "top_notes": [
+          "Grapefruit",
+          "Nutmeg"
+        ],
+        "heart_notes": [
+          "Lavender",
+          "Cinnamon",
+          "Cardamom"
+        ],
+        "base_notes": [
+          "Licorice",
+          "Amber",
+          "Woods"
+        ]
+      },
+      "characteristics": {
+        "longevity": "10-12 hours",
+        "projection": "Strong",
+        "seasons": [
+          "Fall",
+          "Winter",
+          "Monsoon"
+        ],
+        "occasions": [
+          "Date Night",
+          "Events",
+          "Evening"
+        ]
+      },
+      "why_inspired": "Dior Sauvage Elixir remains a benchmark in the spicy aromatic style, so demand for this profile stays consistently high in India.",
+      "what_makes_original_iconic": "Dior Sauvage Elixir by Dior became iconic because it balanced recognisable character with wide versatility across settings.",
+      "how_hume_captures_essence": "HUME keeps the same scent direction with a matching note pyramid and a practical EDP build for daily wear.",
+      "formulated_for_india": "The blend is tuned for Indian heat and humidity with stronger base support so the dry down lasts longer on skin.",
+      "original_price": 12500,
+      "savings": 12001
+    },
+    {
+      "slug": "chanel-allure-homme-sport-extreme",
+      "originalName": "Allure Homme Sport Extreme",
+      "originalBrand": "Chanel",
+      "humeProduct": {
+        "slug": "allure-sport",
+        "note": "Maps to existing product id in Neon DB"
+      },
+      "scent_profile": {
+        "family": "Fresh Tonka",
+        "top_notes": [
+          "Mandarin",
+          "Mint"
+        ],
+        "heart_notes": [
+          "Pepper",
+          "Cedar"
+        ],
+        "base_notes": [
+          "Tonka Bean",
+          "Musk",
+          "Sandalwood"
+        ]
+      },
+      "characteristics": {
+        "longevity": "8-10 hours",
+        "projection": "Moderate to Strong",
+        "seasons": [
+          "Spring",
+          "Summer",
+          "Monsoon"
+        ],
+        "occasions": [
+          "Office",
+          "Daily Wear",
+          "Evening"
+        ]
+      },
+      "why_inspired": "Allure Homme Sport Extreme remains a benchmark in the fresh tonka style, so demand for this profile stays consistently high in India.",
+      "what_makes_original_iconic": "Allure Homme Sport Extreme by Chanel became iconic because it balanced recognisable character with wide versatility across settings.",
+      "how_hume_captures_essence": "HUME keeps the same scent direction with a matching note pyramid and a practical EDP build for daily wear.",
+      "formulated_for_india": "The blend is tuned for Indian heat and humidity with stronger base support so the dry down lasts longer on skin.",
+      "original_price": 11800,
+      "savings": 11301
+    },
+    {
+      "slug": "armani-code-parfum",
+      "originalName": "Armani Code Parfum",
+      "originalBrand": "Armani",
+      "humeProduct": {
+        "slug": "myself",
+        "note": "Maps to existing product id in Neon DB"
+      },
+      "scent_profile": {
+        "family": "Amber Aromatic",
+        "top_notes": [
+          "Bergamot",
+          "Mandarin"
+        ],
+        "heart_notes": [
+          "Iris",
+          "Clary Sage"
+        ],
+        "base_notes": [
+          "Tonka Bean",
+          "Cedar",
+          "Musk"
+        ]
+      },
+      "characteristics": {
+        "longevity": "8-10 hours",
+        "projection": "Strong",
+        "seasons": [
+          "Fall",
+          "Winter",
+          "Monsoon"
+        ],
+        "occasions": [
+          "Date Night",
+          "Events",
+          "Evening"
+        ]
+      },
+      "why_inspired": "Armani Code Parfum remains a benchmark in the amber aromatic style, so demand for this profile stays consistently high in India.",
+      "what_makes_original_iconic": "Armani Code Parfum by Armani became iconic because it balanced recognisable character with wide versatility across settings.",
+      "how_hume_captures_essence": "HUME keeps the same scent direction with a matching note pyramid and a practical EDP build for daily wear.",
+      "formulated_for_india": "The blend is tuned for Indian heat and humidity with stronger base support so the dry down lasts longer on skin.",
+      "original_price": 9800,
+      "savings": 9301
+    },
+    {
+      "slug": "prada-luna-rossa-carbon",
+      "originalName": "Prada Luna Rossa Carbon",
+      "originalBrand": "Prada",
+      "humeProduct": {
+        "slug": "sauvage-noir",
+        "note": "Maps to existing product id in Neon DB"
+      },
+      "scent_profile": {
+        "family": "Mineral Aromatic",
+        "top_notes": [
+          "Bergamot",
+          "Pepper"
+        ],
+        "heart_notes": [
+          "Lavender",
+          "Soil Tincture"
+        ],
+        "base_notes": [
+          "Ambroxan",
+          "Patchouli",
+          "Dry Woods"
+        ]
+      },
+      "characteristics": {
+        "longevity": "10-12 hours",
+        "projection": "Moderate to Strong",
+        "seasons": [
+          "Spring",
+          "Summer",
+          "Monsoon"
+        ],
+        "occasions": [
+          "Office",
+          "Daily Wear",
+          "Evening"
+        ]
+      },
+      "why_inspired": "Prada Luna Rossa Carbon remains a benchmark in the mineral aromatic style, so demand for this profile stays consistently high in India.",
+      "what_makes_original_iconic": "Prada Luna Rossa Carbon by Prada became iconic because it balanced recognisable character with wide versatility across settings.",
+      "how_hume_captures_essence": "HUME keeps the same scent direction with a matching note pyramid and a practical EDP build for daily wear.",
+      "formulated_for_india": "The blend is tuned for Indian heat and humidity with stronger base support so the dry down lasts longer on skin.",
+      "original_price": 8900,
+      "savings": 8401
+    },
+    {
+      "slug": "montblanc-explorer",
+      "originalName": "Montblanc Explorer",
+      "originalBrand": "Montblanc",
+      "humeProduct": {
+        "slug": "creed-aventus",
+        "note": "Maps to existing product id in Neon DB"
+      },
+      "scent_profile": {
+        "family": "Woody Fresh",
+        "top_notes": [
+          "Bergamot",
+          "Pink Pepper"
+        ],
+        "heart_notes": [
+          "Vetiver",
+          "Leather"
+        ],
+        "base_notes": [
+          "Ambroxan",
+          "Patchouli",
+          "Cocoa"
+        ]
+      },
+      "characteristics": {
+        "longevity": "8-10 hours",
+        "projection": "Strong",
+        "seasons": [
+          "Fall",
+          "Winter",
+          "Monsoon"
+        ],
+        "occasions": [
+          "Date Night",
+          "Events",
+          "Evening"
+        ]
+      },
+      "why_inspired": "Montblanc Explorer remains a benchmark in the woody fresh style, so demand for this profile stays consistently high in India.",
+      "what_makes_original_iconic": "Montblanc Explorer by Montblanc became iconic because it balanced recognisable character with wide versatility across settings.",
+      "how_hume_captures_essence": "HUME keeps the same scent direction with a matching note pyramid and a practical EDP build for daily wear.",
+      "formulated_for_india": "The blend is tuned for Indian heat and humidity with stronger base support so the dry down lasts longer on skin.",
+      "original_price": 6200,
+      "savings": 5701
+    },
+    {
+      "slug": "jpg-le-male-le-parfum",
+      "originalName": "Le Male Le Parfum",
+      "originalBrand": "Jean Paul Gaultier",
+      "humeProduct": {
+        "slug": "spicebomb",
+        "note": "Maps to existing product id in Neon DB"
+      },
+      "scent_profile": {
+        "family": "Warm Oriental",
+        "top_notes": [
+          "Cardamom"
+        ],
+        "heart_notes": [
+          "Lavender",
+          "Iris"
+        ],
+        "base_notes": [
+          "Vanilla",
+          "Woods",
+          "Amber"
+        ]
+      },
+      "characteristics": {
+        "longevity": "8-10 hours",
+        "projection": "Moderate to Strong",
+        "seasons": [
+          "Spring",
+          "Summer",
+          "Monsoon"
+        ],
+        "occasions": [
+          "Office",
+          "Daily Wear",
+          "Evening"
+        ]
+      },
+      "why_inspired": "Le Male Le Parfum remains a benchmark in the warm oriental style, so demand for this profile stays consistently high in India.",
+      "what_makes_original_iconic": "Le Male Le Parfum by Jean Paul Gaultier became iconic because it balanced recognisable character with wide versatility across settings.",
+      "how_hume_captures_essence": "HUME keeps the same scent direction with a matching note pyramid and a practical EDP build for daily wear.",
+      "formulated_for_india": "The blend is tuned for Indian heat and humidity with stronger base support so the dry down lasts longer on skin.",
+      "original_price": 7600,
+      "savings": 7101
+    },
+    {
+      "slug": "mancera-red-tobacco",
+      "originalName": "Mancera Red Tobacco",
+      "originalBrand": "Mancera",
+      "humeProduct": {
+        "slug": "spicebomb",
+        "note": "Maps to existing product id in Neon DB"
+      },
+      "scent_profile": {
+        "family": "Tobacco Spicy",
+        "top_notes": [
+          "Cinnamon",
+          "Saffron",
+          "Incense"
+        ],
+        "heart_notes": [
+          "Patchouli",
+          "Jasmine"
+        ],
+        "base_notes": [
+          "Tobacco",
+          "Vanilla",
+          "Musk"
+        ]
+      },
+      "characteristics": {
+        "longevity": "10-12 hours",
+        "projection": "Strong",
+        "seasons": [
+          "Fall",
+          "Winter",
+          "Monsoon"
+        ],
+        "occasions": [
+          "Date Night",
+          "Events",
+          "Evening"
+        ]
+      },
+      "why_inspired": "Mancera Red Tobacco remains a benchmark in the tobacco spicy style, so demand for this profile stays consistently high in India.",
+      "what_makes_original_iconic": "Mancera Red Tobacco by Mancera became iconic because it balanced recognisable character with wide versatility across settings.",
+      "how_hume_captures_essence": "HUME keeps the same scent direction with a matching note pyramid and a practical EDP build for daily wear.",
+      "formulated_for_india": "The blend is tuned for Indian heat and humidity with stronger base support so the dry down lasts longer on skin.",
+      "original_price": 15000,
+      "savings": 14501
+    },
+    {
+      "slug": "ysl-la-nuit-de-lhomme",
+      "originalName": "La Nuit de L'Homme",
+      "originalBrand": "YSL",
+      "humeProduct": {
+        "slug": "valentino-born-in-roma-intense",
+        "note": "Maps to existing product id in Neon DB"
+      },
+      "scent_profile": {
+        "family": "Cardamom Woody",
+        "top_notes": [
+          "Cardamom"
+        ],
+        "heart_notes": [
+          "Lavender",
+          "Cedar"
+        ],
+        "base_notes": [
+          "Vetiver",
+          "Caraway",
+          "Amber"
+        ]
+      },
+      "characteristics": {
+        "longevity": "8-10 hours",
+        "projection": "Moderate to Strong",
+        "seasons": [
+          "Spring",
+          "Summer",
+          "Monsoon"
+        ],
+        "occasions": [
+          "Office",
+          "Daily Wear",
+          "Evening"
+        ]
+      },
+      "why_inspired": "La Nuit de L'Homme remains a benchmark in the cardamom woody style, so demand for this profile stays consistently high in India.",
+      "what_makes_original_iconic": "La Nuit de L'Homme by YSL became iconic because it balanced recognisable character with wide versatility across settings.",
+      "how_hume_captures_essence": "HUME keeps the same scent direction with a matching note pyramid and a practical EDP build for daily wear.",
+      "formulated_for_india": "The blend is tuned for Indian heat and humidity with stronger base support so the dry down lasts longer on skin.",
+      "original_price": 8900,
+      "savings": 8401
+    },
+    {
+      "slug": "initio-oud-for-greatness",
+      "originalName": "Initio Oud for Greatness",
+      "originalBrand": "Initio",
+      "humeProduct": {
+        "slug": "ombre-nomade",
+        "note": "Maps to existing product id in Neon DB"
+      },
+      "scent_profile": {
+        "family": "Luxury Oud",
+        "top_notes": [
+          "Saffron",
+          "Nutmeg",
+          "Lavender"
+        ],
+        "heart_notes": [
+          "Oud"
+        ],
+        "base_notes": [
+          "Patchouli",
+          "Musk"
+        ]
+      },
+      "characteristics": {
+        "longevity": "8-10 hours",
+        "projection": "Strong",
+        "seasons": [
+          "Fall",
+          "Winter",
+          "Monsoon"
+        ],
+        "occasions": [
+          "Date Night",
+          "Events",
+          "Evening"
+        ]
+      },
+      "why_inspired": "Initio Oud for Greatness remains a benchmark in the luxury oud style, so demand for this profile stays consistently high in India.",
+      "what_makes_original_iconic": "Initio Oud for Greatness by Initio became iconic because it balanced recognisable character with wide versatility across settings.",
+      "how_hume_captures_essence": "HUME keeps the same scent direction with a matching note pyramid and a practical EDP build for daily wear.",
+      "formulated_for_india": "The blend is tuned for Indian heat and humidity with stronger base support so the dry down lasts longer on skin.",
+      "original_price": 27000,
+      "savings": 26501
+    },
+    {
+      "slug": "xerjoff-naxos",
+      "originalName": "Xerjoff Naxos",
+      "originalBrand": "Xerjoff",
+      "humeProduct": {
+        "slug": "stronger-with-you-intensely",
+        "note": "Maps to existing product id in Neon DB"
+      },
+      "scent_profile": {
+        "family": "Honey Tobacco",
+        "top_notes": [
+          "Citrus",
+          "Lavender"
+        ],
+        "heart_notes": [
+          "Cinnamon",
+          "Honey",
+          "Cashmeran"
+        ],
+        "base_notes": [
+          "Tobacco",
+          "Vanilla",
+          "Tonka Bean"
+        ]
+      },
+      "characteristics": {
+        "longevity": "10-12 hours",
+        "projection": "Moderate to Strong",
+        "seasons": [
+          "Spring",
+          "Summer",
+          "Monsoon"
+        ],
+        "occasions": [
+          "Office",
+          "Daily Wear",
+          "Evening"
+        ]
+      },
+      "why_inspired": "Xerjoff Naxos remains a benchmark in the honey tobacco style, so demand for this profile stays consistently high in India.",
+      "what_makes_original_iconic": "Xerjoff Naxos by Xerjoff became iconic because it balanced recognisable character with wide versatility across settings.",
+      "how_hume_captures_essence": "HUME keeps the same scent direction with a matching note pyramid and a practical EDP build for daily wear.",
+      "formulated_for_india": "The blend is tuned for Indian heat and humidity with stronger base support so the dry down lasts longer on skin.",
+      "original_price": 24000,
+      "savings": 23501
+    },
+    {
+      "slug": "tom-ford-tobacco-vanille",
+      "originalName": "Tom Ford Tobacco Vanille",
+      "originalBrand": "Tom Ford",
+      "humeProduct": {
+        "slug": "spicebomb",
+        "note": "Maps to existing product id in Neon DB"
+      },
+      "scent_profile": {
+        "family": "Tobacco Gourmand",
+        "top_notes": [
+          "Tobacco Leaf",
+          "Spices"
+        ],
+        "heart_notes": [
+          "Vanilla",
+          "Cacao",
+          "Tonka"
+        ],
+        "base_notes": [
+          "Dried Fruits",
+          "Woods"
+        ]
+      },
+      "characteristics": {
+        "longevity": "8-10 hours",
+        "projection": "Strong",
+        "seasons": [
+          "Fall",
+          "Winter",
+          "Monsoon"
+        ],
+        "occasions": [
+          "Date Night",
+          "Events",
+          "Evening"
+        ]
+      },
+      "why_inspired": "Tom Ford Tobacco Vanille remains a benchmark in the tobacco gourmand style, so demand for this profile stays consistently high in India.",
+      "what_makes_original_iconic": "Tom Ford Tobacco Vanille by Tom Ford became iconic because it balanced recognisable character with wide versatility across settings.",
+      "how_hume_captures_essence": "HUME keeps the same scent direction with a matching note pyramid and a practical EDP build for daily wear.",
+      "formulated_for_india": "The blend is tuned for Indian heat and humidity with stronger base support so the dry down lasts longer on skin.",
+      "original_price": 32000,
+      "savings": 31501
+    },
+    {
+      "slug": "parfums-de-marly-layton",
+      "originalName": "Parfums de Marly Layton",
+      "originalBrand": "Parfums de Marly",
+      "humeProduct": {
+        "slug": "valentino-born-in-roma-intense",
+        "note": "Maps to existing product id in Neon DB"
+      },
+      "scent_profile": {
+        "family": "Spicy Vanilla",
+        "top_notes": [
+          "Apple",
+          "Bergamot",
+          "Lavender"
+        ],
+        "heart_notes": [
+          "Geranium",
+          "Violet",
+          "Jasmine"
+        ],
+        "base_notes": [
+          "Vanilla",
+          "Cardamom",
+          "Sandalwood"
+        ]
+      },
+      "characteristics": {
+        "longevity": "8-10 hours",
+        "projection": "Moderate to Strong",
+        "seasons": [
+          "Spring",
+          "Summer",
+          "Monsoon"
+        ],
+        "occasions": [
+          "Office",
+          "Daily Wear",
+          "Evening"
+        ]
+      },
+      "why_inspired": "Parfums de Marly Layton remains a benchmark in the spicy vanilla style, so demand for this profile stays consistently high in India.",
+      "what_makes_original_iconic": "Parfums de Marly Layton by Parfums de Marly became iconic because it balanced recognisable character with wide versatility across settings.",
+      "how_hume_captures_essence": "HUME keeps the same scent direction with a matching note pyramid and a practical EDP build for daily wear.",
+      "formulated_for_india": "The blend is tuned for Indian heat and humidity with stronger base support so the dry down lasts longer on skin.",
+      "original_price": 23000,
+      "savings": 22501
+    },
+    {
+      "slug": "amouage-interlude-man",
+      "originalName": "Amouage Interlude Man",
+      "originalBrand": "Amouage",
+      "humeProduct": {
+        "slug": "ombre-nomade",
+        "note": "Maps to existing product id in Neon DB"
+      },
+      "scent_profile": {
+        "family": "Resinous Oriental",
+        "top_notes": [
+          "Bergamot",
+          "Oregano",
+          "Pepper"
+        ],
+        "heart_notes": [
+          "Incense",
+          "Amber",
+          "Labdanum"
+        ],
+        "base_notes": [
+          "Leather",
+          "Oud",
+          "Patchouli"
+        ]
+      },
+      "characteristics": {
+        "longevity": "10-12 hours",
+        "projection": "Strong",
+        "seasons": [
+          "Fall",
+          "Winter",
+          "Monsoon"
+        ],
+        "occasions": [
+          "Date Night",
+          "Events",
+          "Evening"
+        ]
+      },
+      "why_inspired": "Amouage Interlude Man remains a benchmark in the resinous oriental style, so demand for this profile stays consistently high in India.",
+      "what_makes_original_iconic": "Amouage Interlude Man by Amouage became iconic because it balanced recognisable character with wide versatility across settings.",
+      "how_hume_captures_essence": "HUME keeps the same scent direction with a matching note pyramid and a practical EDP build for daily wear.",
+      "formulated_for_india": "The blend is tuned for Indian heat and humidity with stronger base support so the dry down lasts longer on skin.",
+      "original_price": 28000,
+      "savings": 27501
+    },
+    {
+      "slug": "bvlgari-tygar",
+      "originalName": "Bvlgari Tygar",
+      "originalBrand": "Bvlgari",
+      "humeProduct": {
+        "slug": "lv-imagination",
+        "note": "Maps to existing product id in Neon DB"
+      },
+      "scent_profile": {
+        "family": "Citrus Woods",
+        "top_notes": [
+          "Grapefruit"
+        ],
+        "heart_notes": [
+          "Ginger",
+          "Ambrette"
+        ],
+        "base_notes": [
+          "Ambroxan",
+          "Musk",
+          "Woods"
+        ]
+      },
+      "characteristics": {
+        "longevity": "8-10 hours",
+        "projection": "Moderate to Strong",
+        "seasons": [
+          "Spring",
+          "Summer",
+          "Monsoon"
+        ],
+        "occasions": [
+          "Office",
+          "Daily Wear",
+          "Evening"
+        ]
+      },
+      "why_inspired": "Bvlgari Tygar remains a benchmark in the citrus woods style, so demand for this profile stays consistently high in India.",
+      "what_makes_original_iconic": "Bvlgari Tygar by Bvlgari became iconic because it balanced recognisable character with wide versatility across settings.",
+      "how_hume_captures_essence": "HUME keeps the same scent direction with a matching note pyramid and a practical EDP build for daily wear.",
+      "formulated_for_india": "The blend is tuned for Indian heat and humidity with stronger base support so the dry down lasts longer on skin.",
+      "original_price": 30000,
+      "savings": 29501
+    },
+    {
+      "slug": "creed-green-irish-tweed",
+      "originalName": "Creed Green Irish Tweed",
+      "originalBrand": "Creed",
+      "humeProduct": {
+        "slug": "bleu-de-chanel",
+        "note": "Maps to existing product id in Neon DB"
+      },
+      "scent_profile": {
+        "family": "Green Aromatic",
+        "top_notes": [
+          "Verbena",
+          "Iris"
+        ],
+        "heart_notes": [
+          "Violet Leaf"
+        ],
+        "base_notes": [
+          "Sandalwood",
+          "Ambergris"
+        ]
+      },
+      "characteristics": {
+        "longevity": "8-10 hours",
+        "projection": "Strong",
+        "seasons": [
+          "Fall",
+          "Winter",
+          "Monsoon"
+        ],
+        "occasions": [
+          "Date Night",
+          "Events",
+          "Evening"
+        ]
+      },
+      "why_inspired": "Creed Green Irish Tweed remains a benchmark in the green aromatic style, so demand for this profile stays consistently high in India.",
+      "what_makes_original_iconic": "Creed Green Irish Tweed by Creed became iconic because it balanced recognisable character with wide versatility across settings.",
+      "how_hume_captures_essence": "HUME keeps the same scent direction with a matching note pyramid and a practical EDP build for daily wear.",
+      "formulated_for_india": "The blend is tuned for Indian heat and humidity with stronger base support so the dry down lasts longer on skin.",
+      "original_price": 29000,
+      "savings": 28501
+    },
+    {
+      "slug": "mfk-gentle-fluidity-silver",
+      "originalName": "Gentle Fluidity Silver",
+      "originalBrand": "Maison Francis Kurkdjian",
+      "humeProduct": {
+        "slug": "lv-imagination",
+        "note": "Maps to existing product id in Neon DB"
+      },
+      "scent_profile": {
+        "family": "Aromatic Metallic",
+        "top_notes": [
+          "Juniper",
+          "Nutmeg"
+        ],
+        "heart_notes": [
+          "Coriander"
+        ],
+        "base_notes": [
+          "Musk",
+          "Amber Woods",
+          "Vanilla"
+        ]
+      },
+      "characteristics": {
+        "longevity": "10-12 hours",
+        "projection": "Moderate to Strong",
+        "seasons": [
+          "Spring",
+          "Summer",
+          "Monsoon"
+        ],
+        "occasions": [
+          "Office",
+          "Daily Wear",
+          "Evening"
+        ]
+      },
+      "why_inspired": "Gentle Fluidity Silver remains a benchmark in the aromatic metallic style, so demand for this profile stays consistently high in India.",
+      "what_makes_original_iconic": "Gentle Fluidity Silver by Maison Francis Kurkdjian became iconic because it balanced recognisable character with wide versatility across settings.",
+      "how_hume_captures_essence": "HUME keeps the same scent direction with a matching note pyramid and a practical EDP build for daily wear.",
+      "formulated_for_india": "The blend is tuned for Indian heat and humidity with stronger base support so the dry down lasts longer on skin.",
+      "original_price": 21000,
+      "savings": 20501
+    },
+    {
+      "slug": "nishane-hacivat",
+      "originalName": "Nishane Hacivat",
+      "originalBrand": "Nishane",
+      "humeProduct": {
+        "slug": "creed-aventus",
+        "note": "Maps to existing product id in Neon DB"
+      },
+      "scent_profile": {
+        "family": "Chypre Fruity",
+        "top_notes": [
+          "Pineapple",
+          "Grapefruit",
+          "Bergamot"
+        ],
+        "heart_notes": [
+          "Cedar",
+          "Patchouli",
+          "Jasmine"
+        ],
+        "base_notes": [
+          "Oakmoss",
+          "Woody Notes"
+        ]
+      },
+      "characteristics": {
+        "longevity": "8-10 hours",
+        "projection": "Strong",
+        "seasons": [
+          "Fall",
+          "Winter",
+          "Monsoon"
+        ],
+        "occasions": [
+          "Date Night",
+          "Events",
+          "Evening"
+        ]
+      },
+      "why_inspired": "Nishane Hacivat remains a benchmark in the chypre fruity style, so demand for this profile stays consistently high in India.",
+      "what_makes_original_iconic": "Nishane Hacivat by Nishane became iconic because it balanced recognisable character with wide versatility across settings.",
+      "how_hume_captures_essence": "HUME keeps the same scent direction with a matching note pyramid and a practical EDP build for daily wear.",
+      "formulated_for_india": "The blend is tuned for Indian heat and humidity with stronger base support so the dry down lasts longer on skin.",
+      "original_price": 18000,
+      "savings": 17501
+    },
+    {
+      "slug": "lattafa-khamrah-qahwa",
+      "originalName": "Lattafa Khamrah Qahwa",
+      "originalBrand": "Lattafa",
+      "humeProduct": {
+        "slug": "stronger-with-you-intensely",
+        "note": "Maps to existing product id in Neon DB"
+      },
+      "scent_profile": {
+        "family": "Coffee Gourmand",
+        "top_notes": [
+          "Ginger",
+          "Cardamom",
+          "Cinnamon"
+        ],
+        "heart_notes": [
+          "Praline",
+          "Candied Fruits"
+        ],
+        "base_notes": [
+          "Coffee",
+          "Benzoin",
+          "Vanilla"
+        ]
+      },
+      "characteristics": {
+        "longevity": "8-10 hours",
+        "projection": "Moderate to Strong",
+        "seasons": [
+          "Spring",
+          "Summer",
+          "Monsoon"
+        ],
+        "occasions": [
+          "Office",
+          "Daily Wear",
+          "Evening"
+        ]
+      },
+      "why_inspired": "Lattafa Khamrah Qahwa remains a benchmark in the coffee gourmand style, so demand for this profile stays consistently high in India.",
+      "what_makes_original_iconic": "Lattafa Khamrah Qahwa by Lattafa became iconic because it balanced recognisable character with wide versatility across settings.",
+      "how_hume_captures_essence": "HUME keeps the same scent direction with a matching note pyramid and a practical EDP build for daily wear.",
+      "formulated_for_india": "The blend is tuned for Indian heat and humidity with stronger base support so the dry down lasts longer on skin.",
+      "original_price": 2500,
+      "savings": 2001
+    }
+  ],
+  "alternatives": [
+    {
+      "slug": "best-oud-perfume-india",
+      "title": "Best Oud Perfume in India Under ?2000 (2026 Guide)",
+      "targetKeyword": "best oud perfume India",
+      "humeProducts": [
+        "ombre-nomade",
+        "tom-ford-oud-wood",
+        "creed-viking"
+      ],
+      "searchIntent": "buying",
+      "monthlySearches": 250,
+      "difficulty": "medium",
+      "intro": "This guide compares top inspired options for 'best oud perfume India' and highlights value, longevity, and wearability for Indian conditions.",
+      "why_this_matters": "Most buyers want designer-style scent profiles with better value and practical all-day performance in local weather."
+    },
+    {
+      "slug": "long-lasting-perfume-men-india",
+      "title": "Long Lasting Perfumes for Men in India (8+ Hours Tested)",
+      "targetKeyword": "long lasting perfume men India",
+      "humeProducts": [
+        "creed-aventus",
+        "sauvage-noir",
+        "spicebomb"
+      ],
+      "searchIntent": "informational + buying",
+      "monthlySearches": 800,
+      "difficulty": "medium",
+      "intro": "This guide compares top inspired options for 'long lasting perfume men India' and highlights value, longevity, and wearability for Indian conditions.",
+      "why_this_matters": "Most buyers want designer-style scent profiles with better value and practical all-day performance in local weather."
+    },
+    {
+      "slug": "fresh-perfume-summer-india",
+      "title": "Best Fresh Perfumes for Indian Summer (March-June 2026)",
+      "targetKeyword": "fresh perfume summer India",
+      "humeProducts": [
+        "acqua-di-gio-profondo",
+        "bleu-de-chanel",
+        "lv-imagination"
+      ],
+      "searchIntent": "seasonal buying",
+      "monthlySearches": 400,
+      "difficulty": "low",
+      "intro": "This guide compares top inspired options for 'fresh perfume summer India' and highlights value, longevity, and wearability for Indian conditions.",
+      "why_this_matters": "Most buyers want designer-style scent profiles with better value and practical all-day performance in local weather."
+    },
+    {
+      "slug": "office-perfume-men-india",
+      "title": "Best Office Perfumes for Men in India (Professional & Long-Lasting)",
+      "targetKeyword": "office perfume men India",
+      "humeProducts": [
+        "bleu-de-chanel",
+        "myself",
+        "ysl-y-edp"
+      ],
+      "searchIntent": "buying",
+      "monthlySearches": 300,
+      "difficulty": "low",
+      "intro": "This guide compares top inspired options for 'office perfume men India' and highlights value, longevity, and wearability for Indian conditions.",
+      "why_this_matters": "Most buyers want designer-style scent profiles with better value and practical all-day performance in local weather."
+    },
+    {
+      "slug": "date-night-perfume-men-india",
+      "title": "Best Date Night Perfumes for Men in India (Seductive & Memorable)",
+      "targetKeyword": "date night perfume men",
+      "humeProducts": [
+        "ombre-leather",
+        "stronger-with-you-intensely",
+        "valentino-born-in-roma-intense"
+      ],
+      "searchIntent": "buying",
+      "monthlySearches": 200,
+      "difficulty": "low",
+      "intro": "This guide compares top inspired options for 'date night perfume men' and highlights value, longevity, and wearability for Indian conditions.",
+      "why_this_matters": "Most buyers want designer-style scent profiles with better value and practical all-day performance in local weather."
+    },
+    {
+      "slug": "best-sauvage-alternative-india",
+      "title": "Best Dior Sauvage Alternative in India",
+      "targetKeyword": "dior sauvage alternative India",
+      "humeProducts": [
+        "sauvage-noir",
+        "myself",
+        "bleu-de-chanel"
+      ],
+      "searchIntent": "buying",
+      "monthlySearches": 650,
+      "difficulty": "medium",
+      "intro": "This guide compares top inspired options for 'dior sauvage alternative India' and highlights value, longevity, and wearability for Indian conditions.",
+      "why_this_matters": "Most buyers want designer-style scent profiles with better value and practical all-day performance in local weather."
+    },
+    {
+      "slug": "best-aventus-alternative-india",
+      "title": "Best Creed Aventus Alternative in India",
+      "targetKeyword": "creed aventus alternative India",
+      "humeProducts": [
+        "creed-aventus",
+        "creed-viking",
+        "bleu-de-chanel"
+      ],
+      "searchIntent": "buying",
+      "monthlySearches": 520,
+      "difficulty": "medium",
+      "intro": "This guide compares top inspired options for 'creed aventus alternative India' and highlights value, longevity, and wearability for Indian conditions.",
+      "why_this_matters": "Most buyers want designer-style scent profiles with better value and practical all-day performance in local weather."
+    },
+    {
+      "slug": "best-bleu-de-chanel-alternative",
+      "title": "Best Bleu de Chanel Alternative for Indian Weather",
+      "targetKeyword": "bleu de chanel alternative",
+      "humeProducts": [
+        "bleu-de-chanel",
+        "lv-imagination",
+        "acqua-di-gio-profondo"
+      ],
+      "searchIntent": "buying",
+      "monthlySearches": 300,
+      "difficulty": "low",
+      "intro": "This guide compares top inspired options for 'bleu de chanel alternative' and highlights value, longevity, and wearability for Indian conditions.",
+      "why_this_matters": "Most buyers want designer-style scent profiles with better value and practical all-day performance in local weather."
+    },
+    {
+      "slug": "best-oud-wood-alternative",
+      "title": "Best Tom Ford Oud Wood Alternative in India",
+      "targetKeyword": "oud wood alternative India",
+      "humeProducts": [
+        "tom-ford-oud-wood",
+        "ombre-nomade",
+        "ombre-leather"
+      ],
+      "searchIntent": "buying",
+      "monthlySearches": 240,
+      "difficulty": "medium",
+      "intro": "This guide compares top inspired options for 'oud wood alternative India' and highlights value, longevity, and wearability for Indian conditions.",
+      "why_this_matters": "Most buyers want designer-style scent profiles with better value and practical all-day performance in local weather."
+    },
+    {
+      "slug": "best-fresh-perfume-for-office",
+      "title": "Best Fresh Perfumes for Office Wear in India",
+      "targetKeyword": "fresh office perfume India",
+      "humeProducts": [
+        "acqua-di-gio-profondo",
+        "myself",
+        "ysl-y-edp"
+      ],
+      "searchIntent": "buying",
+      "monthlySearches": 220,
+      "difficulty": "low",
+      "intro": "This guide compares top inspired options for 'fresh office perfume India' and highlights value, longevity, and wearability for Indian conditions.",
+      "why_this_matters": "Most buyers want designer-style scent profiles with better value and practical all-day performance in local weather."
+    },
+    {
+      "slug": "best-night-perfume-under-2000",
+      "title": "Best Night Perfumes Under ?2000 in India",
+      "targetKeyword": "night perfume under 2000",
+      "humeProducts": [
+        "spicebomb",
+        "stronger-with-you-intensely",
+        "eros-flame"
+      ],
+      "searchIntent": "buying",
+      "monthlySearches": 280,
+      "difficulty": "low",
+      "intro": "This guide compares top inspired options for 'night perfume under 2000' and highlights value, longevity, and wearability for Indian conditions.",
+      "why_this_matters": "Most buyers want designer-style scent profiles with better value and practical all-day performance in local weather."
+    },
+    {
+      "slug": "best-winter-perfume-men-india",
+      "title": "Best Winter Perfumes for Men in India (Warm & Strong)",
+      "targetKeyword": "winter perfume men India",
+      "humeProducts": [
+        "spicebomb",
+        "creed-viking",
+        "valentino-born-in-roma-intense"
+      ],
+      "searchIntent": "seasonal buying",
+      "monthlySearches": 340,
+      "difficulty": "low",
+      "intro": "This guide compares top inspired options for 'winter perfume men India' and highlights value, longevity, and wearability for Indian conditions.",
+      "why_this_matters": "Most buyers want designer-style scent profiles with better value and practical all-day performance in local weather."
+    },
+    {
+      "slug": "best-party-perfume-men",
+      "title": "Best Party Perfumes for Men in India",
+      "targetKeyword": "party perfume men",
+      "humeProducts": [
+        "eros-flame",
+        "spicebomb",
+        "sauvage-noir"
+      ],
+      "searchIntent": "buying",
+      "monthlySearches": 260,
+      "difficulty": "low",
+      "intro": "This guide compares top inspired options for 'party perfume men' and highlights value, longevity, and wearability for Indian conditions.",
+      "why_this_matters": "Most buyers want designer-style scent profiles with better value and practical all-day performance in local weather."
+    },
+    {
+      "slug": "best-unisex-perfume-india",
+      "title": "Best Unisex Inspired Perfumes in India",
+      "targetKeyword": "best unisex perfume India",
+      "humeProducts": [
+        "gypsy-water",
+        "lv-imagination",
+        "ombre-nomade"
+      ],
+      "searchIntent": "buying",
+      "monthlySearches": 210,
+      "difficulty": "low",
+      "intro": "This guide compares top inspired options for 'best unisex perfume India' and highlights value, longevity, and wearability for Indian conditions.",
+      "why_this_matters": "Most buyers want designer-style scent profiles with better value and practical all-day performance in local weather."
+    },
+    {
+      "slug": "best-perfume-for-humidity",
+      "title": "Best Perfumes for Humid Indian Weather",
+      "targetKeyword": "perfume for humidity",
+      "humeProducts": [
+        "acqua-di-gio-profondo",
+        "bleu-de-chanel",
+        "myself"
+      ],
+      "searchIntent": "informational + buying",
+      "monthlySearches": 190,
+      "difficulty": "low",
+      "intro": "This guide compares top inspired options for 'perfume for humidity' and highlights value, longevity, and wearability for Indian conditions.",
+      "why_this_matters": "Most buyers want designer-style scent profiles with better value and practical all-day performance in local weather."
+    },
+    {
+      "slug": "best-perfume-gift-for-men",
+      "title": "Best Perfume Gifts for Men in India (Premium Budget Picks)",
+      "targetKeyword": "perfume gift for men India",
+      "humeProducts": [
+        "creed-aventus",
+        "sauvage-noir",
+        "bleu-de-chanel"
+      ],
+      "searchIntent": "buying",
+      "monthlySearches": 310,
+      "difficulty": "low",
+      "intro": "This guide compares top inspired options for 'perfume gift for men India' and highlights value, longevity, and wearability for Indian conditions.",
+      "why_this_matters": "Most buyers want designer-style scent profiles with better value and practical all-day performance in local weather."
+    },
+    {
+      "slug": "best-perfume-college-men",
+      "title": "Best Perfumes for College Men in India",
+      "targetKeyword": "best perfume for college boys",
+      "humeProducts": [
+        "ysl-y-edp",
+        "myself",
+        "acqua-di-gio-profondo"
+      ],
+      "searchIntent": "buying",
+      "monthlySearches": 360,
+      "difficulty": "low",
+      "intro": "This guide compares top inspired options for 'best perfume for college boys' and highlights value, longevity, and wearability for Indian conditions.",
+      "why_this_matters": "Most buyers want designer-style scent profiles with better value and practical all-day performance in local weather."
+    },
+    {
+      "slug": "best-monsoon-perfume-men",
+      "title": "Best Monsoon Perfumes for Men in India",
+      "targetKeyword": "monsoon perfume men India",
+      "humeProducts": [
+        "creed-viking",
+        "bleu-de-chanel",
+        "lv-imagination"
+      ],
+      "searchIntent": "seasonal buying",
+      "monthlySearches": 170,
+      "difficulty": "low",
+      "intro": "This guide compares top inspired options for 'monsoon perfume men India' and highlights value, longevity, and wearability for Indian conditions.",
+      "why_this_matters": "Most buyers want designer-style scent profiles with better value and practical all-day performance in local weather."
+    },
+    {
+      "slug": "best-sauvage-elixir-alternative",
+      "title": "Best Sauvage Elixir Alternative in India",
+      "targetKeyword": "sauvage elixir alternative",
+      "humeProducts": [
+        "sauvage-noir",
+        "creed-viking",
+        "spicebomb"
+      ],
+      "searchIntent": "buying",
+      "monthlySearches": 140,
+      "difficulty": "medium",
+      "intro": "This guide compares top inspired options for 'sauvage elixir alternative' and highlights value, longevity, and wearability for Indian conditions.",
+      "why_this_matters": "Most buyers want designer-style scent profiles with better value and practical all-day performance in local weather."
+    },
+    {
+      "slug": "best-layton-alternative-india",
+      "title": "Best Layton Alternative in India",
+      "targetKeyword": "layton alternative India",
+      "humeProducts": [
+        "valentino-born-in-roma-intense",
+        "stronger-with-you-intensely",
+        "spicebomb"
+      ],
+      "searchIntent": "buying",
+      "monthlySearches": 130,
+      "difficulty": "medium",
+      "intro": "This guide compares top inspired options for 'layton alternative India' and highlights value, longevity, and wearability for Indian conditions.",
+      "why_this_matters": "Most buyers want designer-style scent profiles with better value and practical all-day performance in local weather."
+    },
+    {
+      "slug": "best-tobacco-vanille-alternative",
+      "title": "Best Tobacco Vanille Alternative in India",
+      "targetKeyword": "tobacco vanille alternative",
+      "humeProducts": [
+        "spicebomb",
+        "ombre-leather",
+        "stronger-with-you-intensely"
+      ],
+      "searchIntent": "buying",
+      "monthlySearches": 160,
+      "difficulty": "medium",
+      "intro": "This guide compares top inspired options for 'tobacco vanille alternative' and highlights value, longevity, and wearability for Indian conditions.",
+      "why_this_matters": "Most buyers want designer-style scent profiles with better value and practical all-day performance in local weather."
+    },
+    {
+      "slug": "best-imagination-alternative",
+      "title": "Best LV Imagination Alternative in India",
+      "targetKeyword": "lv imagination alternative",
+      "humeProducts": [
+        "lv-imagination",
+        "bleu-de-chanel",
+        "myself"
+      ],
+      "searchIntent": "buying",
+      "monthlySearches": 180,
+      "difficulty": "medium",
+      "intro": "This guide compares top inspired options for 'lv imagination alternative' and highlights value, longevity, and wearability for Indian conditions.",
+      "why_this_matters": "Most buyers want designer-style scent profiles with better value and practical all-day performance in local weather."
+    },
+    {
+      "slug": "best-gym-perfume-men-india",
+      "title": "Best Gym Perfumes for Men in India",
+      "targetKeyword": "gym perfume men India",
+      "humeProducts": [
+        "allure-sport",
+        "acqua-di-gio-profondo",
+        "ysl-y-edp"
+      ],
+      "searchIntent": "buying",
+      "monthlySearches": 240,
+      "difficulty": "low",
+      "intro": "This guide compares top inspired options for 'gym perfume men India' and highlights value, longevity, and wearability for Indian conditions.",
+      "why_this_matters": "Most buyers want designer-style scent profiles with better value and practical all-day performance in local weather."
+    },
+    {
+      "slug": "best-aquatic-perfume-india",
+      "title": "Best Aquatic Perfumes in India",
+      "targetKeyword": "best aquatic perfume India",
+      "humeProducts": [
+        "acqua-di-gio-profondo",
+        "allure-sport",
+        "bleu-de-chanel"
+      ],
+      "searchIntent": "buying",
+      "monthlySearches": 210,
+      "difficulty": "low",
+      "intro": "This guide compares top inspired options for 'best aquatic perfume India' and highlights value, longevity, and wearability for Indian conditions.",
+      "why_this_matters": "Most buyers want designer-style scent profiles with better value and practical all-day performance in local weather."
+    },
+    {
+      "slug": "best-signature-scent-men",
+      "title": "Best Signature Scent Perfumes for Men",
+      "targetKeyword": "signature scent men India",
+      "humeProducts": [
+        "creed-aventus",
+        "bleu-de-chanel",
+        "myself"
+      ],
+      "searchIntent": "buying",
+      "monthlySearches": 260,
+      "difficulty": "low",
+      "intro": "This guide compares top inspired options for 'signature scent men India' and highlights value, longevity, and wearability for Indian conditions.",
+      "why_this_matters": "Most buyers want designer-style scent profiles with better value and practical all-day performance in local weather."
+    },
+    {
+      "slug": "best-perfume-for-weddings-men",
+      "title": "Best Wedding Perfumes for Men in India",
+      "targetKeyword": "wedding perfume men India",
+      "humeProducts": [
+        "valentino-born-in-roma-intense",
+        "creed-aventus",
+        "ombre-nomade"
+      ],
+      "searchIntent": "buying",
+      "monthlySearches": 170,
+      "difficulty": "low",
+      "intro": "This guide compares top inspired options for 'wedding perfume men India' and highlights value, longevity, and wearability for Indian conditions.",
+      "why_this_matters": "Most buyers want designer-style scent profiles with better value and practical all-day performance in local weather."
+    },
+    {
+      "slug": "best-perfume-under-1000-men",
+      "title": "Best Perfumes Under ?1000 for Men",
+      "targetKeyword": "perfume under 1000 men",
+      "humeProducts": [
+        "sauvage-noir",
+        "ysl-y-edp",
+        "allure-sport"
+      ],
+      "searchIntent": "buying",
+      "monthlySearches": 420,
+      "difficulty": "low",
+      "intro": "This guide compares top inspired options for 'perfume under 1000 men' and highlights value, longevity, and wearability for Indian conditions.",
+      "why_this_matters": "Most buyers want designer-style scent profiles with better value and practical all-day performance in local weather."
+    },
+    {
+      "slug": "best-perfume-under-1500-men",
+      "title": "Best Perfumes Under ?1500 for Men",
+      "targetKeyword": "perfume under 1500 men",
+      "humeProducts": [
+        "bleu-de-chanel",
+        "creed-viking",
+        "myself"
+      ],
+      "searchIntent": "buying",
+      "monthlySearches": 390,
+      "difficulty": "low",
+      "intro": "This guide compares top inspired options for 'perfume under 1500 men' and highlights value, longevity, and wearability for Indian conditions.",
+      "why_this_matters": "Most buyers want designer-style scent profiles with better value and practical all-day performance in local weather."
+    },
+    {
+      "slug": "best-compliment-getter-perfume",
+      "title": "Best Compliment Getter Perfumes for Men",
+      "targetKeyword": "compliment getter perfume men",
+      "humeProducts": [
+        "creed-aventus",
+        "sauvage-noir",
+        "stronger-with-you-intensely"
+      ],
+      "searchIntent": "buying",
+      "monthlySearches": 200,
+      "difficulty": "low",
+      "intro": "This guide compares top inspired options for 'compliment getter perfume men' and highlights value, longevity, and wearability for Indian conditions.",
+      "why_this_matters": "Most buyers want designer-style scent profiles with better value and practical all-day performance in local weather."
+    },
+    {
+      "slug": "best-perfume-for-night-clubs",
+      "title": "Best Clubbing Perfumes for Men in India",
+      "targetKeyword": "clubbing perfume men India",
+      "humeProducts": [
+        "spicebomb",
+        "eros-flame",
+        "ombre-leather"
+      ],
+      "searchIntent": "buying",
+      "monthlySearches": 190,
+      "difficulty": "low",
+      "intro": "This guide compares top inspired options for 'clubbing perfume men India' and highlights value, longevity, and wearability for Indian conditions.",
+      "why_this_matters": "Most buyers want designer-style scent profiles with better value and practical all-day performance in local weather."
+    },
+    {
+      "slug": "best-everyday-perfume-men",
+      "title": "Best Everyday Perfumes for Men in India",
+      "targetKeyword": "everyday perfume men India",
+      "humeProducts": [
+        "myself",
+        "ysl-y-edp",
+        "bleu-de-chanel"
+      ],
+      "searchIntent": "buying",
+      "monthlySearches": 330,
+      "difficulty": "low",
+      "intro": "This guide compares top inspired options for 'everyday perfume men India' and highlights value, longevity, and wearability for Indian conditions.",
+      "why_this_matters": "Most buyers want designer-style scent profiles with better value and practical all-day performance in local weather."
+    },
+    {
+      "slug": "best-luxury-smell-budget-perfume",
+      "title": "Luxury Smelling Perfumes on a Budget in India",
+      "targetKeyword": "luxury smell perfume budget",
+      "humeProducts": [
+        "creed-aventus",
+        "ombre-nomade",
+        "lv-imagination"
+      ],
+      "searchIntent": "buying",
+      "monthlySearches": 150,
+      "difficulty": "medium",
+      "intro": "This guide compares top inspired options for 'luxury smell perfume budget' and highlights value, longevity, and wearability for Indian conditions.",
+      "why_this_matters": "Most buyers want designer-style scent profiles with better value and practical all-day performance in local weather."
+    },
+    {
+      "slug": "best-rose-oud-perfume-india",
+      "title": "Best Rose Oud Perfumes in India",
+      "targetKeyword": "rose oud perfume India",
+      "humeProducts": [
+        "ombre-nomade",
+        "tom-ford-oud-wood",
+        "creed-viking"
+      ],
+      "searchIntent": "buying",
+      "monthlySearches": 110,
+      "difficulty": "medium",
+      "intro": "This guide compares top inspired options for 'rose oud perfume India' and highlights value, longevity, and wearability for Indian conditions.",
+      "why_this_matters": "Most buyers want designer-style scent profiles with better value and practical all-day performance in local weather."
+    },
+    {
+      "slug": "best-vanilla-perfume-men-india",
+      "title": "Best Vanilla Perfumes for Men in India",
+      "targetKeyword": "vanilla perfume men India",
+      "humeProducts": [
+        "stronger-with-you-intensely",
+        "valentino-born-in-roma-intense",
+        "spicebomb"
+      ],
+      "searchIntent": "buying",
+      "monthlySearches": 220,
+      "difficulty": "low",
+      "intro": "This guide compares top inspired options for 'vanilla perfume men India' and highlights value, longevity, and wearability for Indian conditions.",
+      "why_this_matters": "Most buyers want designer-style scent profiles with better value and practical all-day performance in local weather."
+    },
+    {
+      "slug": "best-workwear-perfume-india",
+      "title": "Best Workwear Perfumes in India",
+      "targetKeyword": "work perfume men India",
+      "humeProducts": [
+        "bleu-de-chanel",
+        "acqua-di-gio-profondo",
+        "myself"
+      ],
+      "searchIntent": "buying",
+      "monthlySearches": 210,
+      "difficulty": "low",
+      "intro": "This guide compares top inspired options for 'work perfume men India' and highlights value, longevity, and wearability for Indian conditions.",
+      "why_this_matters": "Most buyers want designer-style scent profiles with better value and practical all-day performance in local weather."
+    }
+  ]
+}

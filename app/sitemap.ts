@@ -2,6 +2,7 @@ import type { MetadataRoute } from "next";
 import { getAllProducts } from "@/lib/db/products";
 import { getAllBlogPosts } from "@/lib/db/blog";
 import { getAllAccessories } from "@/lib/db/accessories";
+import { getProgrammaticSitemapEntries } from "@/lib/programmatic-seo";
 
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   const baseUrl = "https://humefragrance.com";
@@ -32,6 +33,8 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     priority: 0.5,
   }));
 
+  const programmaticEntries = getProgrammaticSitemapEntries(baseUrl);
+
   return [
     { url: baseUrl, lastModified: new Date(), changeFrequency: "monthly", priority: 1.0 },
     { url: `${baseUrl}/shop`, lastModified: new Date(), changeFrequency: "monthly", priority: 0.8 },
@@ -39,5 +42,6 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     ...productEntries,
     ...accessoryEntries,
     ...blogEntries,
+    ...programmaticEntries,
   ];
 }

@@ -13,16 +13,22 @@ function transformCoupon(row: any): CouponData {
     value: parseFloat(row.value),
     minSubtotal: parseFloat(row.minSubtotal),
     active: Boolean(row.active),
+    displayInCart: Boolean(row.displayInCart),
   };
 }
 
-export async function getActiveCoupons(): Promise<CouponData[]> {
+export async function getActiveCoupons(options?: { cartOnly?: boolean }): Promise<CouponData[]> {
+  const cartOnly = options?.cartOnly ?? false;
   try {
-    const rows = await db.select().from(coupons).where(eq(coupons.active, true));
+    const whereClause = cartOnly
+      ? and(eq(coupons.active, true), eq(coupons.displayInCart, true))
+      : eq(coupons.active, true);
+
+    const rows = await db.select().from(coupons).where(whereClause);
     return rows.map(transformCoupon);
   } catch (error) {
     console.error("Error loading coupons from DB, using local fallback:", error);
-    return localCoupons.filter((c) => c.active);
+    return localCoupons.filter((c) => c.active && (!cartOnly || c.displayInCart));
   }
 }
 
@@ -41,4 +47,3 @@ export async function getCouponByCode(code: string): Promise<CouponData | null> 
     return local ?? null;
   }
 }
-

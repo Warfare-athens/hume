@@ -1,9 +1,9 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import { motion } from "framer-motion";
 import PerfumeCard from "./PerfumeCard";
-import { perfumes as localPerfumes, type PerfumeData } from "@/data/perfumes";
+import type { PerfumeData } from "@/data/perfumes";
 
 const categories = [
   { id: "all", label: "All Fragrances" },
@@ -14,30 +14,8 @@ const categories = [
   { id: "oud", label: "Oud" },
 ];
 
-const Collection = () => {
+const Collection = ({ perfumes }: { perfumes: PerfumeData[] }) => {
   const [activeCategory, setActiveCategory] = useState("all");
-  const [perfumes, setPerfumes] = useState<PerfumeData[]>([]);
-  const [loading, setLoading] = useState(true);
-
-  useEffect(() => {
-    async function fetchProducts() {
-      try {
-        const response = await fetch("/api/products");
-        if (!response.ok) {
-          throw new Error(`Failed to fetch products: ${response.status}`);
-        }
-
-        const data = await response.json();
-        setPerfumes(Array.isArray(data) ? data : localPerfumes);
-      } catch (error) {
-        console.error("Error fetching products:", error);
-        setPerfumes(localPerfumes);
-      } finally {
-        setLoading(false);
-      }
-    }
-    fetchProducts();
-  }, []);
 
   const filteredPerfumes =
     activeCategory === "all"

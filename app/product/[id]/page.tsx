@@ -4,7 +4,6 @@ import { getRelatedBlogPostsByProductId } from "@/lib/db/blog";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import { JsonLd } from "@/components/JsonLd";
-import Seo from "@/components/Seo";
 import {
   getProductSchema,
   getBreadcrumbSchema,
@@ -25,9 +24,19 @@ export async function generateMetadata({
   const perfume = await getProductById(id);
   if (!perfume)
     return { title: "Product Not Found" };
+  const canonicalUrl = `https://humefragrance.com/product/${perfume.id}`;
   return {
     title: `${perfume.name} â€” ${perfume.inspirationBrand} ${perfume.inspiration} Inspired Perfume`,
     description: perfume.seoDescription,
+    alternates: {
+      canonical: canonicalUrl,
+    },
+    openGraph: {
+      title: `${perfume.name} | HUME Fragrance`,
+      description: perfume.seoDescription,
+      url: canonicalUrl,
+      images: perfume.images?.[0] ? [perfume.images[0]] : [],
+    },
   };
 }
 
@@ -59,12 +68,6 @@ export default async function ProductPage({
 
   return (
     <main className="bg-background min-h-screen">
-      <Seo
-        title={`${perfume.name} â€” ${perfume.inspirationBrand} ${perfume.inspiration} Inspired Perfume`}
-        description={perfume.seoDescription}
-        image={perfume.images?.[0]}
-        url={`https://humefragrance.com/product/${perfume.id}`}
-      />
       <JsonLd data={productJsonLd} />
       <Header />
       <ProductDetailView perfume={perfume} relatedBlogs={relatedBlogs} />

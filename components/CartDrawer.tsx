@@ -33,6 +33,7 @@ const CartDrawer = () => {
   const [isBreakupOpen, setIsBreakupOpen] = useState(false);
   const [coupons, setCoupons] = useState<Coupon[]>([]);
   const [appliedCouponCode, setAppliedCouponCode] = useState<string | null>(null);
+  const [couponInput, setCouponInput] = useState("");
   const [isOffersOpen, setIsOffersOpen] = useState(false);
 
   const subtotal = totalPrice;
@@ -110,6 +111,32 @@ const CartDrawer = () => {
       return;
     }
     setAppliedCouponCode(coupon.code);
+    toast({ title: "Coupon applied", description: `${coupon.code} has been applied.` });
+  };
+
+  const handleApplyCouponFromInput = () => {
+    const code = couponInput.trim().toUpperCase();
+    if (!code) {
+      toast({ title: "Enter a coupon code", description: "Type a valid coupon code to apply." });
+      return;
+    }
+
+    const coupon = coupons.find((c) => c.code.toUpperCase() === code);
+    if (!coupon) {
+      toast({ title: "Invalid coupon", description: "This coupon code is not available right now." });
+      return;
+    }
+
+    if (subtotal < coupon.minSubtotal) {
+      toast({
+        title: "Coupon not eligible",
+        description: `Add ${formatINR(coupon.minSubtotal - subtotal)} more to apply ${coupon.code}.`,
+      });
+      return;
+    }
+
+    setAppliedCouponCode(coupon.code);
+    setCouponInput("");
     toast({ title: "Coupon applied", description: `${coupon.code} has been applied.` });
   };
 
@@ -253,7 +280,7 @@ const CartDrawer = () => {
                                   e.stopPropagation();
                                   updateQuantity(item.id, item.quantity - 1);
                                 }}
-                                className="h-7 w-7 rounded-xl flex items-center justify-center border border-border bg-[#f2f4f8]"
+                                className="h-7 w-7 rounded-xl flex items-center justify-center border border-border bg-white"
                               >
                                 <Minus size={14} />
                               </button>
@@ -265,7 +292,7 @@ const CartDrawer = () => {
                                   e.stopPropagation();
                                   updateQuantity(item.id, item.quantity + 1);
                                 }}
-                                className="h-7 w-7 rounded-xl flex items-center justify-center border border-border bg-[#f2f4f8]"
+                                className="h-7 w-7 rounded-xl flex items-center justify-center border border-border bg-white"
                               >
                                 <Plus size={14} />
                               </button>
@@ -289,39 +316,30 @@ const CartDrawer = () => {
 
                   {coupons.length > 0 && (
                     <div className="relative border border-border rounded-2xl bg-secondary/10 p-3">
-                      {(() => {
-                        const featuredCoupon = coupons[0];
-                        const featuredApplied = appliedCouponCode === featuredCoupon.code;
-                        const featuredEligible = subtotal >= featuredCoupon.minSubtotal;
-                        return (
-                          <div className="flex items-center justify-between rounded-xl bg-muted/50 px-3 py-2">
-                            <div>
-                              <p className="text-base font-semibold">{featuredCoupon.code}</p>
-                              {featuredApplied && normalizedCouponDiscount > 0 ? (
-                                <p className="text-xs text-emerald-700">You save {formatINR(normalizedCouponDiscount)}</p>
-                              ) : (
-                                <p className="text-xs text-emerald-700">
-                                  {featuredCoupon.type === "percent"
-                                    ? `${featuredCoupon.value}% off`
-                                    : `${formatINR(featuredCoupon.value)} off`}
-                                  {` above ${formatINR(featuredCoupon.minSubtotal)}`}
-                                </p>
-                              )}
-                            </div>
-                            <button
-                              type="button"
-                              onClick={() => handleApplyToggleCoupon(featuredCoupon)}
-                              className={`rounded-full px-4 py-1.5 text-xs font-semibold transition-colors ${
-                                featuredApplied || featuredEligible
-                                  ? "bg-emerald-100 text-emerald-700 hover:bg-emerald-200"
-                                  : "bg-muted text-foreground/70 hover:bg-muted/80"
-                              }`}
-                            >
-                              {featuredApplied ? "Unapply" : "Apply"}
-                            </button>
-                          </div>
-                        );
-                      })()}
+                      <div className="rounded-xl bg-muted/50 p-2.5">
+                        <div className="flex items-center gap-2">
+                          <input
+                            type="text"
+                            value={couponInput}
+                            onChange={(e) => setCouponInput(e.target.value.toUpperCase())}
+                            placeholder="Enter coupon code"
+                            className="h-9 flex-1 rounded-md border border-border bg-background px-3 text-sm outline-none focus:border-[#0b5ca8]/50"
+                          />
+                          <button
+                            type="button"
+                            onClick={handleApplyCouponFromInput}
+                            className="h-9 rounded-full px-4 text-xs font-semibold bg-emerald-100 text-emerald-700 hover:bg-emerald-200 disabled:opacity-60"
+                            disabled={!couponInput.trim()}
+                          >
+                            Apply
+                          </button>
+                        </div>
+                        {appliedCoupon && normalizedCouponDiscount > 0 ? (
+                          <p className="mt-2 text-xs text-emerald-700">
+                            {appliedCoupon.code} applied - You save {formatINR(normalizedCouponDiscount)}
+                          </p>
+                        ) : null}
+                      </div>
 
                       <button
                         type="button"
