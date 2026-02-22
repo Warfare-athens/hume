@@ -34,7 +34,7 @@ const Craft = () => {
             transition={{ duration: 0.8 }}
           >
             <Image
-              src="/images/collection-hero.jpg"
+              src="/images/black-perfume.png"
               alt="HUME perfume collection"
               width={800}
               height={600}

@@ -97,8 +97,14 @@ const Header = () => {
             </div>
             <nav className="hidden md:flex items-center gap-5">
               <Link
+                href="/hume-special"
+                className="relative text-[11px] uppercase tracking-[0.22em] text-muted-foreground hover:text-foreground transition-colors after:absolute after:left-0 after:-bottom-1 after:h-px after:w-full after:origin-left after:scale-x-0 after:bg-current after:transition-transform after:duration-300 hover:after:scale-x-100"
+              >
+                Hume Special
+              </Link>
+              <Link
                 href="/bestseller"
-                className="text-[11px] uppercase tracking-[0.22em] text-muted-foreground hover:text-foreground transition-colors"
+                className="relative text-[11px] uppercase tracking-[0.22em] text-muted-foreground hover:text-foreground transition-colors after:absolute after:left-0 after:-bottom-1 after:h-px after:w-full after:origin-left after:scale-x-0 after:bg-current after:transition-transform after:duration-300 hover:after:scale-x-100"
               >
                 Best Seller
               </Link>
@@ -117,10 +123,16 @@ const Header = () => {
           <div className="flex items-center gap-5">
             <nav className="hidden md:flex items-center gap-5">
               <Link
-                href="/hume-special"
-                className="text-[11px] uppercase tracking-[0.22em] text-muted-foreground hover:text-foreground transition-colors"
+                href="/kit-pack"
+                className="relative text-[11px] font-semibold uppercase tracking-[0.22em] text-black/80 transition-colors hover:text-black after:absolute after:left-0 after:-bottom-1 after:h-[2px] after:w-[40%] after:bg-current after:transition-all after:duration-300 hover:after:w-full"
               >
-                Hume Special
+                Build Your Kit
+              </Link>
+              <Link
+                href="/refill-subscription"
+                className="relative text-[11px] font-semibold uppercase tracking-[0.22em] text-black/80 transition-colors hover:text-black after:absolute after:left-0 after:-bottom-1 after:h-[2px] after:w-[40%] after:bg-current after:transition-all after:duration-300 hover:after:w-full"
+              >
+                Refill
               </Link>
             </nav>
             <button
@@ -234,6 +246,17 @@ const Header = () => {
                         <span>Best Sellers</span>
                       </span>
                     </button>
+                    <button
+                      onClick={() => {
+                        setIsMenuOpen(false);
+                        router.push("/refill-subscription");
+                      }}
+                      className="w-full border-b border-border pb-2 text-left"
+                    >
+                      <span className="inline-flex w-full items-center justify-between font-serif text-[1.45rem] italic leading-none">
+                        <span>Refill Program</span>
+                      </span>
+                    </button>
                   </div>
                 </section>
 
@@ -338,4 +361,3 @@ const Header = () => {
 };
 
 export default Header;
-

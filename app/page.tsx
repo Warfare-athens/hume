@@ -2,6 +2,7 @@ import Header from "@/components/Header";
 import Hero from "@/components/Hero";
 import HumeSpecialSection from "@/components/HumeSpecialSection";
 import BestsellerSection from "@/components/BestsellerSection";
+import RefillProgramSection from "@/components/RefillProgramSection";
 import Collection from "@/components/Collection";
 import Footer from "@/components/Footer";
 import nextDynamic from "next/dynamic";
@@ -37,6 +38,7 @@ export default async function Home() {
       <Collection perfumes={perfumes} />
       <HumeSpecialSection perfumes={perfumes} />
       <BestsellerSection perfumes={perfumes} />
+      <RefillProgramSection />
       <Craft />
       <LatestJournal />
       <About />
