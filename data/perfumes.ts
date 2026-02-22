@@ -37,6 +37,7 @@ export interface PerfumeData {
   pairingTips?: string[];
   badges?: {
     bestSeller?: boolean;
+    humeSpecial?: boolean;
     limitedStock?: boolean;
   };
   notes: {

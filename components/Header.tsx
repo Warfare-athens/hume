@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { motion, AnimatePresence } from "framer-motion";
@@ -17,8 +17,12 @@ const Header = () => {
   const [isShopOpen, setIsShopOpen] = useState(false);
   const [isSearchOpen, setIsSearchOpen] = useState(false);
   const [celebImageByLabel, setCelebImageByLabel] = useState<Record<string, string>>({});
+  const [badgeBumpKey, setBadgeBumpKey] = useState(0);
   const { totalItems, setIsCartOpen } = useCart();
   const router = useRouter();
+  const prevTotalItemsRef = useRef(totalItems);
+
+  const displayCartCount = totalItems > 99 ? "99+" : `${totalItems}`;
 
   useEffect(() => {
     let mounted = true;
@@ -52,6 +56,13 @@ const Header = () => {
     };
   }, [isMenuOpen]);
 
+  useEffect(() => {
+    if (totalItems > prevTotalItemsRef.current) {
+      setBadgeBumpKey((k) => k + 1);
+    }
+    prevTotalItemsRef.current = totalItems;
+  }, [totalItems]);
+
   const handleMobileFilterClick = (filterType: FilterType, value: string, href?: string) => {
     setIsMenuOpen(false);
     if (href) {
@@ -84,6 +95,14 @@ const Header = () => {
                 onClose={() => setIsShopOpen(false)}
               />
             </div>
+            <nav className="hidden md:flex items-center gap-5">
+              <Link
+                href="/bestseller"
+                className="text-[11px] uppercase tracking-[0.22em] text-muted-foreground hover:text-foreground transition-colors"
+              >
+                Best Seller
+              </Link>
+            </nav>
           </div>
 
           <Link href="/" className="absolute left-1/2 -translate-x-1/2 flex items-baseline gap-1.5">
@@ -95,7 +114,15 @@ const Header = () => {
             </span>
           </Link>
 
-          <div className="flex items-center gap-3">
+          <div className="flex items-center gap-5">
+            <nav className="hidden md:flex items-center gap-5">
+              <Link
+                href="/hume-special"
+                className="text-[11px] uppercase tracking-[0.22em] text-muted-foreground hover:text-foreground transition-colors"
+              >
+                Hume Special
+              </Link>
+            </nav>
             <button
               onClick={() => setIsSearchOpen(true)}
               className="p-2 hover:bg-muted transition-colors"
@@ -108,11 +135,41 @@ const Header = () => {
               className="relative p-2 hover:bg-muted transition-colors"
               aria-label="Open cart"
             >
-              <HiOutlineShoppingBag size={18} />
+              <motion.span
+                initial={{ x: 0, rotate: 0 }}
+                animate={
+                  totalItems > 0
+                    ? {
+                        x: [0, 0, 0, -2, 2, -1, 1, 0],
+                        rotate: [0, 0, 0, -6, 6, -3, 3, 0],
+                      }
+                    : { x: 0, rotate: 0 }
+                }
+                transition={
+                  totalItems > 0
+                    ? {
+                        duration: 2.4,
+                        delay: 0.8,
+                        repeat: Infinity,
+                        repeatDelay: 0,
+                        times: [0, 0.62, 0.74, 0.82, 0.88, 0.93, 0.97, 1],
+                      }
+                    : { duration: 0.2 }
+                }
+                className="inline-flex"
+              >
+                <HiOutlineShoppingBag size={18} />
+              </motion.span>
               {totalItems > 0 && (
-                <span className="absolute -top-0.5 -right-0.5 w-4 h-4 bg-foreground text-background text-[10px] flex items-center justify-center">
-                  {totalItems}
-                </span>
+                <motion.span
+                  key={`badge-desktop-${badgeBumpKey}`}
+                  initial={{ scale: 0.85 }}
+                  animate={{ scale: [1, 1.24, 1] }}
+                  transition={{ duration: 0.25 }}
+                  className="absolute -top-1 -right-1 min-w-[18px] h-[18px] px-1 rounded-full bg-gradient-to-br from-emerald-400 to-emerald-600 text-white text-[10px] font-semibold flex items-center justify-center shadow-[0_3px_10px_rgba(16,185,129,0.45)] ring-2 ring-background"
+                >
+                  {displayCartCount}
+                </motion.span>
               )}
             </button>
           </div>
@@ -129,59 +186,55 @@ const Header = () => {
             className="fixed inset-0 z-[80] md:hidden"
           >
             <div className="h-full overflow-y-auto bg-background text-foreground">
-              <div className="flex items-center justify-between border-b border-border px-5 py-5">
+              <div className="flex items-center justify-between border-b border-border px-4 py-3">
                 <button
                   onClick={() => setIsMenuOpen(false)}
-                  className="inline-flex h-9 w-9 items-center justify-center"
+                  className="inline-flex h-8 w-8 items-center justify-center"
                   aria-label="Close menu"
                 >
-                  <X size={22} />
+                  <X size={20} />
                 </button>
-                <span className="font-serif text-4xl leading-none tracking-[0.28em]">HUME</span>
-                <div className="flex items-center gap-3">
-                  <button
-                    onClick={() => {
-                      setIsMenuOpen(false);
-                      setIsSearchOpen(true);
-                    }}
-                    className="inline-flex h-9 w-9 items-center justify-center"
-                    aria-label="Search"
-                  >
-                    <Search size={19} />
-                  </button>
-                  <button
-                    onClick={() => {
-                      setIsMenuOpen(false);
-                      setIsCartOpen(true);
-                    }}
-                    className="relative inline-flex h-9 w-9 items-center justify-center"
-                    aria-label="Open cart"
-                  >
-                    <HiOutlineShoppingBag size={19} />
-                    {totalItems > 0 && (
-                      <span className="absolute -top-0.5 -right-0.5 h-4 min-w-4 rounded-full bg-[#c7a65b] px-1 text-[10px] leading-4 text-black">
-                        {totalItems}
-                      </span>
-                    )}
-                  </button>
-                </div>
+                <span className="font-serif text-[1.65rem] leading-none tracking-[0.2em]">HUME</span>
+                <div className="w-8" />
               </div>
 
               <div className="px-6 py-5 space-y-6">
                 <section>
-                  <p className="text-[10px] uppercase tracking-[0.34em] text-muted-foreground mb-2">
-                    Navigation
-                  </p>
-                  <button
-                    onClick={() => {
-                      setIsMenuOpen(false);
-                      router.push("/shop");
-                    }}
-                    className="inline-flex items-center gap-2.5 font-serif text-[2.05rem] italic leading-none"
-                  >
-                    <span className="underline underline-offset-4">The Collection</span>
-                    <span aria-hidden="true">→</span>
-                  </button>
+                  <div className="space-y-3">
+                    <button
+                      onClick={() => {
+                        setIsMenuOpen(false);
+                        router.push("/shop");
+                      }}
+                      className="w-full border-b border-border pb-2 text-left"
+                    >
+                      <span className="inline-flex w-full items-center justify-between font-serif text-[1.45rem] italic leading-none">
+                        <span>Shop All</span>
+                      </span>
+                    </button>
+                    <button
+                      onClick={() => {
+                        setIsMenuOpen(false);
+                        router.push("/hume-special");
+                      }}
+                      className="w-full border-b border-border pb-2 text-left"
+                    >
+                      <span className="inline-flex w-full items-center justify-between font-serif text-[1.45rem] italic leading-none">
+                        <span>HUME Specials</span>
+                      </span>
+                    </button>
+                    <button
+                      onClick={() => {
+                        setIsMenuOpen(false);
+                        router.push("/bestseller");
+                      }}
+                      className="w-full border-b border-border pb-2 text-left"
+                    >
+                      <span className="inline-flex w-full items-center justify-between font-serif text-[1.45rem] italic leading-none">
+                        <span>Best Sellers</span>
+                      </span>
+                    </button>
+                  </div>
                 </section>
 
                 <section>
@@ -191,13 +244,13 @@ const Header = () => {
                         setIsMenuOpen(false);
                         router.push("/scent-quiz");
                       }}
-                      className="w-full border border-foreground bg-foreground px-4 py-3 text-left text-background"
+                      className="w-full border border-foreground bg-foreground px-3 py-2 text-left text-background"
                     >
                       <div className="flex items-center justify-between">
-                        <p className="font-serif text-[1.4rem]">
+                        <p className="font-serif text-[1.18rem]">
                           Scent Quiz <span className="text-[0.65em] italic opacity-80">(60s)</span>
                         </p>
-                        <span className="text-[1.9rem] opacity-70">→</span>
+                        <span className="text-[1.45rem] opacity-70">→</span>
                       </div>
                     </button>
                     <button
@@ -205,20 +258,20 @@ const Header = () => {
                         setIsMenuOpen(false);
                         router.push("/kit-pack");
                       }}
-                      className="w-full border border-foreground/45 px-4 py-3 text-left"
+                      className="w-full border border-foreground/45 px-3 py-2 text-left"
                     >
                       <div className="flex items-center justify-between">
-                        <p className="font-serif text-[1.4rem]">
+                        <p className="font-serif text-[1.18rem]">
                           Build Your Kit <span className="text-[0.65em] text-muted-foreground">Pack of 4</span>
                         </p>
-                        <span className="text-[1.9rem] text-muted-foreground">→</span>
+                        <span className="text-[1.45rem] text-muted-foreground">→</span>
                       </div>
                     </button>
                   </div>
                 </section>
 
                 <section>
-                  <p className="text-[11px] uppercase tracking-[0.38em] text-muted-foreground mb-5">
+                  <p className="text-[11px] uppercase tracking-[0.38em] text-muted-foreground mb-2">
                     By Occasion
                   </p>
                   <div className="grid grid-cols-3 gap-2">
@@ -235,21 +288,21 @@ const Header = () => {
                 </section>
 
                 <section>
-                  <div className="mb-5 flex items-center justify-between">
+                  <button
+                    onClick={() => {
+                      setIsMenuOpen(false);
+                      router.push("/celebrities-favorites");
+                    }}
+                    className="mb-5 flex w-full  items-center justify-between text-left"
+                    aria-label="Open celebrities favorite"
+                  >
                     <p className="text-[11px] uppercase tracking-[0.38em] text-muted-foreground">
                       Celebrities&apos; Favorite
                     </p>
-                    <button
-                      onClick={() => {
-                        setIsMenuOpen(false);
-                        router.push("/celebrities-favorites");
-                      }}
-                      className="text-muted-foreground"
-                      aria-label="Open celebrities favorite"
-                    >
+                    <span className="text-muted-foreground">
                       <ExternalLink size={16} />
-                    </button>
-                  </div>
+                    </span>
+                  </button>
                   <div className="grid grid-cols-2 gap-4">
                     {celebrityFavorites.slice(0, 2).map((celeb) => (
                       <button
@@ -285,3 +338,4 @@ const Header = () => {
 };
 
 export default Header;
+

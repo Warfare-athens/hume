@@ -37,6 +37,7 @@ async function seed() {
           description: perfume.description,
           seoDescription: perfume.seoDescription,
           seoKeywords: perfume.seoKeywords,
+          badges: perfume.badges ?? {},
           notes: perfume.notes,
           longevity: perfume.longevity,
           size: perfume.size,

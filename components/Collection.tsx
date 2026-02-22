@@ -21,7 +21,7 @@ const Collection = ({ perfumes }: { perfumes: PerfumeData[] }) => {
     activeCategory === "all"
       ? perfumes
       : perfumes.filter((p) => p.categoryId === activeCategory);
-  const visiblePerfumes = filteredPerfumes.slice(0, 10);
+  const visiblePerfumes = filteredPerfumes.slice(0, 8);
 
   return (
     <section id="collection" className="py-24 md:py-32">
@@ -73,7 +73,7 @@ const Collection = ({ perfumes }: { perfumes: PerfumeData[] }) => {
         {/* Perfume Grid */}
         <motion.div
           layout
-          className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-6 md:gap-8 items-start"
+          className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6 md:gap-8 items-start"
         >
           {visiblePerfumes.map((perfume, index) => (
             <div key={perfume.id} className={index % 2 === 1 ? "mt-24 md:mt-0" : ""}>
@@ -86,6 +86,7 @@ const Collection = ({ perfumes }: { perfumes: PerfumeData[] }) => {
                 price={perfume.price}
                 index={index}
                 bestSeller={perfume.badges?.bestSeller}
+                humeSpecial={perfume.badges?.humeSpecial}
                 limitedStock={perfume.badges?.limitedStock}
               />
             </div>

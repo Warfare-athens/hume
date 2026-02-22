@@ -84,6 +84,11 @@ function transformProduct(product: any, productReviews: any[]): PerfumeData {
     description: product.description,
     seoDescription: product.seoDescription,
     seoKeywords: product.seoKeywords as string[],
+    badges: {
+      bestSeller: Boolean((product.badges as any)?.bestSeller),
+      humeSpecial: Boolean((product.badges as any)?.humeSpecial),
+      limitedStock: Boolean((product.badges as any)?.limitedStock),
+    },
     notes: product.notes as {
       top: string[];
       heart: string[];

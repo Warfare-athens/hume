@@ -18,6 +18,7 @@ interface PerfumeCardProps {
   price: number;
   index: number;
   bestSeller?: boolean;
+  humeSpecial?: boolean;
   limitedStock?: boolean;
 }
 
@@ -30,6 +31,7 @@ const PerfumeCard = ({
   price,
   index,
   bestSeller,
+  humeSpecial,
   limitedStock,
 }: PerfumeCardProps) => {
   const { addItem } = useCart();
@@ -70,11 +72,16 @@ const PerfumeCard = ({
             placeholder="blur"
             blurDataURL={blurDataURL}
           />
-          {(bestSeller || limitedStock) && (
+          {(bestSeller || humeSpecial || limitedStock) && (
             <div className="absolute left-3 top-3 flex flex-col gap-2">
               {bestSeller && (
                 <span className="inline-flex items-center text-[10px] uppercase tracking-[0.2em] px-2 py-1 bg-foreground text-background">
                   Best Seller
+                </span>
+              )}
+              {humeSpecial && (
+                <span className="inline-flex items-center text-[10px] uppercase tracking-[0.2em] px-2 py-1 bg-emerald-100 text-emerald-800">
+                  HUME Special
                 </span>
               )}
               {limitedStock && (
@@ -104,7 +111,10 @@ const PerfumeCard = ({
             Inspired by {inspiration}
           </p>
           <div className="flex items-center justify-between gap-3 ">
-            <p className="text-[1.35rem] leading-none font-light tracking-tight text-foreground/90">
+            <p
+              suppressHydrationWarning
+              className="text-[1.35rem] leading-none font-light tracking-tight text-foreground/90"
+            >
               {formatINR(price)}
             </p>
           </div>

@@ -1,19 +1,23 @@
 import Header from "@/components/Header";
 import Hero from "@/components/Hero";
+import HumeSpecialSection from "@/components/HumeSpecialSection";
+import BestsellerSection from "@/components/BestsellerSection";
 import Collection from "@/components/Collection";
 import Footer from "@/components/Footer";
-import dynamic from "next/dynamic";
+import nextDynamic from "next/dynamic";
 import { JsonLd } from "@/components/JsonLd";
 import { getOrganizationSchema, getWebSiteSchema, getFAQSchema } from "@/lib/seo";
 import { getAllProducts } from "@/lib/db/products";
 
-const Craft = dynamic(() => import("@/components/Craft"), {
+export const dynamic = "force-dynamic";
+
+const Craft = nextDynamic(() => import("@/components/Craft"), {
   loading: () => <div className="py-24 md:py-32" />,
 });
-const LatestJournal = dynamic(() => import("@/components/LatestJournal"), {
+const LatestJournal = nextDynamic(() => import("@/components/LatestJournal"), {
   loading: () => <div className="py-24 md:py-32" />,
 });
-const About = dynamic(() => import("@/components/About"), {
+const About = nextDynamic(() => import("@/components/About"), {
   loading: () => <div className="py-24 md:py-32" />,
 });
 
@@ -31,6 +35,8 @@ export default async function Home() {
       <Header />
       <Hero />
       <Collection perfumes={perfumes} />
+      <HumeSpecialSection perfumes={perfumes} />
+      <BestsellerSection perfumes={perfumes} />
       <Craft />
       <LatestJournal />
       <About />

@@ -97,7 +97,9 @@ export default function CelebrityFavoriteCard({
 
         <div className="mt-2 flex items-end justify-between gap-3">
           <p className="font-serif text-[2.05rem] leading-none font-light">{name}</p>
-          <p className="text-[2rem] leading-none font-light">{formatINR(price)}</p>
+          <p suppressHydrationWarning className="text-[2rem] leading-none font-light">
+            {formatINR(price)}
+          </p>
         </div>
 
         <p className="mt-2 text-[0.96rem] italic leading-snug text-muted-foreground/90">
@@ -119,4 +121,3 @@ export default function CelebrityFavoriteCard({
     </article>
   );
 }
-

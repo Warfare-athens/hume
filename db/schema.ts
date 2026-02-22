@@ -22,6 +22,14 @@ export const products = pgTable("products", {
   description: text("description").notNull(),
   seoDescription: text("seo_description").notNull(),
   seoKeywords: jsonb("seo_keywords").$type<string[]>().notNull(),
+  badges: jsonb("badges")
+    .$type<{
+      bestSeller?: boolean;
+      humeSpecial?: boolean;
+      limitedStock?: boolean;
+    }>()
+    .notNull()
+    .default({}),
   notes: jsonb("notes").$type<{
     top: string[];
     heart: string[];
