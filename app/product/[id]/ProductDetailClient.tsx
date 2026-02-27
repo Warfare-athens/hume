@@ -103,16 +103,19 @@ export default function ProductDetailClient({ perfume }: { perfume: PerfumeData 
         <p className="text-[10px] uppercase tracking-[0.24em] text-muted-foreground">
           Personalize your bottle
         </p>
-        <div className="grid grid-cols-4 gap-3">
-          {bottles.slice(0, 3).map((bottle) => {
+        <div className="grid grid-cols-3 sm:grid-cols-4 gap-3">
+          {bottles.slice(0, 3).map((bottle, index) => {
             const isActive = selectedBottleId === bottle.id;
             return (
               <button
                 key={bottle.id}
                 onClick={() => handleSelectBottle(bottle.id)}
-                className={`relative aspect-square overflow-hidden bg-secondary/30 p-1 border transition-colors ${
+                className={`relative aspect-[3/4] overflow-hidden bg-secondary/30 p-1 border transition-colors ${
+                  index === 2 ? "hidden sm:block" : ""
+                } ${
                   isActive ? "border-foreground" : "border-border/60 hover:border-foreground/35"
                 }`}
+                style={{ aspectRatio: "3 / 4" }}
                 aria-label={`Select ${bottle.name} bottle`}
               >
                 <div className="h-full w-full overflow-hidden border border-border/30 bg-background">
@@ -130,8 +133,9 @@ export default function ProductDetailClient({ perfume }: { perfume: PerfumeData 
               backgroundImage:
                 "linear-gradient(135deg, #2bd177, #1ec4c9, #4f86ff, #7a5cff, #2bd177)",
               backgroundSize: "260% 260%",
+              aspectRatio: "3 / 4",
             }}
-            className="inline-flex aspect-square items-center justify-center border border-transparent text-3xl leading-none text-white shadow-[0_8px_22px_rgba(39,112,255,0.28)] hover:opacity-95"
+            className="inline-flex aspect-[3/4] items-center justify-center border border-transparent text-3xl leading-none text-white shadow-[0_8px_22px_rgba(39,112,255,0.28)] hover:opacity-95"
             aria-label="Choose from more bottles"
           >
             <FaPlus className="h-5 w-5" />
@@ -192,7 +196,8 @@ export default function ProductDetailClient({ perfume }: { perfume: PerfumeData 
                         <img
                           src={bottle.imageUrl}
                           alt={bottle.name}
-                          className="aspect-square w-full object-cover bg-secondary"
+                          className="aspect-[3/4] w-full object-cover bg-secondary"
+                          style={{ aspectRatio: "3 / 4" }}
                         />
                       </div>
                       <div className="flex items-center justify-between text-[10px] uppercase tracking-[0.32em] text-muted-foreground px-3 py-2 border-t border-border/70">

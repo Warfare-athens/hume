@@ -2,8 +2,8 @@ import type { Metadata } from "next";
 import { Cormorant_Garamond, Inter } from "next/font/google";
 import "./globals.css";
 import { Providers } from "./providers";
-import WhatsAppFloating from "@/components/WhatsAppFloating";
 import EarlyBirdPopup from "@/components/EarlyBirdPopup";
+import AIChatBot from "@/components/AIChatBot";
 
 const inter = Inter({
   subsets: ["latin"],
@@ -85,7 +85,7 @@ export default function RootLayout({
       <body className={`${inter.variable} ${cormorant.variable} antialiased`}>
         <Providers>
           {children}
-          <WhatsAppFloating />
+          <AIChatBot />
           <EarlyBirdPopup />
         </Providers>
       </body>
