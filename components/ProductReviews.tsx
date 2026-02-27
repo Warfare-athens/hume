@@ -32,10 +32,27 @@ const ProductReviews = ({ reviews, productName }: ProductReviewsProps) => {
   const totalReviews = reviews.length;
 
   const formatDate = (dateString: string) => {
-    return new Date(dateString).toLocaleDateString("en-GB", {
-      month: "long",
-      year: "numeric",
-    });
+    const months = [
+      "January",
+      "February",
+      "March",
+      "April",
+      "May",
+      "June",
+      "July",
+      "August",
+      "September",
+      "October",
+      "November",
+      "December",
+    ];
+    const [yearRaw, monthRaw] = dateString.split("-");
+    const monthIndex = Number(monthRaw) - 1;
+    const year = Number(yearRaw);
+    if (!Number.isFinite(year) || monthIndex < 0 || monthIndex > 11) {
+      return dateString;
+    }
+    return `${months[monthIndex]} ${year}`;
   };
 
   return (

@@ -3,10 +3,23 @@ import { z } from "zod";
 import { db } from "@/db";
 import { bottles } from "@/db/schema";
 
+function sortBySerialId<T extends { id: string }>(rows: T[]) {
+  return [...rows].sort((a, b) => {
+    const aNum = Number(a.id);
+    const bNum = Number(b.id);
+    const aIsNum = Number.isFinite(aNum);
+    const bIsNum = Number.isFinite(bNum);
+    if (aIsNum && bIsNum) return aNum - bNum;
+    if (aIsNum) return -1;
+    if (bIsNum) return 1;
+    return a.id.localeCompare(b.id);
+  });
+}
+
 export async function GET() {
   try {
     const rows = await db.select().from(bottles);
-    const payload = rows.map((bottle) => ({
+    const payload = sortBySerialId(rows).map((bottle) => ({
       ...bottle,
       price: parseFloat(bottle.price),
     }));

@@ -114,7 +114,7 @@ export default function ProductDetailClient({ perfume }: { perfume: PerfumeData 
                   index === 2 ? "hidden sm:block" : ""
                 } ${
                   isActive ? "border-foreground" : "border-border/60 hover:border-foreground/35"
-                }`}
+                } shadow-[0_8px_22px_rgba(39,112,255,0.18)]`}
                 style={{ aspectRatio: "3 / 4" }}
                 aria-label={`Select ${bottle.name} bottle`}
               >
@@ -127,18 +127,22 @@ export default function ProductDetailClient({ perfume }: { perfume: PerfumeData 
           <motion.button
             type="button"
             onClick={() => setIsBottleOpen(true)}
-            animate={{ backgroundPosition: ["0% 50%", "100% 50%", "0% 50%"] }}
-            transition={{ duration: 6, repeat: Infinity, ease: "linear" }}
-            style={{
-              backgroundImage:
-                "linear-gradient(135deg, #2bd177, #1ec4c9, #4f86ff, #7a5cff, #2bd177)",
-              backgroundSize: "260% 260%",
-              aspectRatio: "3 / 4",
-            }}
-            className="inline-flex aspect-[3/4] items-center justify-center border border-transparent text-3xl leading-none text-white shadow-[0_8px_22px_rgba(39,112,255,0.28)] hover:opacity-95"
+            style={{ aspectRatio: "3 / 4" }}
+            className="inline-flex aspect-[3/4] items-center justify-center border border-border/60 bg-transparent p-1 text-3xl leading-none text-white shadow-[0_8px_22px_rgba(39,112,255,0.28)] transition-colors hover:border-foreground/35 hover:opacity-95"
             aria-label="Choose from more bottles"
           >
-            <FaPlus className="h-5 w-5" />
+            <motion.span
+              animate={{ backgroundPosition: ["0% 50%", "100% 50%", "0% 50%"] }}
+              transition={{ duration: 6, repeat: Infinity, ease: "linear" }}
+              style={{
+                backgroundImage:
+                  "linear-gradient(135deg, #2bd177, #1ec4c9, #4f86ff, #7a5cff, #2bd177)",
+                backgroundSize: "260% 260%",
+              }}
+              className="flex h-full w-full items-center justify-center border border-border/30"
+            >
+              <FaPlus className="h-5 w-5" />
+            </motion.span>
           </motion.button>
         </div>
         <div className="border border-border/60 px-3 py-3 text-center text-[10px] uppercase tracking-[0.24em] text-muted-foreground">
