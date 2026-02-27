@@ -2,6 +2,7 @@
 
 import { motion } from "framer-motion";
 import { useEffect, useMemo, useState } from "react";
+import Image from "next/image";
 import {
   Clock,
   Wind,
@@ -23,6 +24,7 @@ import type { PerfumeData } from "@/data/perfumes";
 import type { BlogPost } from "@/data/blogPosts";
 import { formatINR } from "@/lib/currency";
 import { getProductFaqItems } from "@/lib/seo";
+import { withCloudinaryTransforms } from "@/lib/cloudinary";
 
 export default function ProductDetailView({
   perfume,
@@ -111,14 +113,14 @@ export default function ProductDetailView({
             const image = noteImageLookup.get(key);
             return (
               <div key={note} className="flex flex-col">
-                <div className="relative aspect-square overflow-hidden bg-secondary/40">
+                <div className="relative aspect-square overflow-hidden bg-secondary/40 shadow-[0_8px_22px_rgba(39,112,255,0.16)]">
                   {image?.url ? (
-                    <img
-                      src={image.url}
+                    <Image
+                      src={withCloudinaryTransforms(image.url, { width: 320 })}
                       alt={`${note} note`}
-                      className="h-full w-full object-cover"
-                      loading="lazy"
-                      decoding="async"
+                      fill
+                      sizes="(min-width: 768px) 220px, 30vw"
+                      className="object-cover"
                     />
                   ) : (
                     <div className="flex h-full w-full items-center justify-center text-[11px] uppercase tracking-[0.2em] text-muted-foreground border border-border/50">

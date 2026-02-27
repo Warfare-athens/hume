@@ -15,11 +15,9 @@ function detectDisplayCurrency(): DisplayCurrency {
   const country = (getCookie("hf_country") || "").toUpperCase();
   if (country && country !== "IN") return "USD";
   if (country === "IN") return "INR";
-
-  const locale = navigator.language || "en-IN";
-  const parts = locale.split("-");
-  const region = (parts[1] || "IN").toUpperCase();
-  return region === "IN" ? "INR" : "USD";
+  // Keep first paint deterministic with server-rendered HTML.
+  // If country cookie is not present yet, default to INR on client as well.
+  return "INR";
 }
 
 function formatAs(amount: number, currency: DisplayCurrency) {

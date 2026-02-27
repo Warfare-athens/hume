@@ -2,6 +2,7 @@ import { db } from "@/db";
 import { products, reviews } from "@/db/schema";
 import { eq } from "drizzle-orm";
 import { perfumes as localPerfumes, type PerfumeData, type Review } from "@/data/perfumes";
+import { withCloudinaryTransforms } from "@/lib/cloudinary";
 
 function buildDefaultReviews(product: any): Review[] {
   const productLabel = product.name ?? product.inspiration ?? "this fragrance";
@@ -74,11 +75,11 @@ function transformProduct(product: any, productReviews: any[]): PerfumeData {
     inspiration: product.inspiration,
     inspirationBrand: product.inspirationBrand,
     woreBy: product.woreBy ?? undefined,
-    woreByImageUrl: product.woreByImageUrl ?? defaultCelebImage,
+    woreByImageUrl: withCloudinaryTransforms(product.woreByImageUrl ?? defaultCelebImage),
     category: product.category,
     categoryId: product.categoryId,
     gender: product.gender,
-    images: product.images as string[],
+    images: (product.images as string[]).map((url) => withCloudinaryTransforms(url)),
     price: parseFloat(product.price),
     priceCurrency: "INR",
     description: product.description,

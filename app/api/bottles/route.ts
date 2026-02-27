@@ -2,6 +2,7 @@ import { NextResponse } from "next/server";
 import { z } from "zod";
 import { db } from "@/db";
 import { bottles } from "@/db/schema";
+import { withCloudinaryTransforms } from "@/lib/cloudinary";
 
 function sortBySerialId<T extends { id: string }>(rows: T[]) {
   return [...rows].sort((a, b) => {
@@ -21,6 +22,7 @@ export async function GET() {
     const rows = await db.select().from(bottles);
     const payload = sortBySerialId(rows).map((bottle) => ({
       ...bottle,
+      imageUrl: withCloudinaryTransforms(bottle.imageUrl),
       price: parseFloat(bottle.price),
     }));
     return NextResponse.json(payload);

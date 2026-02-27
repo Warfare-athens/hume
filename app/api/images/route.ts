@@ -4,6 +4,7 @@ import { randomUUID } from "crypto";
 import { db } from "@/db";
 import { images } from "@/db/schema";
 import { eq } from "drizzle-orm";
+import { withCloudinaryTransforms } from "@/lib/cloudinary";
 
 const linkSchema = z
   .string()
@@ -28,7 +29,12 @@ export async function GET(request: Request) {
     const rows = usage
       ? await db.select().from(images).where(eq(images.usage, usage))
       : await db.select().from(images);
-    return NextResponse.json(rows);
+    return NextResponse.json(
+      rows.map((row) => ({
+        ...row,
+        url: withCloudinaryTransforms(row.url),
+      }))
+    );
   } catch (error) {
     console.error("Error fetching images:", error);
     return NextResponse.json({ error: "Failed to fetch images" }, { status: 500 });

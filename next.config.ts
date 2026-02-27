@@ -64,6 +64,10 @@ const nextConfig: NextConfig = {
       },
       {
         protocol: "https",
+        hostname: "floralife.com",
+      },
+      {
+        protocol: "https",
         hostname: "images-cdn.ubuy.co.in",
       },
       {

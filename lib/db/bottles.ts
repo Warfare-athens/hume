@@ -1,6 +1,7 @@
 import { db } from "@/db";
 import { bottles } from "@/db/schema";
 import type { Bottle } from "@/db/schema";
+import { withCloudinaryTransforms } from "@/lib/cloudinary";
 
 export type BottleData = {
   id: string;
@@ -13,7 +14,7 @@ function transformBottle(bottle: Bottle): BottleData {
   return {
     id: bottle.id,
     name: bottle.name,
-    imageUrl: bottle.imageUrl,
+    imageUrl: withCloudinaryTransforms(bottle.imageUrl),
     price: parseFloat(bottle.price),
   };
 }

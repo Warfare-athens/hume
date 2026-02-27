@@ -3,6 +3,7 @@
 import { useEffect, useState } from "react";
 import Image from "next/image";
 import { Carousel, CarouselContent, CarouselItem, type CarouselApi } from "@/components/ui/carousel";
+import { withCloudinaryTransforms } from "@/lib/cloudinary";
 
 interface ProductImageGalleryProps {
   images: string[];
@@ -72,7 +73,7 @@ const ProductImageGallery = ({ images, videos = [], name }: ProductImageGalleryP
                   />
                 ) : (
                   <Image
-                    src={item.src}
+                    src={withCloudinaryTransforms(item.src, { width: 800 })}
                     alt={`${name} - Image ${index + 1}`}
                     fill
                     sizes="(min-width: 1024px) 50vw, 100vw"
@@ -108,7 +109,7 @@ const ProductImageGallery = ({ images, videos = [], name }: ProductImageGalleryP
                 />
               ) : (
                 <Image
-                  src={item.src}
+                  src={withCloudinaryTransforms(item.src, { width: 120 })}
                   alt={`${name} thumbnail ${index + 1}`}
                   fill
                   sizes="96px"

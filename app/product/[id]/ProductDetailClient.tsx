@@ -3,6 +3,7 @@
 import { useEffect, useMemo, useState } from "react";
 import { motion } from "framer-motion";
 import { FaPlus } from "react-icons/fa6";
+import Image from "next/image";
 import { useCart } from "@/context/CartContext";
 import { toast } from "@/hooks/use-toast";
 import type { PerfumeData } from "@/data/perfumes";
@@ -13,6 +14,7 @@ import {
   DialogTitle,
 } from "@/components/ui/dialog";
 import { formatINR } from "@/lib/currency";
+import { withCloudinaryTransforms } from "@/lib/cloudinary";
 
 type BottleData = {
   id: string;
@@ -119,7 +121,14 @@ export default function ProductDetailClient({ perfume }: { perfume: PerfumeData 
                 aria-label={`Select ${bottle.name} bottle`}
               >
                 <div className="h-full w-full overflow-hidden border border-border/30 bg-background">
-                  <img src={bottle.imageUrl} alt={bottle.name} className="h-full w-full object-cover" />
+                  <Image
+                    src={withCloudinaryTransforms(bottle.imageUrl, { width: 320 })}
+                    alt={bottle.name}
+                    width={320}
+                    height={426}
+                    sizes="(min-width: 640px) 160px, 30vw"
+                    className="h-full w-full object-cover"
+                  />
                 </div>
               </button>
             );
@@ -197,9 +206,12 @@ export default function ProductDetailClient({ perfume }: { perfume: PerfumeData 
                   >
                     <div className="relative">
                       <div className="relative">
-                        <img
-                          src={bottle.imageUrl}
+                        <Image
+                          src={withCloudinaryTransforms(bottle.imageUrl, { width: 320 })}
                           alt={bottle.name}
+                          width={320}
+                          height={426}
+                          sizes="(min-width: 1024px) 240px, (min-width: 768px) 180px, 45vw"
                           className="aspect-[3/4] w-full object-cover bg-secondary"
                           style={{ aspectRatio: "3 / 4" }}
                         />
