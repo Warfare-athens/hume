@@ -68,6 +68,10 @@ const nextConfig: NextConfig = {
       },
       {
         protocol: "https",
+        hostname: "lattafa.com",
+      },
+      {
+        protocol: "https",
         hostname: "images-cdn.ubuy.co.in",
       },
       {

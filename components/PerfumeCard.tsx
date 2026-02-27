@@ -20,6 +20,7 @@ interface PerfumeCardProps {
   bestSeller?: boolean;
   humeSpecial?: boolean;
   limitedStock?: boolean;
+  hidePrice?: boolean;
 }
 
 const PerfumeCard = ({
@@ -33,6 +34,7 @@ const PerfumeCard = ({
   bestSeller,
   humeSpecial,
   limitedStock,
+  hidePrice = false,
 }: PerfumeCardProps) => {
   const { addItem } = useCart();
   const router = useRouter();
@@ -110,14 +112,16 @@ const PerfumeCard = ({
           <p className="h-14 overflow-hidden text-[0.86rem] sm:text-[clamp(0.92rem,0.95vw,1.25rem)] italic text-muted-foreground/90">
             Inspired by {inspiration}
           </p>
-          <div className="flex items-center justify-between gap-3 ">
-            <p
-              suppressHydrationWarning
-              className="text-[1.35rem] leading-none font-light tracking-tight text-foreground/90"
-            >
-              {formatINR(price)}
-            </p>
-          </div>
+          {!hidePrice && (
+            <div className="flex items-center justify-between gap-3 ">
+              <p
+                suppressHydrationWarning
+                className="text-[1.35rem] leading-none font-light tracking-tight text-foreground/90"
+              >
+                {formatINR(price)}
+              </p>
+            </div>
+          )}
         </div>
       </Link>
     </motion.article>

@@ -9,14 +9,12 @@ type GenderPref = "Men" | "Women" | "Unisex" | "Any";
 type VibePref = "Fresh" | "Woody" | "Sweet" | "Smoky" | "Floral";
 type OccasionPref = "Daily" | "Date Night" | "Party" | "Summer" | "Winter";
 type SillagePref = "Soft" | "Moderate" | "Strong";
-type BudgetPref = "Under45" | "45to52" | "Premium" | "Any";
 
 type Answers = {
   gender: GenderPref | null;
   vibe: VibePref | null;
   occasion: OccasionPref | null;
   sillage: SillagePref | null;
-  budget: BudgetPref | null;
 };
 
 const initialAnswers: Answers = {
@@ -24,7 +22,6 @@ const initialAnswers: Answers = {
   vibe: null,
   occasion: null,
   sillage: null,
-  budget: null,
 };
 
 const vibeKeywords: Record<VibePref, string[]> = {
@@ -83,14 +80,6 @@ function scorePerfume(perfume: PerfumeData, answers: Answers): number {
     if (answers.sillage === "Strong" && (text.includes("strong") || text.includes("powerful"))) score += 2;
   }
 
-  if (answers.budget) {
-    const p = perfume.price;
-    if (answers.budget === "Under45" && p <= 45) score += 2;
-    if (answers.budget === "45to52" && p > 45 && p <= 52) score += 2;
-    if (answers.budget === "Premium" && p > 52) score += 2;
-    if (answers.budget === "Any") score += 1;
-  }
-
   return score;
 }
 
@@ -114,11 +103,6 @@ const steps = [
     key: "sillage" as const,
     question: "How loud should it project?",
     options: ["Soft", "Moderate", "Strong"] as const,
-  },
-  {
-    key: "budget" as const,
-    question: "What budget range fits best?",
-    options: ["Under45", "45to52", "Premium", "Any"] as const,
   },
 ];
 
@@ -248,6 +232,7 @@ export default function ScentQuiz({ perfumes }: { perfumes: PerfumeData[] }) {
                   index={index}
                   bestSeller={perfume.badges?.bestSeller}
                   limitedStock={perfume.badges?.limitedStock}
+                  hidePrice
                 />
               ))}
             </div>

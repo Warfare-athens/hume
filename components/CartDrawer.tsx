@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useMemo, useState } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { X, Minus, Plus, MessageCircle, Trash2, Gift, IndianRupee, ChevronDown, ChevronUp, Info } from "lucide-react";
 import Image from "next/image";
@@ -35,6 +35,7 @@ const CartDrawer = () => {
   const [appliedCouponCode, setAppliedCouponCode] = useState<string | null>(null);
   const [couponInput, setCouponInput] = useState("");
   const [isOffersOpen, setIsOffersOpen] = useState(false);
+  const offersPanelRef = useRef<HTMLDivElement | null>(null);
 
   const subtotal = totalPrice;
   const shippingFee = subtotal > 0 && subtotal < freeDeliveryThreshold ? deliveryChargeBelowThreshold : 0;
@@ -138,6 +139,20 @@ const CartDrawer = () => {
     setAppliedCouponCode(coupon.code);
     setCouponInput("");
     toast({ title: "Coupon applied", description: `${coupon.code} has been applied.` });
+  };
+
+  const handleToggleOffers = () => {
+    setIsOffersOpen((prev) => {
+      const next = !prev;
+      if (next) {
+        requestAnimationFrame(() => {
+          setTimeout(() => {
+            offersPanelRef.current?.scrollIntoView({ behavior: "smooth", block: "start" });
+          }, 80);
+        });
+      }
+      return next;
+    });
   };
 
   const generateOrderMessage = () => {
@@ -343,14 +358,14 @@ const CartDrawer = () => {
 
                       <button
                         type="button"
-                        onClick={() => setIsOffersOpen((v) => !v)}
+                        onClick={handleToggleOffers}
                         className="mt-3 w-full rounded-full border border-[#0b5ca8]/30 bg-[#0b5ca8]/5 px-4 py-2 text-center text-sm font-semibold text-[#0b5ca8] hover:bg-[#0b5ca8]/10"
                       >
                         View All Offers {isOffersOpen ? "▴" : "▾"}
                       </button>
 
                       {isOffersOpen && (
-                        <div className="mt-3 rounded-xl border border-border bg-background p-3 space-y-3">
+                        <div ref={offersPanelRef} className="mt-3 rounded-xl border border-border bg-background p-3 space-y-3">
                           <p className="font-semibold text-base">Available Offers</p>
                           {coupons.map((coupon) => {
                             const isApplied = appliedCouponCode === coupon.code;

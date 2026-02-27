@@ -77,7 +77,7 @@ const ProductImageGallery = ({ images, videos = [], name }: ProductImageGalleryP
                     alt={`${name} - Image ${index + 1}`}
                     fill
                     sizes="(min-width: 1024px) 50vw, 100vw"
-                    className="object-cover"
+                    className="object-contain"
                     placeholder="blur"
                     blurDataURL={blurDataURL}
                   />
@@ -113,7 +113,7 @@ const ProductImageGallery = ({ images, videos = [], name }: ProductImageGalleryP
                   alt={`${name} thumbnail ${index + 1}`}
                   fill
                   sizes="96px"
-                  className="object-cover"
+                  className="object-contain"
                   placeholder="blur"
                   blurDataURL={blurDataURL}
                 />
