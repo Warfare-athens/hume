@@ -76,11 +76,15 @@ const Collection = ({ perfumes }: { perfumes: PerfumeData[] }) => {
           className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6 md:gap-8 items-start"
         >
           {visiblePerfumes.map((perfume, index) => (
-            <div key={perfume.id} className={index % 2 === 1 ? "mt-24 md:mt-0" : ""}>
+            <div
+              key={perfume.id}
+              className={`${index % 2 === 1 ? "mt-24 md:mt-0" : ""} ${index >= 6 ? "hidden md:block" : ""}`}
+            >
               <PerfumeCard
                 id={perfume.id}
                 name={perfume.name}
                 inspiration={perfume.inspiration}
+                inspirationBrand={perfume.inspirationBrand}
                 category={perfume.category}
                 image={perfume.images[0]}
                 price={perfume.price}

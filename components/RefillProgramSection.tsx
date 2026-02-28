@@ -1,4 +1,13 @@
 import Link from "next/link";
+import Image from "next/image";
+
+const badges = [
+  { src: "/images/badge/30 perfume oil.png", alt: "30 perfume oil" },
+  { src: "/images/badge/affordable luxury.png", alt: "affordable luxury" },
+  { src: "/images/badge/Express Delivery.png", alt: "express delivery" },
+  { src: "/images/badge/made in india.png", alt: "made in india" },
+  { src: "/images/badge/secured payment.png", alt: "secured payment" },
+];
 
 export default function RefillProgramSection() {
   return (
@@ -41,6 +50,24 @@ export default function RefillProgramSection() {
               Explore Refill Program
             </Link>
           </div>
+        </div>
+
+        <div className="mt-20 md:hidden overflow-hidden">
+          <div className="badge-marquee-track flex w-max flex-nowrap items-center gap-4">
+            {[...badges, ...badges].map((badge, idx) => (
+              <div key={`${badge.src}-${idx}`} className="relative h-32 w-[45vw] min-w-[45vw] shrink-0">
+                <Image src={badge.src} alt={badge.alt} fill sizes="45vw" className="object-contain" />
+              </div>
+            ))}
+          </div>
+        </div>
+
+        <div className=" hidden md:flex mt-20 md:items-center md:justify-between md:gap-8">
+          {badges.map((badge) => (
+            <div key={badge.src} className="relative h-32 w-64">
+              <Image src={badge.src} alt={badge.alt} fill sizes="256px" className="object-contain" />
+            </div>
+          ))}
         </div>
       </div>
     </section>

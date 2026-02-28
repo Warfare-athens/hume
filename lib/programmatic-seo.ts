@@ -77,7 +77,7 @@ export function buildInspiredFaq(item: ProgrammaticInspiration) {
     },
     {
       question: "Where can I buy the full product?",
-      answer: `You can order it directly from the product page at /product/${item.humeProduct.slug}.`,
+      answer: "You can order it directly from the linked product section on this page.",
     },
   ];
 }

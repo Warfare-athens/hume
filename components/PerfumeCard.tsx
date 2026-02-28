@@ -8,11 +8,13 @@ import { useRouter } from "next/navigation";
 import { useCart } from "@/context/CartContext";
 import { toast } from "@/hooks/use-toast";
 import { formatINR } from "@/lib/currency";
+import { getProductPath } from "@/lib/product-route";
 
 interface PerfumeCardProps {
   id: string;
   name: string;
   inspiration: string;
+  inspirationBrand?: string;
   category: string;
   image: string;
   price: number;
@@ -27,6 +29,7 @@ const PerfumeCard = ({
   id,
   name,
   inspiration,
+  inspirationBrand = "",
   category,
   image,
   price,
@@ -38,6 +41,12 @@ const PerfumeCard = ({
 }: PerfumeCardProps) => {
   const { addItem } = useCart();
   const router = useRouter();
+  const productPath = getProductPath({
+    id,
+    name,
+    inspirationBrand,
+    inspiration,
+  });
   const blurDataURL =
     "data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMzIiIGhlaWdodD0iNDIiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+PHJlY3Qgd2lkdGg9IjMyIiBoZWlnaHQ9IjQyIiBmaWxsPSIjZWVlY2VjIi8+PC9zdmc+";
 
@@ -60,9 +69,9 @@ const PerfumeCard = ({
       className="group h-full"
     >
       <Link
-        href={`/product/${id}`}
+        href={productPath}
         className="block h-full"
-        onMouseEnter={() => router.prefetch(`/product/${id}`)}
+        onMouseEnter={() => router.prefetch(productPath)}
       >
         <div className="relative overflow-hidden bg-secondary mb-6">
           <Image

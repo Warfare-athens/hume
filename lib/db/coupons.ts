@@ -1,7 +1,7 @@
 import { db } from "@/db";
 import { coupons } from "@/db/schema";
 import { and, eq } from "drizzle-orm";
-import { coupons as localCoupons, type CouponData } from "@/data/coupons";
+import type { CouponData } from "@/data/coupons";
 
 function transformCoupon(row: any): CouponData {
   return {
@@ -27,8 +27,8 @@ export async function getActiveCoupons(options?: { cartOnly?: boolean }): Promis
     const rows = await db.select().from(coupons).where(whereClause);
     return rows.map(transformCoupon);
   } catch (error) {
-    console.error("Error loading coupons from DB, using local fallback:", error);
-    return localCoupons.filter((c) => c.active && (!cartOnly || c.displayInCart));
+    console.error("Error loading coupons from DB:", error);
+    return [];
   }
 }
 
@@ -42,8 +42,7 @@ export async function getCouponByCode(code: string): Promise<CouponData | null> 
     if (!row) return null;
     return transformCoupon(row);
   } catch (error) {
-    console.error(`Error loading coupon ${code} from DB, using local fallback:`, error);
-    const local = localCoupons.find((c) => c.code.toUpperCase() === code.toUpperCase() && c.active);
-    return local ?? null;
+    console.error(`Error loading coupon ${code} from DB:`, error);
+    return null;
   }
 }

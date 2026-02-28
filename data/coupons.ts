@@ -1,4 +1,4 @@
-export type CouponType = "percent" | "fixed";
+export type CouponType = string;
 
 export interface CouponData {
   id: string;

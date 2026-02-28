@@ -117,6 +117,7 @@ export default async function BestProgrammaticPage({
                     id={product.id}
                     name={product.name}
                     inspiration={product.inspiration}
+                    inspirationBrand={product.inspirationBrand}
                     category={product.category}
                     image={product.images[0]}
                     price={product.price}

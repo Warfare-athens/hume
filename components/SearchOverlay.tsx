@@ -8,6 +8,7 @@ import Image from "next/image";
 import { useRouter } from "next/navigation";
 import { perfumes, PerfumeData, getAverageRating } from "@/data/perfumes";
 import { formatINR } from "@/lib/currency";
+import { getProductPath } from "@/lib/product-route";
 
 interface SearchOverlayProps {
   isOpen: boolean;
@@ -140,6 +141,7 @@ const SearchResultCard = ({
   const blurDataURL =
     "data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMzIiIGhlaWdodD0iNDIiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+PHJlY3Qgd2lkdGg9IjMyIiBoZWlnaHQ9IjQyIiBmaWxsPSIjZWVlY2VjIi8+PC9zdmc+";
   const avgRating = getAverageRating(perfume.reviews);
+  const productPath = getProductPath(perfume);
 
   const highlightMatch = (text: string) => {
     if (!query) return text;
@@ -156,9 +158,9 @@ const SearchResultCard = ({
 
   return (
     <Link
-      href={`/product/${perfume.id}`}
+      href={productPath}
       onClick={onClose}
-      onMouseEnter={() => router.prefetch(`/product/${perfume.id}`)}
+      onMouseEnter={() => router.prefetch(productPath)}
       className="group flex gap-4 p-4 border border-border bg-background hover:bg-muted/50 transition-luxury"
     >
       <div className="w-20 h-24 md:w-24 md:h-32 shrink-0 overflow-hidden bg-secondary relative">

@@ -174,4 +174,16 @@
   .scrollbar-none::-webkit-scrollbar {
     display: none;
   }
+  .badge-marquee-track {
+    animation: badge-marquee 12s linear infinite;
+    will-change: transform;
+  }
+  @keyframes badge-marquee {
+    0% {
+      transform: translateX(0);
+    }
+    100% {
+      transform: translateX(-50%);
+    }
+  }
 }

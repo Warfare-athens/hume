@@ -1,4 +1,22 @@
+import { getProductPath } from "@/lib/product-route";
 const SITE_URL = "https://humefragrance.com";
+
+function getSeoProductUrl(product: {
+  id: string;
+  name: string;
+  inspiration?: string;
+  inspirationBrand?: string;
+}) {
+  if (product.inspiration && product.inspirationBrand) {
+    return `${SITE_URL}${getProductPath({
+      id: product.id,
+      name: product.name,
+      inspiration: product.inspiration,
+      inspirationBrand: product.inspirationBrand,
+    })}`;
+  }
+  return `${SITE_URL}/product/${product.id}`;
+}
 
 export const getOrganizationSchema = () => ({
   "@context": "https://schema.org",
@@ -58,13 +76,13 @@ export const getProductSchema = (product: {
     image: product.images[0],
     brand: { "@type": "Brand", name: "HUME Fragrance" },
     category: `Fragrances > ${product.category}`,
-    url: `${SITE_URL}/product/${product.id}`,
+    url: getSeoProductUrl(product),
     offers: {
       "@type": "Offer",
       price: product.price.toFixed(2),
       priceCurrency: "INR",
       availability: "https://schema.org/InStock",
-      url: `${SITE_URL}/product/${product.id}`,
+      url: getSeoProductUrl(product),
       seller: { "@type": "Organization", name: "HUME Fragrance" },
     },
     aggregateRating:
@@ -109,7 +127,13 @@ export const getBreadcrumbSchema = (items: { name: string; url?: string }[]) => 
 });
 
 export const getCollectionPageSchema = (
-  products: { name: string; id: string; price: number; inspiration: string }[]
+  products: {
+    name: string;
+    id: string;
+    price: number;
+    inspiration: string;
+    inspirationBrand?: string;
+  }[]
 ) => ({
   "@context": "https://schema.org",
   "@type": "CollectionPage",
@@ -123,7 +147,12 @@ export const getCollectionPageSchema = (
     itemListElement: products.map((p, i) => ({
       "@type": "ListItem",
       position: i + 1,
-      url: `${SITE_URL}/product/${p.id}`,
+      url: getSeoProductUrl({
+        id: p.id,
+        name: p.name,
+        inspiration: p.inspiration,
+        inspirationBrand: p.inspirationBrand,
+      }),
       name: `${p.name} - Luxury Fragrance`,
     })),
   },
@@ -231,6 +260,8 @@ export const getProductFAQSchema = (product: ProductFaqInput) => ({
 export const getProductReviewSchema = (product: {
   id: string;
   name: string;
+  inspiration: string;
+  inspirationBrand: string;
   reviews: { rating: number; author: string; content: string; date: string }[];
 }) => ({
   "@context": "https://schema.org",
@@ -244,7 +275,7 @@ export const getProductReviewSchema = (product: {
       itemReviewed: {
         "@type": "Product",
         name: product.name,
-        url: `${SITE_URL}/product/${product.id}`,
+        url: getSeoProductUrl(product),
       },
       author: { "@type": "Person", name: review.author },
       datePublished: review.date,

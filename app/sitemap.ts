@@ -3,6 +3,7 @@ import { getAllProducts } from "@/lib/db/products";
 import { getAllBlogPosts } from "@/lib/db/blog";
 import { getAllAccessories } from "@/lib/db/accessories";
 import { getProgrammaticSitemapEntries } from "@/lib/programmatic-seo";
+import { getProductPath } from "@/lib/product-route";
 
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   const baseUrl = "https://humefragrance.com";
@@ -13,7 +14,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   ]);
 
   const productEntries = products.map((product) => ({
-    url: `${baseUrl}/product/${product.id}`,
+    url: `${baseUrl}${getProductPath(product)}`,
     lastModified: new Date(),
     changeFrequency: "weekly" as const,
     priority: 0.8,

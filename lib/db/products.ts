@@ -3,6 +3,7 @@ import { products, reviews } from "@/db/schema";
 import { eq } from "drizzle-orm";
 import { perfumes as localPerfumes, type PerfumeData, type Review } from "@/data/perfumes";
 import { withCloudinaryTransforms } from "@/lib/cloudinary";
+import { getProductSeoSlug } from "@/lib/product-route";
 
 function buildDefaultReviews(product: any): Review[] {
   const productLabel = product.name ?? product.inspiration ?? "this fragrance";
@@ -152,6 +153,14 @@ export async function getProductById(id: string): Promise<PerfumeData | null> {
     console.error(`Error loading product ${id} from DB, using local fallback:`, error);
     return localPerfumes.find((p) => p.id === id) ?? null;
   }
+}
+
+export async function getProductByRouteSegment(segment: string): Promise<PerfumeData | null> {
+  const byId = await getProductById(segment);
+  if (byId) return byId;
+
+  const all = await getAllProducts();
+  return all.find((product) => getProductSeoSlug(product) === segment) ?? null;
 }
 
 // Get products by category

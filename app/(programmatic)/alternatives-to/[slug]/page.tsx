@@ -11,6 +11,7 @@ import {
   getAllProgrammaticInspirations,
   getAlternativeToBySlug,
 } from "@/lib/programmatic-seo";
+import { getProductPath } from "@/lib/product-route";
 
 const baseUrl = "https://humefragrance.com";
 
@@ -110,7 +111,7 @@ export default async function AlternativesToPage({
               </p>
               <p className="text-xl font-semibold mb-4">{formatPrice(primary.price)}</p>
               <Button asChild>
-                <Link href={`/product/${primary.id}`}>Shop This Alternative</Link>
+                <Link href={getProductPath(primary)}>Shop This Alternative</Link>
               </Button>
             </div>
           </div>
@@ -155,6 +156,7 @@ export default async function AlternativesToPage({
                     id={itemProduct.id}
                     name={itemProduct.name}
                     inspiration={itemProduct.inspiration}
+                    inspirationBrand={itemProduct.inspirationBrand}
                     category={itemProduct.category}
                     image={itemProduct.images[0]}
                     price={itemProduct.price}

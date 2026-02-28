@@ -12,6 +12,7 @@ import {
   getAllProgrammaticInspirations,
   getProgrammaticInspirationBySlug,
 } from "@/lib/programmatic-seo";
+import { getProductPath } from "@/lib/product-route";
 
 const baseUrl = "https://humefragrance.com";
 
@@ -132,7 +133,7 @@ export default async function InspiredByPage({
                 Save {formatPrice(item.savings)} with the same scent direction.
               </p>
               <Button asChild>
-                <Link href={`/product/${product.id}`}>View Full Product Details</Link>
+                <Link href={getProductPath(product)}>View Full Product Details</Link>
               </Button>
             </div>
           </div>
@@ -190,6 +191,7 @@ export default async function InspiredByPage({
                     id={related.id}
                     name={related.name}
                     inspiration={related.inspiration}
+                    inspirationBrand={related.inspirationBrand}
                     category={related.category}
                     image={related.images[0]}
                     price={related.price}

@@ -1,17 +1,18 @@
-﻿import { notFound } from "next/navigation";
-import { getProductById } from "@/lib/db/products";
-import { getRelatedBlogPostsByProductId } from "@/lib/db/blog";
+import type { Metadata } from "next";
+import { notFound, redirect } from "next/navigation";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import { JsonLd } from "@/components/JsonLd";
+import ProductDetailView from "./ProductDetailView";
+import { getRelatedBlogPostsByProductId } from "@/lib/db/blog";
+import { getProductByRouteSegment } from "@/lib/db/products";
 import {
   getProductSchema,
   getBreadcrumbSchema,
   getProductFAQSchema,
   getProductReviewSchema,
 } from "@/lib/seo";
-import type { Metadata } from "next";
-import ProductDetailView from "./ProductDetailView";
+import { getProductPath, getProductSeoSlug } from "@/lib/product-route";
 
 export const dynamic = "force-dynamic";
 
@@ -21,12 +22,13 @@ export async function generateMetadata({
   params: Promise<{ id: string }>;
 }): Promise<Metadata> {
   const { id } = await params;
-  const perfume = await getProductById(id);
-  if (!perfume)
-    return { title: "Product Not Found" };
-  const canonicalUrl = `https://humefragrance.com/product/${perfume.id}`;
+  const perfume = await getProductByRouteSegment(id);
+  if (!perfume) return { title: "Product Not Found" };
+
+  const canonicalUrl = `https://humefragrance.com${getProductPath(perfume)}`;
+
   return {
-    title: `${perfume.name} â€” ${perfume.inspirationBrand} ${perfume.inspiration} Inspired Perfume`,
+    title: `${perfume.name} - ${perfume.inspirationBrand} ${perfume.inspiration} Inspired Perfume`,
     description: perfume.seoDescription,
     alternates: {
       canonical: canonicalUrl,
@@ -46,14 +48,16 @@ export default async function ProductPage({
   params: Promise<{ id: string }>;
 }) {
   const { id } = await params;
-  const [perfume, relatedBlogs] = await Promise.all([
-    getProductById(id),
-    getRelatedBlogPostsByProductId(id, 3),
-  ]);
+  const perfume = await getProductByRouteSegment(id);
 
-  if (!perfume) {
-    notFound();
+  if (!perfume) notFound();
+
+  const seoSlug = getProductSeoSlug(perfume);
+  if (id !== seoSlug) {
+    redirect(getProductPath(perfume));
   }
+
+  const relatedBlogs = await getRelatedBlogPostsByProductId(perfume.id, 3);
 
   const productJsonLd = [
     getProductSchema(perfume),
@@ -62,7 +66,7 @@ export default async function ProductPage({
     getBreadcrumbSchema([
       { name: "Home", url: "https://humefragrance.com" },
       { name: "Shop", url: "https://humefragrance.com/shop" },
-      { name: perfume.name },
+      { name: perfume.name, url: `https://humefragrance.com${getProductPath(perfume)}` },
     ]),
   ];
 

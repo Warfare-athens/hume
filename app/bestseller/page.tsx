@@ -41,6 +41,7 @@ export default async function BestsellerPage() {
                   id={perfume.id}
                   name={perfume.name}
                   inspiration={perfume.inspiration}
+                  inspirationBrand={perfume.inspirationBrand}
                   category={perfume.category}
                   image={perfume.images[0]}
                   price={perfume.price}

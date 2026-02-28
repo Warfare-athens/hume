@@ -7,6 +7,7 @@ import { JsonLd } from "@/components/JsonLd";
 import { getBreadcrumbSchema } from "@/lib/seo";
 import { getBlogPostBySlug, getAllBlogPosts } from "@/lib/db/blog";
 import { getAllProducts } from "@/lib/db/products";
+import { getProductPath } from "@/lib/product-route";
 
 export const dynamic = "force-dynamic";
 
@@ -83,11 +84,11 @@ export default async function BlogPostPage({
   const linkTargets = relatedProducts.slice(0, 3).flatMap((product) => [
     {
       term: product.inspiration,
-      href: `/product/${product.id}`,
+      href: getProductPath(product),
     },
     {
       term: `${product.inspirationBrand} ${product.inspiration}`,
-      href: `/product/${product.id}`,
+      href: getProductPath(product),
     },
   ]);
 
@@ -247,7 +248,7 @@ export default async function BlogPostPage({
                 Featured Perfume For This Guide
               </h2>
               <Link
-                href={`/product/${explicitProduct.id}`}
+                href={getProductPath(explicitProduct)}
                 className="group border border-border p-4 hover:border-foreground transition-luxury inline-block"
               >
                 <p className="text-xs text-muted-foreground uppercase tracking-[0.12em]">
@@ -269,7 +270,7 @@ export default async function BlogPostPage({
                 {relatedProducts.map((product) => (
                   <Link
                     key={product.id}
-                    href={`/product/${product.id}`}
+                    href={getProductPath(product)}
                     className="group border border-border p-4 hover:border-foreground transition-luxury"
                   >
                     <p className="text-xs text-muted-foreground uppercase tracking-[0.12em]">

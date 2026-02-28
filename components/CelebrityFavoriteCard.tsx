@@ -5,11 +5,13 @@ import { useRouter } from "next/navigation";
 import { useCart } from "@/context/CartContext";
 import { toast } from "@/hooks/use-toast";
 import { formatINR } from "@/lib/currency";
+import { getProductPath } from "@/lib/product-route";
 
 interface CelebrityFavoriteCardProps {
   id: string;
   name: string;
   inspiration: string;
+  inspirationBrand?: string;
   category: string;
   image: string;
   price: number;
@@ -32,6 +34,7 @@ export default function CelebrityFavoriteCard({
   id,
   name,
   inspiration,
+  inspirationBrand = "",
   category,
   image,
   price,
@@ -43,7 +46,7 @@ export default function CelebrityFavoriteCard({
   const { addItem } = useCart();
   const tags = getStyleTags(category, inspiration);
   const productFirst = index % 2 === 0;
-  const productPath = `/product/${id}`;
+  const productPath = getProductPath({ id, name, inspirationBrand, inspiration });
 
   const handleAddToCart = () => {
     addItem({ id, name, inspiration, category, image, price, size: "50ml" });
