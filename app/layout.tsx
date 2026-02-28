@@ -4,6 +4,8 @@ import "./globals.css";
 import { Providers } from "./providers";
 import EarlyBirdPopup from "@/components/EarlyBirdPopup";
 import AIChatBot from "@/components/AIChatBot";
+import ConsentCaptureBanner from "@/components/ConsentCaptureBanner";
+import ConsentTimelineTracker from "@/components/ConsentTimelineTracker";
 
 const inter = Inter({
   subsets: ["latin"],
@@ -87,6 +89,8 @@ export default function RootLayout({
           {children}
           <AIChatBot />
           <EarlyBirdPopup />
+          <ConsentCaptureBanner />
+          <ConsentTimelineTracker />
         </Providers>
       </body>
     </html>

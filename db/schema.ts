@@ -136,6 +136,25 @@ export const coupons = pgTable("coupons", {
   updatedAt: timestamp("updated_at").defaultNow().notNull(),
 });
 
+// Consent Capture Events
+export const consentEvents = pgTable("consent_events", {
+  id: varchar("id", { length: 255 }).primaryKey(),
+  decision: varchar("decision", { length: 20 }).notNull(), // allow | deny
+  sessionId: varchar("session_id", { length: 255 }).notNull(),
+  path: varchar("path", { length: 2048 }),
+  referrer: varchar("referrer", { length: 2048 }),
+  ipAddress: varchar("ip_address", { length: 255 }),
+  userAgent: text("user_agent"),
+  language: varchar("language", { length: 50 }),
+  timezone: varchar("timezone", { length: 100 }),
+  platform: varchar("platform", { length: 100 }),
+  screenWidth: integer("screen_width"),
+  screenHeight: integer("screen_height"),
+  cookieEnabled: boolean("cookie_enabled"),
+  data: jsonb("data").$type<Record<string, unknown>>().notNull().default({}),
+  createdAt: timestamp("created_at").defaultNow().notNull(),
+});
+
 // Export types
 export type Product = typeof products.$inferSelect;
 export type NewProduct = typeof products.$inferInsert;
@@ -151,3 +170,5 @@ export type ImageAsset = typeof images.$inferSelect;
 export type NewImageAsset = typeof images.$inferInsert;
 export type Coupon = typeof coupons.$inferSelect;
 export type NewCoupon = typeof coupons.$inferInsert;
+export type ConsentEvent = typeof consentEvents.$inferSelect;
+export type NewConsentEvent = typeof consentEvents.$inferInsert;

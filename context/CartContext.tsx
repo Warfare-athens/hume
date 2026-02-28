@@ -36,6 +36,15 @@ export const CartProvider = ({ children }: { children: ReactNode }) => {
   const [isCartOpen, setIsCartOpen] = useState(false);
   const [hydrated, setHydrated] = useState(false);
 
+  const emitTracking = (eventType: string, payload?: Record<string, unknown>) => {
+    if (typeof window === "undefined") return;
+    window.dispatchEvent(
+      new CustomEvent("hume:tracking", {
+        detail: { eventType, payload },
+      })
+    );
+  };
+
   // Hydrate cart from local storage
   useEffect(() => {
     try {
@@ -66,6 +75,12 @@ export const CartProvider = ({ children }: { children: ReactNode }) => {
   const addItem = (item: Omit<CartItem, "quantity">) => {
     setItems((prev) => {
       const existing = prev.find((i) => i.id === item.id);
+      emitTracking("add_to_cart", {
+        productId: item.id,
+        productName: item.name,
+        price: item.price,
+        isGift: Boolean(item.isGift),
+      });
       if (existing) {
         if (item.isGift) return prev;
         return prev.map((i) =>
@@ -77,6 +92,7 @@ export const CartProvider = ({ children }: { children: ReactNode }) => {
   };
 
   const removeItem = (id: string) => {
+    emitTracking("remove_from_cart", { productId: id });
     setItems((prev) => prev.filter((item) => item.id !== id));
   };
 
@@ -85,6 +101,7 @@ export const CartProvider = ({ children }: { children: ReactNode }) => {
       removeItem(id);
       return;
     }
+    emitTracking("update_cart_quantity", { productId: id, quantity });
     setItems((prev) =>
       prev.map((item) => (item.id === id ? { ...item, quantity } : item))
     );
